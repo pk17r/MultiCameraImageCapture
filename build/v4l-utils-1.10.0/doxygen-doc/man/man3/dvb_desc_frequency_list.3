@@ -1,0 +1,115 @@
+.TH "dvb_desc_frequency_list" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_desc_frequency_list \- Struct containing the frequency list descriptor\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <desc_frequency_list\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBtype\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBlength\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_desc\fP * \fBnext\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBfrequencies\fP"
+.br
+.ti -1c
+.RI "uint32_t * \fBfrequency\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint8_t \fBbitfield\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      uint8_t \fBfreq_type\fP:2"
+.br
+.ti -1c
+.RI "      uint8_t \fBreserved\fP:6"
+.br
+.ti -1c
+.RI "   } "
+.br
+.ti -1c
+.RI "}; "
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Struct containing the frequency list descriptor\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fItype\fP descriptor tag 
+.br
+\fIlength\fP descriptor length 
+.br
+\fInext\fP pointer to struct \fBdvb_desc\fP 
+.br
+\fIfrequencies\fP number of frequencies in the frequency vector 
+.br
+\fIfrequency\fP vector with the centre frequency 
+.br
+\fIfreq_type\fP freq type, being: 0 = undefined, 1 = satelite, 2 = cable or 3 = terrestrial\&. 
+.RE
+.PP
+
+.PP
+Definition at line 57 of file desc_frequency_list\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "union { \&.\&.\&. } "
+
+.SS "uint8_t dvb_desc_frequency_list::bitfield"
+
+.PP
+Definition at line 66 of file desc_frequency_list\&.h\&.
+.SS "uint8_t dvb_desc_frequency_list::freq_type"
+
+.PP
+Definition at line 68 of file desc_frequency_list\&.h\&.
+.SS "uint8_t dvb_desc_frequency_list::frequencies"
+
+.PP
+Definition at line 62 of file desc_frequency_list\&.h\&.
+.SS "uint32_t* dvb_desc_frequency_list::frequency"
+
+.PP
+Definition at line 63 of file desc_frequency_list\&.h\&.
+.SS "uint8_t dvb_desc_frequency_list::length"
+
+.PP
+Definition at line 59 of file desc_frequency_list\&.h\&.
+.SS "struct \fBdvb_desc\fP* dvb_desc_frequency_list::next"
+
+.PP
+Definition at line 60 of file desc_frequency_list\&.h\&.
+.SS "uint8_t dvb_desc_frequency_list::reserved"
+
+.PP
+Definition at line 69 of file desc_frequency_list\&.h\&.
+.SS "uint8_t dvb_desc_frequency_list::type"
+
+.PP
+Definition at line 58 of file desc_frequency_list\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

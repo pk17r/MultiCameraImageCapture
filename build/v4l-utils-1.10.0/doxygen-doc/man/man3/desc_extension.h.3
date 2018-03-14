@@ -1,0 +1,103 @@
+.TH "lib/include/libdvbv5/desc_extension.h" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/include/libdvbv5/desc_extension.h \- Provides the descriptors for the extension descriptor\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <libdvbv5/descriptors\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBdvb_extension_descriptor\fP"
+.br
+.RI "\fIStructure containing the extended descriptors\&. \fP"
+.ti -1c
+.RI "struct \fBdvb_ext_descriptor\fP"
+.br
+.RI "\fIStructure that describes the parser functions for the extended descriptors\&. \fP"
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef int(* \fBdvb_desc_ext_init_func\fP) (struct \fBdvb_v5_fe_parms\fP *parms, const uint8_t *buf, struct \fBdvb_extension_descriptor\fP *ext, void *desc)"
+.br
+.RI "\fIFunction prototype for the extended descriptors parsing init code\&. \fP"
+.ti -1c
+.RI "typedef void(* \fBdvb_desc_ext_print_func\fP) (struct \fBdvb_v5_fe_parms\fP *parms, const struct \fBdvb_extension_descriptor\fP *ext, const void *desc)"
+.br
+.RI "\fIFunction prototype for the extended descriptors parsing print code\&. \fP"
+.ti -1c
+.RI "typedef void(* \fBdvb_desc_ext_free_func\fP) (const void *desc)"
+.br
+.RI "\fIFunction prototype for the extended descriptors parsing free code\&. \fP"
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBextension_descriptors\fP { \fBimage_icon_descriptor\fP, \fBcpcm_delivery_signalling_descriptor\fP, \fBCP_descriptor\fP, \fBCP_identifier_descriptor\fP, \fBT2_delivery_system_descriptor\fP, \fBSH_delivery_system_descriptor\fP, \fBsupplementary_audio_descriptor\fP, \fBnetwork_change_notify_descriptor\fP, \fBmessage_descriptor\fP, \fBtarget_region_descriptor\fP, \fBtarget_region_name_descriptor\fP, \fBservice_relocated_descriptor\fP }
+.RI "\fIList containing all extended descriptors used by Digital TV MPEG-TS as defined at ETSI EN 300 468 V1\&.11\&.1\&. \fP""
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBdvb_extension_descriptor_init\fP (struct \fBdvb_v5_fe_parms\fP *parms, const uint8_t *buf, struct \fBdvb_desc\fP *desc)"
+.br
+.RI "\fIInitializes and parses the extended descriptor\&. \fP"
+.ti -1c
+.RI "void \fBdvb_extension_descriptor_print\fP (struct \fBdvb_v5_fe_parms\fP *parms, const struct \fBdvb_desc\fP *desc)"
+.br
+.RI "\fIPrints the content of the extended descriptor\&. \fP"
+.ti -1c
+.RI "void \fBdvb_extension_descriptor_free\fP (struct \fBdvb_desc\fP *desc)"
+.br
+.RI "\fIFrees all data allocated by the extended descriptor\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides the descriptors for the extension descriptor\&. 
+
+The extension descriptor is used to extend the 8-bit namespace of the descriptor_tag field\&. 
+.PP
+\fBCopyright:\fP
+.RS 4
+GNU General Public License version 2 (GPLv2) 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Mauro Carvalho Chehab
+.RE
+.PP
+\fBRelevant specs\fP
+.RS 4
+The descriptor described herein is defined at:
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+.IP "\(bu" 2
+ETSI EN 300 468 V1\&.11\&.1
+.PP
+.RE
+.PP
+\fBBug Report\fP
+.RS 4
+Please submit bug reports and patches to linux-media@vger.kernel.org 
+.RE
+.PP
+
+.PP
+Definition in file \fBdesc_extension\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

@@ -1,0 +1,66 @@
+.TH "atsc_table_eit_desc_length" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+atsc_table_eit_desc_length \- ATSC EIT descriptor length\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <atsc_eit\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint16_t \fBbitfield\fP"
+.br
+.ti -1c
+.RI "struct {"
+.br
+.ti -1c
+.RI "   uint16_t \fBdesc_length\fP:12"
+.br
+.ti -1c
+.RI "   uint16_t \fBreserved\fP:4"
+.br
+.ti -1c
+.RI "}; "
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+ATSC EIT descriptor length\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdesc_length\fP descriptor length
+.RE
+.PP
+This structure is used to store the original ATSC EIT event table, converting the integer fields to the CPU endianness, and converting the timestamps to a way that it is better handled on Linux\&.
+.PP
+The undocumented parameters are used only internally by the API and/or are fields that are reserved\&. They shouldn't be used, as they may change on future API releases\&. 
+.PP
+Definition at line 122 of file atsc_eit\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "struct { \&.\&.\&. } "
+
+.SS "uint16_t atsc_table_eit_desc_length::bitfield"
+
+.PP
+Definition at line 123 of file atsc_eit\&.h\&.
+.SS "uint16_t atsc_table_eit_desc_length::desc_length"
+
+.PP
+Definition at line 125 of file atsc_eit\&.h\&.
+.SS "uint16_t atsc_table_eit_desc_length::reserved"
+
+.PP
+Definition at line 126 of file atsc_eit\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

@@ -1,0 +1,160 @@
+.TH "dvb_ts_packet_header" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_ts_packet_header \- Header of a MPEG-TS transport packet\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <header\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBsync_byte\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint16_t \fBbitfield\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      uint16_t \fBpid\fP:13"
+.br
+.ti -1c
+.RI "      uint16_t \fBtransport_priority\fP:1"
+.br
+.ti -1c
+.RI "      uint16_t \fBpayload_unit_start_indicator\fP:1"
+.br
+.ti -1c
+.RI "      uint16_t \fBtransport_error_indicator\fP:1"
+.br
+.ti -1c
+.RI "   } "
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "uint8_t \fBcontinuity_counter\fP:4"
+.br
+.ti -1c
+.RI "uint8_t \fBadaptation_field_control\fP:2"
+.br
+.ti -1c
+.RI "uint8_t \fBtransport_scrambling_control\fP:2"
+.br
+.ti -1c
+.RI "uint8_t \fBadaptation_field_length\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Header of a MPEG-TS transport packet\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsync_byte\fP sync byte 
+.br
+\fIpid\fP Program ID 
+.br
+\fItransport_priority\fP transport priority 
+.br
+\fIpayload_unit_start_indicator\fP payload unit start indicator 
+.br
+\fItransport_error_indicator\fP transport error indicator 
+.br
+\fIcontinuity_counter\fP continuity counter 
+.br
+\fIadaptation_field_control\fP adaptation field control 
+.br
+\fItransport_scrambling_control\fP transport scrambling control 
+.br
+\fIadaptation_field_length\fP adaptation field length
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+http://www.etherguidesystems.com/Help/SDOs/MPEG/Semantics/MPEG-2/transport_packet.aspx 
+.RE
+.PP
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 58 of file header\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "union { \&.\&.\&. } "
+
+.SS "uint8_t dvb_ts_packet_header::adaptation_field_control"
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 70 of file header\&.h\&.
+.SS "uint8_t dvb_ts_packet_header::adaptation_field_length"
+
+.PP
+Definition at line 74 of file header\&.h\&.
+.SS "uint16_t dvb_ts_packet_header::bitfield"
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 61 of file header\&.h\&.
+.SS "uint8_t dvb_ts_packet_header::continuity_counter"
+
+.PP
+Definition at line 69 of file header\&.h\&.
+.SS "uint16_t dvb_ts_packet_header::payload_unit_start_indicator"
+
+.PP
+Definition at line 65 of file header\&.h\&.
+.SS "uint16_t dvb_ts_packet_header::pid"
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 63 of file header\&.h\&.
+.SS "uint8_t dvb_ts_packet_header::sync_byte"
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 59 of file header\&.h\&.
+.SS "uint16_t dvb_ts_packet_header::transport_error_indicator"
+
+.PP
+Definition at line 66 of file header\&.h\&.
+.SS "uint16_t dvb_ts_packet_header::transport_priority"
+
+.PP
+Definition at line 64 of file header\&.h\&.
+.SS "uint8_t dvb_ts_packet_header::transport_scrambling_control"
+
+.PP
+Definition at line 71 of file header\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

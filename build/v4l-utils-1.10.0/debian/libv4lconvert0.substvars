@@ -1,0 +1,1 @@
+shlibs:Depends=libc6 (>= 2.17), libjpeg8 (>= 8c)

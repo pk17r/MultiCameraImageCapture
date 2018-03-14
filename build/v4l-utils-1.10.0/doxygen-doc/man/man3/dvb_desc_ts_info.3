@@ -1,0 +1,144 @@
+.TH "dvb_desc_ts_info" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_desc_ts_info \- Structure describing the ISDB TS information descriptor\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <desc_ts_info\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBtype\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBlength\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_desc\fP * \fBnext\fP"
+.br
+.ti -1c
+.RI "char * \fBts_name\fP"
+.br
+.ti -1c
+.RI "char * \fBts_name_emph\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_desc_ts_info_transmission_type\fP \fBtransmission_type\fP"
+.br
+.ti -1c
+.RI "uint16_t * \fBservice_id\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint16_t \fBbitfield\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      uint8_t \fBtransmission_type_count\fP:2"
+.br
+.ti -1c
+.RI "      uint8_t \fBlength_of_ts_name\fP:6"
+.br
+.ti -1c
+.RI "      uint8_t \fBremote_control_key_id\fP:8"
+.br
+.ti -1c
+.RI "   } "
+.br
+.ti -1c
+.RI "}; "
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure describing the ISDB TS information descriptor\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fItype\fP descriptor tag 
+.br
+\fIlength\fP descriptor length 
+.br
+\fInext\fP pointer to struct \fBdvb_desc\fP 
+.br
+\fIremote_control_key_id\fP remote control key id 
+.br
+\fIlength_of_ts_name\fP length of ts name 
+.br
+\fItransmission_type_count\fP transmission type count
+.br
+\fIts_name\fP ts name string 
+.br
+\fIts_name_emph\fP ts name emphasis string 
+.br
+\fItransmission_type\fP struct \fBdvb_desc_ts_info_transmission_type\fP content 
+.br
+\fIservice_id\fP service id vector 
+.RE
+.PP
+
+.PP
+Definition at line 77 of file desc_ts_info\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "union { \&.\&.\&. } "
+
+.SS "uint16_t dvb_desc_ts_info::bitfield"
+
+.PP
+Definition at line 87 of file desc_ts_info\&.h\&.
+.SS "uint8_t dvb_desc_ts_info::length"
+
+.PP
+Definition at line 79 of file desc_ts_info\&.h\&.
+.SS "uint8_t dvb_desc_ts_info::length_of_ts_name"
+
+.PP
+Definition at line 90 of file desc_ts_info\&.h\&.
+.SS "struct \fBdvb_desc\fP* dvb_desc_ts_info::next"
+
+.PP
+Definition at line 80 of file desc_ts_info\&.h\&.
+.SS "uint8_t dvb_desc_ts_info::remote_control_key_id"
+
+.PP
+Definition at line 91 of file desc_ts_info\&.h\&.
+.SS "uint16_t* dvb_desc_ts_info::service_id"
+
+.PP
+Definition at line 84 of file desc_ts_info\&.h\&.
+.SS "struct \fBdvb_desc_ts_info_transmission_type\fP dvb_desc_ts_info::transmission_type"
+
+.PP
+Definition at line 83 of file desc_ts_info\&.h\&.
+.SS "uint8_t dvb_desc_ts_info::transmission_type_count"
+
+.PP
+Definition at line 89 of file desc_ts_info\&.h\&.
+.SS "char* dvb_desc_ts_info::ts_name"
+
+.PP
+Definition at line 82 of file desc_ts_info\&.h\&.
+.SS "char * dvb_desc_ts_info::ts_name_emph"
+
+.PP
+Definition at line 82 of file desc_ts_info\&.h\&.
+.SS "uint8_t dvb_desc_ts_info::type"
+
+.PP
+Definition at line 78 of file desc_ts_info\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

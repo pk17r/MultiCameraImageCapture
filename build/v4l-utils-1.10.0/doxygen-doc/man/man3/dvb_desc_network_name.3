@@ -1,0 +1,78 @@
+.TH "dvb_desc_network_name" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_desc_network_name \- Struct containing the network name descriptor\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <desc_network_name\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBtype\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBlength\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_desc\fP * \fBnext\fP"
+.br
+.ti -1c
+.RI "char * \fBnetwork_name\fP"
+.br
+.ti -1c
+.RI "char * \fBnetwork_name_emph\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Struct containing the network name descriptor\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fItype\fP descriptor tag 
+.br
+\fIlength\fP descriptor length 
+.br
+\fInext\fP pointer to struct \fBdvb_desc\fP 
+.br
+\fInetwork_name\fP network name string 
+.br
+\fInetwork_name_emph\fP network name emphasis string
+.RE
+.PP
+The emphasis text is the one that uses asterisks\&. For example, in the text: 'the quick *fox* jumps over the lazy table' the emphasis would be 'fox'\&. 
+.PP
+Definition at line 58 of file desc_network_name\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "uint8_t dvb_desc_network_name::length"
+
+.PP
+Definition at line 60 of file desc_network_name\&.h\&.
+.SS "char* dvb_desc_network_name::network_name"
+
+.PP
+Definition at line 63 of file desc_network_name\&.h\&.
+.SS "char* dvb_desc_network_name::network_name_emph"
+
+.PP
+Definition at line 64 of file desc_network_name\&.h\&.
+.SS "struct \fBdvb_desc\fP* dvb_desc_network_name::next"
+
+.PP
+Definition at line 61 of file desc_network_name\&.h\&.
+.SS "uint8_t dvb_desc_network_name::type"
+
+.PP
+Definition at line 59 of file desc_network_name\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

@@ -1,0 +1,163 @@
+.TH "atsc_table_mgt_table" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+atsc_table_mgt_table \- ATSC tables descrition at MGT table\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <mgt\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint16_t \fBtype\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint16_t \fBbitfield\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      uint16_t \fBpid\fP:13"
+.br
+.ti -1c
+.RI "      uint16_t \fBone\fP:3"
+.br
+.ti -1c
+.RI "   } "
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "uint8_t \fBtype_version\fP:5"
+.br
+.ti -1c
+.RI "uint8_t \fBone2\fP:3"
+.br
+.ti -1c
+.RI "uint32_t \fBsize\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint16_t \fBbitfield2\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      uint16_t \fBdesc_length\fP:12"
+.br
+.ti -1c
+.RI "      uint16_t \fBone3\fP:4"
+.br
+.ti -1c
+.RI "   } "
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "struct \fBdvb_desc\fP * \fBdescriptor\fP"
+.br
+.ti -1c
+.RI "struct \fBatsc_table_mgt_table\fP * \fBnext\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+ATSC tables descrition at MGT table\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fItype\fP table type 
+.br
+\fIpid\fP table type pid 
+.br
+\fItype_version\fP type type version number 
+.br
+\fIsize\fP number of bytes for the table entry 
+.br
+\fIdesc_length\fP table type descriptors length 
+.br
+\fIdescriptor\fP pointer to struct \fBdvb_desc\fP 
+.br
+\fInext\fP pointer to struct \fBatsc_table_mgt_table\fP
+.RE
+.PP
+This structure is used to store the original VCT channel table, converting the integer fields to the CPU endianness\&.
+.PP
+The undocumented parameters are used only internally by the API and/or are fields that are reserved\&. They shouldn't be used, as they may change on future API releases\&.
+.PP
+Everything after \fBatsc_table_mgt_table::descriptor\fP (including it) won't be bit-mapped * to the data parsed from the MPEG TS\&. So, metadata are added there\&. 
+.PP
+Definition at line 78 of file mgt\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "union { \&.\&.\&. } "
+
+.SS "union { \&.\&.\&. } "
+
+.SS "uint16_t atsc_table_mgt_table::bitfield"
+
+.PP
+Definition at line 81 of file mgt\&.h\&.
+.SS "uint16_t atsc_table_mgt_table::bitfield2"
+
+.PP
+Definition at line 91 of file mgt\&.h\&.
+.SS "uint16_t atsc_table_mgt_table::desc_length"
+
+.PP
+Definition at line 93 of file mgt\&.h\&.
+.SS "struct \fBdvb_desc\fP* atsc_table_mgt_table::descriptor"
+
+.PP
+Definition at line 97 of file mgt\&.h\&.
+.SS "struct \fBatsc_table_mgt_table\fP* atsc_table_mgt_table::next"
+
+.PP
+Definition at line 98 of file mgt\&.h\&.
+.SS "uint16_t atsc_table_mgt_table::one"
+
+.PP
+Definition at line 84 of file mgt\&.h\&.
+.SS "uint8_t atsc_table_mgt_table::one2"
+
+.PP
+Definition at line 88 of file mgt\&.h\&.
+.SS "uint16_t atsc_table_mgt_table::one3"
+
+.PP
+Definition at line 94 of file mgt\&.h\&.
+.SS "uint16_t atsc_table_mgt_table::pid"
+
+.PP
+Definition at line 83 of file mgt\&.h\&.
+.SS "uint32_t atsc_table_mgt_table::size"
+
+.PP
+Definition at line 89 of file mgt\&.h\&.
+.SS "uint16_t atsc_table_mgt_table::type"
+
+.PP
+Definition at line 79 of file mgt\&.h\&.
+.SS "uint8_t atsc_table_mgt_table::type_version"
+
+.PP
+Definition at line 87 of file mgt\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

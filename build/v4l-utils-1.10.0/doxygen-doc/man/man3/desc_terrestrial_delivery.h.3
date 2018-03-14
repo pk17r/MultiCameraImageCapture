@@ -1,0 +1,149 @@
+.TH "lib/include/libdvbv5/desc_terrestrial_delivery.h" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/include/libdvbv5/desc_terrestrial_delivery.h \- Provides the descriptors for the DVB-T terrestrial delivery system descriptor\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <libdvbv5/descriptors\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBdvb_desc_terrestrial_delivery\fP"
+.br
+.RI "\fIStructure containing the DVB-T terrestrial delivery system descriptor\&. \fP"
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBdvb_desc_terrestrial_delivery_init\fP (struct \fBdvb_v5_fe_parms\fP *parms, const uint8_t *buf, struct \fBdvb_desc\fP *desc)"
+.br
+.RI "\fIInitializes and parses the DVB-T terrestrial delivery system descriptor\&. \fP"
+.ti -1c
+.RI "void \fBdvb_desc_terrestrial_delivery_print\fP (struct \fBdvb_v5_fe_parms\fP *parms, const struct \fBdvb_desc\fP *desc)"
+.br
+.RI "\fIPrints the content of the DVB-T terrestrial delivery system descriptor\&. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "const unsigned \fBdvbt_bw\fP []"
+.br
+.RI "\fIconverts from internal representation into bandwidth in Hz \fP"
+.ti -1c
+.RI "const unsigned \fBdvbt_modulation\fP []"
+.br
+.RI "\fIconverts from the descriptor's modulation into enum fe_modulation, as defined by DVBv5 API\&. \fP"
+.ti -1c
+.RI "const unsigned \fBdvbt_hierarchy\fP []"
+.br
+.RI "\fIconverts from the descriptor's hierarchy into enum fe_hierarchy, as defined by DVBv5 API\&. \fP"
+.ti -1c
+.RI "const unsigned \fBdvbt_code_rate\fP []"
+.br
+.RI "\fIconverts from the descriptor's FEC into enum fe_code_rate, as defined by DVBv5 API\&. \fP"
+.ti -1c
+.RI "const uint32_t \fBdvbt_interval\fP []"
+.br
+.RI "\fIconverts from internal representation into enum fe_guard_interval, as defined at DVBv5 API\&. \fP"
+.ti -1c
+.RI "const unsigned \fBdvbt_transmission_mode\fP []"
+.br
+.RI "\fIconverts from the descriptor's transmission mode into enum fe_transmit_mode, as defined by DVBv5 API\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides the descriptors for the DVB-T terrestrial delivery system descriptor\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+GNU General Public License version 2 (GPLv2) 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Mauro Carvalho Chehab 
+.PP
+Andre Roth
+.RE
+.PP
+\fBRelevant specs\fP
+.RS 4
+The descriptor described herein is defined at:
+.IP "\(bu" 2
+ETSI EN 300 468 V1\&.11\&.1
+.PP
+.RE
+.PP
+\fBBug Report\fP
+.RS 4
+Please submit bug reports and patches to linux-media@vger.kernel.org 
+.RE
+.PP
+
+.PP
+Definition in file \fBdesc_terrestrial_delivery\&.h\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "int dvb_desc_terrestrial_delivery_init (struct \fBdvb_v5_fe_parms\fP * parms, const uint8_t * buf, struct \fBdvb_desc\fP * desc)"
+
+.PP
+Initializes and parses the DVB-T terrestrial delivery system descriptor\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIparms\fP struct \fBdvb_v5_fe_parms\fP pointer to the opened device 
+.br
+\fIbuf\fP buffer containing the descriptor's raw data 
+.br
+\fIdesc\fP pointer to struct \fBdvb_desc\fP to be allocated and filled
+.RE
+.PP
+This function initializes and makes sure that all fields will follow the CPU endianness\&. Due to that, the content of the buffer may change\&.
+.PP
+Currently, no memory is allocated internally\&.
+.PP
+\fBReturns:\fP
+.RS 4
+On success, it returns the size of the allocated struct\&. A negative value indicates an error\&. 
+.RE
+.PP
+
+.SH "Variable Documentation"
+.PP 
+.SS "const unsigned dvbt_bw[]"
+
+.PP
+converts from internal representation into bandwidth in Hz 
+.SS "const unsigned dvbt_code_rate[]"
+
+.PP
+converts from the descriptor's FEC into enum fe_code_rate, as defined by DVBv5 API\&. 
+.SS "const unsigned dvbt_hierarchy[]"
+
+.PP
+converts from the descriptor's hierarchy into enum fe_hierarchy, as defined by DVBv5 API\&. 
+.SS "const uint32_t dvbt_interval[]"
+
+.PP
+converts from internal representation into enum fe_guard_interval, as defined at DVBv5 API\&. 
+.SS "const unsigned dvbt_modulation[]"
+
+.PP
+converts from the descriptor's modulation into enum fe_modulation, as defined by DVBv5 API\&. 
+.SS "const unsigned dvbt_transmission_mode[]"
+
+.PP
+converts from the descriptor's transmission mode into enum fe_transmit_mode, as defined by DVBv5 API\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

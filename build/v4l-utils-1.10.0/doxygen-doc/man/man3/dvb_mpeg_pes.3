@@ -1,0 +1,90 @@
+.TH "dvb_mpeg_pes" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_mpeg_pes \- MPEG PES data structure\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <mpeg_pes\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint32_t \fBbitfield\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      uint32_t \fBstream_id\fP:8"
+.br
+.ti -1c
+.RI "      uint32_t \fBsync\fP:24"
+.br
+.ti -1c
+.RI "   } "
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "uint16_t \fBlength\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_mpeg_pes_optional\fP \fBoptional\fP []"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+MPEG PES data structure\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsync\fP 24 bits DVB_MPEG_PES 
+.br
+\fIstream_id\fP 8 bits PES Stream ID 
+.br
+\fIlength\fP 16 bits PES packet length 
+.br
+\fIoptional\fP Pointer to optional PES header 
+.RE
+.PP
+
+.PP
+Definition at line 187 of file mpeg_pes\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "union { \&.\&.\&. } "
+
+.SS "uint32_t dvb_mpeg_pes::bitfield"
+
+.PP
+Definition at line 189 of file mpeg_pes\&.h\&.
+.SS "uint16_t dvb_mpeg_pes::length"
+
+.PP
+Definition at line 195 of file mpeg_pes\&.h\&.
+.SS "struct \fBdvb_mpeg_pes_optional\fP dvb_mpeg_pes::optional[]"
+
+.PP
+Definition at line 196 of file mpeg_pes\&.h\&.
+.SS "uint32_t dvb_mpeg_pes::stream_id"
+
+.PP
+Definition at line 191 of file mpeg_pes\&.h\&.
+.SS "uint32_t dvb_mpeg_pes::sync"
+
+.PP
+Definition at line 192 of file mpeg_pes\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

@@ -1,0 +1,179 @@
+.TH "atsc_table_eit_event" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+atsc_table_eit_event \- ATSC EIT event table\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <atsc_eit\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint16_t \fBbitfield\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      uint16_t \fBevent_id\fP:14"
+.br
+.ti -1c
+.RI "      uint16_t \fBone\fP:2"
+.br
+.ti -1c
+.RI "   } "
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "uint32_t \fBstart_time\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint32_t \fBbitfield2\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      uint32_t \fBtitle_length\fP:8"
+.br
+.ti -1c
+.RI "      uint32_t \fBduration\fP:20"
+.br
+.ti -1c
+.RI "      uint32_t \fBetm\fP:2"
+.br
+.ti -1c
+.RI "      uint32_t \fBone2\fP:2"
+.br
+.ti -1c
+.RI "      uint32_t \fB__pad0__\fP:2"
+.br
+.ti -1c
+.RI "   } "
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "struct \fBdvb_desc\fP * \fBdescriptor\fP"
+.br
+.ti -1c
+.RI "struct \fBatsc_table_eit_event\fP * \fBnext\fP"
+.br
+.ti -1c
+.RI "struct tm \fBstart\fP"
+.br
+.ti -1c
+.RI "uint16_t \fBsource_id\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+ATSC EIT event table\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fIevent_id\fP an uniquelly (inside a service ID) event ID 
+.br
+\fItitle_length\fP title length\&. Zero means no title 
+.br
+\fIduration\fP duration in seconds 
+.br
+\fIetm\fP Extended Text Message location 
+.br
+\fIdescriptor\fP pointer to struct \fBdvb_desc\fP 
+.br
+\fInext\fP pointer to struct \fBatsc_table_eit_event\fP 
+.br
+\fIstart\fP event start (in struct tm format) 
+.br
+\fIsource_id\fP source id (obtained from ATSC header)
+.RE
+.PP
+This structure is used to store the original ATSC EIT event table, converting the integer fields to the CPU endianness, and converting the timestamps to a way that it is better handled on Linux\&.
+.PP
+The undocumented parameters are used only internally by the API and/or are fields that are reserved\&. They shouldn't be used, as they may change on future API releases\&.
+.PP
+Everything after \fBatsc_table_eit_event::descriptor\fP (including it) won't be bit-mapped to the data parsed from the MPEG TS\&. So, metadata are added there\&. 
+.PP
+Definition at line 82 of file atsc_eit\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "union { \&.\&.\&. } "
+
+.SS "union { \&.\&.\&. } "
+
+.SS "uint32_t atsc_table_eit_event::__pad0__"
+
+.PP
+Definition at line 98 of file atsc_eit\&.h\&.
+.SS "uint16_t atsc_table_eit_event::bitfield"
+
+.PP
+Definition at line 84 of file atsc_eit\&.h\&.
+.SS "uint32_t atsc_table_eit_event::bitfield2"
+
+.PP
+Definition at line 92 of file atsc_eit\&.h\&.
+.SS "struct \fBdvb_desc\fP* atsc_table_eit_event::descriptor"
+
+.PP
+Definition at line 101 of file atsc_eit\&.h\&.
+.SS "uint32_t atsc_table_eit_event::duration"
+
+.PP
+Definition at line 95 of file atsc_eit\&.h\&.
+.SS "uint32_t atsc_table_eit_event::etm"
+
+.PP
+Definition at line 96 of file atsc_eit\&.h\&.
+.SS "uint16_t atsc_table_eit_event::event_id"
+
+.PP
+Definition at line 86 of file atsc_eit\&.h\&.
+.SS "struct \fBatsc_table_eit_event\fP* atsc_table_eit_event::next"
+
+.PP
+Definition at line 102 of file atsc_eit\&.h\&.
+.SS "uint16_t atsc_table_eit_event::one"
+
+.PP
+Definition at line 87 of file atsc_eit\&.h\&.
+.SS "uint32_t atsc_table_eit_event::one2"
+
+.PP
+Definition at line 97 of file atsc_eit\&.h\&.
+.SS "uint16_t atsc_table_eit_event::source_id"
+
+.PP
+Definition at line 104 of file atsc_eit\&.h\&.
+.SS "struct tm atsc_table_eit_event::start"
+
+.PP
+Definition at line 103 of file atsc_eit\&.h\&.
+.SS "uint32_t atsc_table_eit_event::start_time"
+
+.PP
+Definition at line 90 of file atsc_eit\&.h\&.
+.SS "uint32_t atsc_table_eit_event::title_length"
+
+.PP
+Definition at line 94 of file atsc_eit\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

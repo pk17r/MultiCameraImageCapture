@@ -1,0 +1,133 @@
+.TH "dvb_mpeg_ts_adaption" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_mpeg_ts_adaption \- MPEG TS header adaption field\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <mpeg_ts\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBlength\fP"
+.br
+.ti -1c
+.RI "struct {"
+.br
+.ti -1c
+.RI "   uint8_t \fBextension\fP:1"
+.br
+.ti -1c
+.RI "   uint8_t \fBprivate_data\fP:1"
+.br
+.ti -1c
+.RI "   uint8_t \fBsplicing_point\fP:1"
+.br
+.ti -1c
+.RI "   uint8_t \fBOPCR\fP:1"
+.br
+.ti -1c
+.RI "   uint8_t \fBPCR\fP:1"
+.br
+.ti -1c
+.RI "   uint8_t \fBpriority\fP:1"
+.br
+.ti -1c
+.RI "   uint8_t \fBrandom_access\fP:1"
+.br
+.ti -1c
+.RI "   uint8_t \fBdiscontinued\fP:1"
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "uint8_t \fBdata\fP []"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+MPEG TS header adaption field\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fItype\fP DVB_MPEG_ES_SEQ_START 
+.br
+\fIlength\fP 1 bit Adaptation Field Length 
+.br
+\fIdiscontinued\fP 1 bit Discontinuity indicator 
+.br
+\fIrandom_access\fP 1 bit Random Access indicator 
+.br
+\fIpriority\fP 1 bit Elementary stream priority indicator 
+.br
+\fIPCR\fP 1 bit PCR flag 
+.br
+\fIOPCR\fP 1 bit OPCR flag 
+.br
+\fIsplicing_point\fP 1 bit Splicing point flag 
+.br
+\fIprivate_data\fP 1 bit Transport private data flag 
+.br
+\fIextension\fP 1 bit Adaptation field extension flag 
+.br
+\fIdata\fP Pointer to data 
+.RE
+.PP
+
+.PP
+Definition at line 71 of file mpeg_ts\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "struct { \&.\&.\&. } "
+
+.SS "uint8_t dvb_mpeg_ts_adaption::data[]"
+
+.PP
+Definition at line 83 of file mpeg_ts\&.h\&.
+.SS "uint8_t dvb_mpeg_ts_adaption::discontinued"
+
+.PP
+Definition at line 81 of file mpeg_ts\&.h\&.
+.SS "uint8_t dvb_mpeg_ts_adaption::extension"
+
+.PP
+Definition at line 74 of file mpeg_ts\&.h\&.
+.SS "uint8_t dvb_mpeg_ts_adaption::length"
+
+.PP
+Definition at line 72 of file mpeg_ts\&.h\&.
+.SS "uint8_t dvb_mpeg_ts_adaption::OPCR"
+
+.PP
+Definition at line 77 of file mpeg_ts\&.h\&.
+.SS "uint8_t dvb_mpeg_ts_adaption::PCR"
+
+.PP
+Definition at line 78 of file mpeg_ts\&.h\&.
+.SS "uint8_t dvb_mpeg_ts_adaption::priority"
+
+.PP
+Definition at line 79 of file mpeg_ts\&.h\&.
+.SS "uint8_t dvb_mpeg_ts_adaption::private_data"
+
+.PP
+Definition at line 75 of file mpeg_ts\&.h\&.
+.SS "uint8_t dvb_mpeg_ts_adaption::random_access"
+
+.PP
+Definition at line 80 of file mpeg_ts\&.h\&.
+.SS "uint8_t dvb_mpeg_ts_adaption::splicing_point"
+
+.PP
+Definition at line 76 of file mpeg_ts\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/nvidia/work/CameraImage/io.cpp
+opencv2/video/tracking.hpp
+/home/nvidia/work/CameraImage/opencv2/video/tracking.hpp
+opencv2/imgproc/imgproc.hpp
+/home/nvidia/work/CameraImage/opencv2/imgproc/imgproc.hpp
+opencv2/highgui/highgui.hpp
+/home/nvidia/work/CameraImage/opencv2/highgui/highgui.hpp
+iostream
+-
+ctype.h
+-
+stdio.h
+-
+time.h
+-
+string
+-
+sstream
+-
+

@@ -1,0 +1,198 @@
+.TH "dvb_mpeg_pes_optional" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_mpeg_pes_optional \- MPEG PES optional header\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <mpeg_pes\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint16_t \fBbitfield\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      uint16_t \fBPES_extension\fP:1"
+.br
+.ti -1c
+.RI "      uint16_t \fBPES_CRC\fP:1"
+.br
+.ti -1c
+.RI "      uint16_t \fBadditional_copy_info\fP:1"
+.br
+.ti -1c
+.RI "      uint16_t \fBDSM_trick_mode\fP:1"
+.br
+.ti -1c
+.RI "      uint16_t \fBES_rate\fP:1"
+.br
+.ti -1c
+.RI "      uint16_t \fBESCR\fP:1"
+.br
+.ti -1c
+.RI "      uint16_t \fBPTS_DTS\fP:2"
+.br
+.ti -1c
+.RI "      uint16_t \fBoriginal_or_copy\fP:1"
+.br
+.ti -1c
+.RI "      uint16_t \fBcopyright\fP:1"
+.br
+.ti -1c
+.RI "      uint16_t \fBdata_alignment_indicator\fP:1"
+.br
+.ti -1c
+.RI "      uint16_t \fBPES_priority\fP:1"
+.br
+.ti -1c
+.RI "      uint16_t \fBPES_scrambling_control\fP:2"
+.br
+.ti -1c
+.RI "      uint16_t \fBtwo\fP:2"
+.br
+.ti -1c
+.RI "   } "
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "uint8_t \fBlength\fP"
+.br
+.ti -1c
+.RI "uint64_t \fBpts\fP"
+.br
+.ti -1c
+.RI "uint64_t \fBdts\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+MPEG PES optional header\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fItwo\fP 2 bits Should be 10 
+.br
+\fIPES_scrambling_control\fP 2 bits PES Scrambling Control (Not Scrambled=00, otherwise scrambled) 
+.br
+\fIPES_priority\fP 1 bit PES Priority 
+.br
+\fIdata_alignment_indicator\fP 1 bit PES data alignment 
+.br
+\fIcopyright\fP 1 bit PES content protected by copyright 
+.br
+\fIoriginal_or_copy\fP 1 bit PES content is original (=1) or copied (=0) 
+.br
+\fIPTS_DTS\fP 2 bit PES header contains PTS (=10, =11) and/or DTS (=01, =11) 
+.br
+\fIESCR\fP 1 bit PES header contains ESCR fields 
+.br
+\fIES_rate\fP 1 bit PES header contains ES_rate field 
+.br
+\fIDSM_trick_mode\fP 1 bit PES header contains DSM_trick_mode field 
+.br
+\fIadditional_copy_info\fP 1 bit PES header contains additional_copy_info field 
+.br
+\fIPES_CRC\fP 1 bit PES header contains CRC field 
+.br
+\fIPES_extension\fP 1 bit PES header contains extension field 
+.br
+\fIlength\fP 8 bit PES header data length 
+.br
+\fIpts\fP 64 bit PES PTS timestamp 
+.br
+\fIdts\fP 64 bit PES DTS timestamp 
+.RE
+.PP
+
+.PP
+Definition at line 153 of file mpeg_pes\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "union { \&.\&.\&. } "
+
+.SS "uint16_t dvb_mpeg_pes_optional::additional_copy_info"
+
+.PP
+Definition at line 159 of file mpeg_pes\&.h\&.
+.SS "uint16_t dvb_mpeg_pes_optional::bitfield"
+
+.PP
+Definition at line 155 of file mpeg_pes\&.h\&.
+.SS "uint16_t dvb_mpeg_pes_optional::copyright"
+
+.PP
+Definition at line 165 of file mpeg_pes\&.h\&.
+.SS "uint16_t dvb_mpeg_pes_optional::data_alignment_indicator"
+
+.PP
+Definition at line 166 of file mpeg_pes\&.h\&.
+.SS "uint16_t dvb_mpeg_pes_optional::DSM_trick_mode"
+
+.PP
+Definition at line 160 of file mpeg_pes\&.h\&.
+.SS "uint64_t dvb_mpeg_pes_optional::dts"
+
+.PP
+Definition at line 174 of file mpeg_pes\&.h\&.
+.SS "uint16_t dvb_mpeg_pes_optional::ES_rate"
+
+.PP
+Definition at line 161 of file mpeg_pes\&.h\&.
+.SS "uint16_t dvb_mpeg_pes_optional::ESCR"
+
+.PP
+Definition at line 162 of file mpeg_pes\&.h\&.
+.SS "uint8_t dvb_mpeg_pes_optional::length"
+
+.PP
+Definition at line 172 of file mpeg_pes\&.h\&.
+.SS "uint16_t dvb_mpeg_pes_optional::original_or_copy"
+
+.PP
+Definition at line 164 of file mpeg_pes\&.h\&.
+.SS "uint16_t dvb_mpeg_pes_optional::PES_CRC"
+
+.PP
+Definition at line 158 of file mpeg_pes\&.h\&.
+.SS "uint16_t dvb_mpeg_pes_optional::PES_extension"
+
+.PP
+Definition at line 157 of file mpeg_pes\&.h\&.
+.SS "uint16_t dvb_mpeg_pes_optional::PES_priority"
+
+.PP
+Definition at line 167 of file mpeg_pes\&.h\&.
+.SS "uint16_t dvb_mpeg_pes_optional::PES_scrambling_control"
+
+.PP
+Definition at line 168 of file mpeg_pes\&.h\&.
+.SS "uint64_t dvb_mpeg_pes_optional::pts"
+
+.PP
+Definition at line 173 of file mpeg_pes\&.h\&.
+.SS "uint16_t dvb_mpeg_pes_optional::PTS_DTS"
+
+.PP
+Definition at line 163 of file mpeg_pes\&.h\&.
+.SS "uint16_t dvb_mpeg_pes_optional::two"
+
+.PP
+Definition at line 169 of file mpeg_pes\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

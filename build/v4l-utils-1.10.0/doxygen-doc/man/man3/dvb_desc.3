@@ -1,0 +1,69 @@
+.TH "dvb_desc" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_desc \- Linked list containing the several descriptors found on a MPEG-TS table\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <descriptors\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBtype\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBlength\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_desc\fP * \fBnext\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBdata\fP []"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Linked list containing the several descriptors found on a MPEG-TS table\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fItype\fP Descriptor type 
+.br
+\fIlength\fP Length of the descriptor 
+.br
+\fInext\fP pointer to the \fBdvb_desc\fP descriptor 
+.br
+\fIdata\fP Descriptor data 
+.RE
+.PP
+
+.PP
+Definition at line 118 of file descriptors\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "uint8_t dvb_desc::data[]"
+
+.PP
+Definition at line 123 of file descriptors\&.h\&.
+.SS "uint8_t dvb_desc::length"
+
+.PP
+Definition at line 120 of file descriptors\&.h\&.
+.SS "struct \fBdvb_desc\fP* dvb_desc::next"
+
+.PP
+Definition at line 121 of file descriptors\&.h\&.
+.SS "uint8_t dvb_desc::type"
+
+.PP
+Definition at line 119 of file descriptors\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

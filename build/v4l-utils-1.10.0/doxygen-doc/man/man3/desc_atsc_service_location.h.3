@@ -1,0 +1,80 @@
+.TH "lib/include/libdvbv5/desc_atsc_service_location.h" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/include/libdvbv5/desc_atsc_service_location.h \- Provides the descriptors for ATSC service location\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <libdvbv5/descriptors\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBatsc_desc_service_location_elementary\fP"
+.br
+.RI "\fIservice location elementary descriptors \fP"
+.ti -1c
+.RI "struct \fBatsc_desc_service_location\fP"
+.br
+.RI "\fIDescribes the elementary streams inside a PAT table for ATSC\&. \fP"
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBatsc_desc_service_location_init\fP (struct \fBdvb_v5_fe_parms\fP *parms, const uint8_t *buf, struct \fBdvb_desc\fP *desc)"
+.br
+.RI "\fIInitializes and parses the service location descriptor\&. \fP"
+.ti -1c
+.RI "void \fBatsc_desc_service_location_print\fP (struct \fBdvb_v5_fe_parms\fP *parms, const struct \fBdvb_desc\fP *desc)"
+.br
+.RI "\fIPrints the content of the service location descriptor\&. \fP"
+.ti -1c
+.RI "void \fBatsc_desc_service_location_free\fP (struct \fBdvb_desc\fP *desc)"
+.br
+.RI "\fIFrees all data allocated by the service location descriptor\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides the descriptors for ATSC service location\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+GNU General Public License version 2 (GPLv2) 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Mauro Carvalho Chehab
+.RE
+.PP
+\fBRelevant specs\fP
+.RS 4
+The descriptor described herein is defined at:
+.IP "\(bu" 2
+ATSC A/53
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+http://www.etherguidesystems.com/help/sdos/atsc/semantics/descriptors/ServiceLocation.aspx
+.RE
+.PP
+\fBBug Report\fP
+.RS 4
+Please submit bug reports and patches to linux-media@vger.kernel.org 
+.RE
+.PP
+
+.PP
+Definition in file \fBdesc_atsc_service_location\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

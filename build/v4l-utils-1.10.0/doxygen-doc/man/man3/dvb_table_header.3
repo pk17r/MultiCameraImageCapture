@@ -1,0 +1,147 @@
+.TH "dvb_table_header" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_table_header \- Header of a MPEG-TS table\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <header\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBtable_id\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint16_t \fBbitfield\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      uint16_t \fBsection_length\fP:12"
+.br
+.ti -1c
+.RI "      uint8_t \fBone\fP:2"
+.br
+.ti -1c
+.RI "      uint8_t \fBzero\fP:1"
+.br
+.ti -1c
+.RI "      uint8_t \fBsyntax\fP:1"
+.br
+.ti -1c
+.RI "   } "
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "uint16_t \fBid\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBcurrent_next\fP:1"
+.br
+.ti -1c
+.RI "uint8_t \fBversion\fP:5"
+.br
+.ti -1c
+.RI "uint8_t \fBone2\fP:2"
+.br
+.ti -1c
+.RI "uint8_t \fBsection_id\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBlast_section\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Header of a MPEG-TS table\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fItable_id\fP table id 
+.br
+\fIsection_length\fP section length 
+.br
+\fIsyntax\fP syntax 
+.br
+\fIid\fP TS ID 
+.br
+\fIcurrent_next\fP current next 
+.br
+\fIversion\fP version 
+.br
+\fIsection_id\fP section number 
+.br
+\fIlast_section\fP last section number
+.RE
+.PP
+All MPEG-TS tables start with this header\&. 
+.PP
+Definition at line 93 of file header\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "union { \&.\&.\&. } "
+
+.SS "uint16_t dvb_table_header::bitfield"
+
+.PP
+Definition at line 96 of file header\&.h\&.
+.SS "uint8_t dvb_table_header::current_next"
+
+.PP
+Definition at line 105 of file header\&.h\&.
+.SS "uint16_t dvb_table_header::id"
+
+.PP
+Definition at line 104 of file header\&.h\&.
+.SS "uint8_t dvb_table_header::last_section"
+
+.PP
+Definition at line 110 of file header\&.h\&.
+.SS "uint8_t dvb_table_header::one"
+
+.PP
+Definition at line 99 of file header\&.h\&.
+.SS "uint8_t dvb_table_header::one2"
+
+.PP
+Definition at line 107 of file header\&.h\&.
+.SS "uint8_t dvb_table_header::section_id"
+
+.PP
+Definition at line 109 of file header\&.h\&.
+.SS "uint16_t dvb_table_header::section_length"
+
+.PP
+Definition at line 98 of file header\&.h\&.
+.SS "uint8_t dvb_table_header::syntax"
+
+.PP
+Definition at line 101 of file header\&.h\&.
+.SS "uint8_t dvb_table_header::table_id"
+
+.PP
+Definition at line 94 of file header\&.h\&.
+.SS "uint8_t dvb_table_header::version"
+
+.PP
+Definition at line 106 of file header\&.h\&.
+.SS "uint8_t dvb_table_header::zero"
+
+.PP
+Definition at line 100 of file header\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

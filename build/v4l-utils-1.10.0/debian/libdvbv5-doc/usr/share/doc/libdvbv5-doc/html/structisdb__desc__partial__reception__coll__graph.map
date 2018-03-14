@@ -1,0 +1,4 @@
+<map id="isdb_desc_partial_reception" name="isdb_desc_partial_reception">
+<area shape="rect" id="node2" href="$structisdb__partial__reception__service__id.html" title="Service ID that uses partial reception. " alt="" coords="5,5,153,47"/>
+<area shape="rect" id="node3" href="$structdvb__desc.html" title="Linked list containing the several descriptors found on a MPEG&#45;TS table. " alt="" coords="177,13,256,39"/>
+</map>

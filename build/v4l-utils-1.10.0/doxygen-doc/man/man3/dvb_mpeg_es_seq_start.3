@@ -1,0 +1,204 @@
+.TH "dvb_mpeg_es_seq_start" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_mpeg_es_seq_start \- MPEG ES Sequence header\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <mpeg_es\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint32_t \fBbitfield\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      uint32_t \fBtype\fP:8"
+.br
+.ti -1c
+.RI "      uint32_t \fBsync\fP:24"
+.br
+.ti -1c
+.RI "   } "
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint32_t \fBbitfield2\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      uint32_t \fBframerate\fP:4"
+.br
+.ti -1c
+.RI "      uint32_t \fBaspect\fP:4"
+.br
+.ti -1c
+.RI "      uint32_t \fBheight\fP:12"
+.br
+.ti -1c
+.RI "      uint32_t \fBwidth\fP:12"
+.br
+.ti -1c
+.RI "   } "
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint32_t \fBbitfield3\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      uint32_t \fBqm_nonintra\fP:1"
+.br
+.ti -1c
+.RI "      uint32_t \fBqm_intra\fP:1"
+.br
+.ti -1c
+.RI "      uint32_t \fBconstrained\fP:1"
+.br
+.ti -1c
+.RI "      uint32_t \fBvbv\fP:10"
+.br
+.ti -1c
+.RI "      uint32_t \fBone\fP:1"
+.br
+.ti -1c
+.RI "      uint32_t \fBbitrate\fP:18"
+.br
+.ti -1c
+.RI "   } "
+.br
+.ti -1c
+.RI "}; "
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+MPEG ES Sequence header\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fItype\fP DVB_MPEG_ES_SEQ_START 
+.br
+\fIsync\fP Sync bytes 
+.br
+\fIframerate\fP Framerate 
+.br
+\fIaspect\fP Aspect ratio 
+.br
+\fIheight\fP Height 
+.br
+\fIwidth\fP Width 
+.br
+\fIqm_nonintra\fP Load non-intra quantizer matrix 
+.br
+\fIqm_intra\fP Load intra quantizer matrix 
+.br
+\fIconstrained\fP Constrained parameters flag 
+.br
+\fIvbv\fP VBV buffer size 
+.br
+\fIone\fP Should be 1 
+.br
+\fIbitrate\fP Bitrate 
+.RE
+.PP
+
+.PP
+Definition at line 89 of file mpeg_es\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "union { \&.\&.\&. } "
+
+.SS "union { \&.\&.\&. } "
+
+.SS "union { \&.\&.\&. } "
+
+.SS "uint32_t dvb_mpeg_es_seq_start::aspect"
+
+.PP
+Definition at line 101 of file mpeg_es\&.h\&.
+.SS "uint32_t dvb_mpeg_es_seq_start::bitfield"
+
+.PP
+Definition at line 91 of file mpeg_es\&.h\&.
+.SS "uint32_t dvb_mpeg_es_seq_start::bitfield2"
+
+.PP
+Definition at line 98 of file mpeg_es\&.h\&.
+.SS "uint32_t dvb_mpeg_es_seq_start::bitfield3"
+
+.PP
+Definition at line 107 of file mpeg_es\&.h\&.
+.SS "uint32_t dvb_mpeg_es_seq_start::bitrate"
+
+.PP
+Definition at line 114 of file mpeg_es\&.h\&.
+.SS "uint32_t dvb_mpeg_es_seq_start::constrained"
+
+.PP
+Definition at line 111 of file mpeg_es\&.h\&.
+.SS "uint32_t dvb_mpeg_es_seq_start::framerate"
+
+.PP
+Definition at line 100 of file mpeg_es\&.h\&.
+.SS "uint32_t dvb_mpeg_es_seq_start::height"
+
+.PP
+Definition at line 102 of file mpeg_es\&.h\&.
+.SS "uint32_t dvb_mpeg_es_seq_start::one"
+
+.PP
+Definition at line 113 of file mpeg_es\&.h\&.
+.SS "uint32_t dvb_mpeg_es_seq_start::qm_intra"
+
+.PP
+Definition at line 110 of file mpeg_es\&.h\&.
+.SS "uint32_t dvb_mpeg_es_seq_start::qm_nonintra"
+
+.PP
+Definition at line 109 of file mpeg_es\&.h\&.
+.SS "uint32_t dvb_mpeg_es_seq_start::sync"
+
+.PP
+Definition at line 94 of file mpeg_es\&.h\&.
+.SS "uint32_t dvb_mpeg_es_seq_start::type"
+
+.PP
+Definition at line 93 of file mpeg_es\&.h\&.
+.SS "uint32_t dvb_mpeg_es_seq_start::vbv"
+
+.PP
+Definition at line 112 of file mpeg_es\&.h\&.
+.SS "uint32_t dvb_mpeg_es_seq_start::width"
+
+.PP
+Definition at line 103 of file mpeg_es\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

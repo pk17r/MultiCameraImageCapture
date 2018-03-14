@@ -1,0 +1,4 @@
+<map id="dvb_parse_file" name="dvb_parse_file">
+<area shape="rect" id="node2" href="$structdvb__parse__struct.html" title="Describes the format to parse an specific delivery system. " alt="" coords="5,95,128,121"/>
+<area shape="rect" id="node3" href="$structdvb__parse__table.html" title="Describes the fields to parse on a file. " alt="" coords="8,5,125,32"/>
+</map>

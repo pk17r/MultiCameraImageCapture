@@ -1,0 +1,51 @@
+.TH "lib/include/libdvbv5/crc32.h" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/include/libdvbv5/crc32.h \- Provides ancillary code to calculate DVB crc32 checksum\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdint\&.h>\fP
+.br
+\fC#include <unistd\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "uint32_t \fBdvb_crc32\fP (uint8_t *data, size_t datalen, uint32_t crc)"
+.br
+.RI "\fICalculates the crc-32 as defined at the MPEG-TS specs\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides ancillary code to calculate DVB crc32 checksum\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+GNU General Public License version 2 (GPLv2) 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Mauro Carvalho Chehab 
+.PP
+Andre Roth
+.RE
+.PP
+\fBBug Report\fP
+.RS 4
+Please submit bug reports and patches to linux-media@vger.kernel.org 
+.RE
+.PP
+
+.PP
+Definition in file \fBcrc32\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

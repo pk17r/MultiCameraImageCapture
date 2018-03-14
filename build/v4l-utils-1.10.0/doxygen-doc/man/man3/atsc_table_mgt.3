@@ -1,0 +1,82 @@
+.TH "atsc_table_mgt" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+atsc_table_mgt \- ATSC MGT table\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <mgt\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "struct \fBdvb_table_header\fP \fBheader\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBprotocol_version\fP"
+.br
+.ti -1c
+.RI "uint16_t \fBtables\fP"
+.br
+.ti -1c
+.RI "struct \fBatsc_table_mgt_table\fP * \fBtable\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_desc\fP * \fBdescriptor\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+ATSC MGT table\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fIheader\fP struct \fBdvb_table_header\fP content 
+.br
+\fIprotocol_version\fP protocol version 
+.br
+\fItables\fP tables_defined Number of tables defined 
+.br
+\fItable\fP pointer to struct \fBatsc_table_mgt_table\fP 
+.br
+\fIdescriptor\fP pointer to struct \fBdvb_desc\fP
+.RE
+.PP
+This structure is used to store the original MGT channel table, converting the integer fields to the CPU endianness\&.
+.PP
+The undocumented parameters are used only internally by the API and/or are fields that are reserved\&. They shouldn't be used, as they may change on future API releases\&.
+.PP
+Everything after \fBatsc_table_mgt::table\fP (including it) won't be bit-mapped * to the data parsed from the MPEG TS\&. So, metadata are added there\&. 
+.PP
+Definition at line 123 of file mgt\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "struct \fBdvb_desc\fP* atsc_table_mgt::descriptor"
+
+.PP
+Definition at line 128 of file mgt\&.h\&.
+.SS "struct \fBdvb_table_header\fP atsc_table_mgt::header"
+
+.PP
+Definition at line 124 of file mgt\&.h\&.
+.SS "uint8_t atsc_table_mgt::protocol_version"
+
+.PP
+Definition at line 125 of file mgt\&.h\&.
+.SS "struct \fBatsc_table_mgt_table\fP* atsc_table_mgt::table"
+
+.PP
+Definition at line 127 of file mgt\&.h\&.
+.SS "uint16_t atsc_table_mgt::tables"
+
+.PP
+Definition at line 126 of file mgt\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

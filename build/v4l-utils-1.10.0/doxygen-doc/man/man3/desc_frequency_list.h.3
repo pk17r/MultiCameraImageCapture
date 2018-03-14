@@ -1,0 +1,69 @@
+.TH "lib/include/libdvbv5/desc_frequency_list.h" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/include/libdvbv5/desc_frequency_list.h \- Provides the descriptors for the frequency list descriptor\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <libdvbv5/descriptors\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBdvb_desc_frequency_list\fP"
+.br
+.RI "\fIStruct containing the frequency list descriptor\&. \fP"
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBdvb_desc_frequency_list_init\fP (struct \fBdvb_v5_fe_parms\fP *parms, const uint8_t *buf, struct \fBdvb_desc\fP *desc)"
+.br
+.RI "\fIInitializes and parses the frequency list descriptor\&. \fP"
+.ti -1c
+.RI "void \fBdvb_desc_frequency_list_print\fP (struct \fBdvb_v5_fe_parms\fP *parms, const struct \fBdvb_desc\fP *desc)"
+.br
+.RI "\fIPrints the content of the frequency list descriptor\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides the descriptors for the frequency list descriptor\&. 
+
+This descriptor lists the additional frequencies used in transmission of a multiplex on other frequencies\&. 
+.PP
+\fBCopyright:\fP
+.RS 4
+GNU General Public License version 2 (GPLv2) 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Mauro Carvalho Chehab 
+.PP
+Andre Roth
+.RE
+.PP
+\fBRelevant specs\fP
+.RS 4
+The descriptor described herein is defined at:
+.IP "\(bu" 2
+ETSI EN 300 468 V1\&.11\&.1
+.PP
+.RE
+.PP
+\fBBug Report\fP
+.RS 4
+Please submit bug reports and patches to linux-media@vger.kernel.org 
+.RE
+.PP
+
+.PP
+Definition in file \fBdesc_frequency_list\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

@@ -1,0 +1,256 @@
+.TH "dvb_entry" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_entry \- Represents one entry on a DTV file\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <dvb\-file\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "struct dtv_property \fBprops\fP [DTV_MAX_COMMAND]"
+.br
+.ti -1c
+.RI "unsigned int \fBn_props\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_entry\fP * \fBnext\fP"
+.br
+.ti -1c
+.RI "uint16_t \fBservice_id\fP"
+.br
+.ti -1c
+.RI "uint16_t * \fBvideo_pid\fP"
+.br
+.ti -1c
+.RI "uint16_t * \fBaudio_pid\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_elementary_pid\fP * \fBother_el_pid\fP"
+.br
+.ti -1c
+.RI "unsigned \fBvideo_pid_len\fP"
+.br
+.ti -1c
+.RI "unsigned \fBaudio_pid_len\fP"
+.br
+.ti -1c
+.RI "unsigned \fBother_el_pid_len\fP"
+.br
+.ti -1c
+.RI "char * \fBchannel\fP"
+.br
+.ti -1c
+.RI "char * \fBvchannel\fP"
+.br
+.ti -1c
+.RI "char * \fBlocation\fP"
+.br
+.ti -1c
+.RI "int \fBsat_number\fP"
+.br
+.ti -1c
+.RI "unsigned \fBfreq_bpf\fP"
+.br
+.ti -1c
+.RI "unsigned \fBdiseqc_wait\fP"
+.br
+.ti -1c
+.RI "char * \fBlnb\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Represents one entry on a DTV file\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fIprops\fP A property key/value pair\&. The keys are the ones specified at the DVB API, plus the ones defined internally by libdvbv5, at the \fBdvb-v5-std\&.h\fP header file\&. 
+.br
+\fInext\fP a pointer to the next entry\&. NULL if this is the last one\&. 
+.br
+\fIservice_id\fP Service ID associated with a program inside a transponder\&. Please note that pure 'channel' files will have this field filled with 0\&. 
+.br
+\fIvideo_pid\fP Array with the video program IDs inside a service 
+.br
+\fIaudio_pid\fP Array with the audio program IDs inside a service 
+.br
+\fIother_el_pid\fP Array with all non-audio/video program IDs inside a service 
+.br
+\fIvideo_pid_len\fP Size of the video_pid array 
+.br
+\fIaudio_pid_len\fP Size of the audio_pid array 
+.br
+\fIother_el_pid_len\fP Size of the other_el_pid array 
+.br
+\fIchannel\fP String containing the name of the channel 
+.br
+\fIvchannel\fP String representing the Number of the channel 
+.br
+\fIlocation\fP String representing the location of the channel 
+.br
+\fIsat_number\fP For satellite streams, this represents the number of the satellite dish on a DiSeqC arrangement\&. Should be zero on arrangements without DiSeqC\&. 
+.br
+\fIfreq_bpf\fP SCR/Unicable band-pass filter frequency to use, in kHz\&. For non SRC/Unicable arrangements, it should be zero\&. 
+.br
+\fIdiseqc_wait\fP Extra time to wait for DiSeqC commands to complete, in ms\&. The library will use 15 ms as the minimal time, plus the time specified on this field\&. 
+.br
+\fIlnb\fP String with the name of the LNBf to be used for satellite tuning\&. The names should match the names provided by \fBdvb_sat_get_lnb()\fP call (see \fBdvb-sat\&.h\fP)\&. 
+.RE
+.PP
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-scan\&.c\fP, and \fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 102 of file dvb\-file\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "uint16_t * dvb_entry::audio_pid"
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 107 of file dvb\-file\&.h\&.
+.PP
+Referenced by dvb_file_free()\&.
+.SS "unsigned dvb_entry::audio_pid_len"
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 109 of file dvb\-file\&.h\&.
+.SS "char* dvb_entry::channel"
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 110 of file dvb\-file\&.h\&.
+.PP
+Referenced by dvb_file_free()\&.
+.SS "unsigned dvb_entry::diseqc_wait"
+
+.PP
+Definition at line 117 of file dvb\-file\&.h\&.
+.SS "unsigned dvb_entry::freq_bpf"
+
+.PP
+Definition at line 116 of file dvb\-file\&.h\&.
+.SS "char* dvb_entry::lnb"
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-scan\&.c\fP, and \fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 118 of file dvb\-file\&.h\&.
+.PP
+Referenced by dvb_file_free()\&.
+.SS "char* dvb_entry::location"
+
+.PP
+Definition at line 113 of file dvb\-file\&.h\&.
+.PP
+Referenced by dvb_file_free()\&.
+.SS "unsigned int dvb_entry::n_props"
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 104 of file dvb\-file\&.h\&.
+.SS "struct \fBdvb_entry\fP* dvb_entry::next"
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-scan\&.c\fP, and \fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 105 of file dvb\-file\&.h\&.
+.PP
+Referenced by dvb_file_free()\&.
+.SS "struct \fBdvb_elementary_pid\fP* dvb_entry::other_el_pid"
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 108 of file dvb\-file\&.h\&.
+.PP
+Referenced by dvb_file_free()\&.
+.SS "unsigned dvb_entry::other_el_pid_len"
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 109 of file dvb\-file\&.h\&.
+.SS "struct dtv_property dvb_entry::props[DTV_MAX_COMMAND]"
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 103 of file dvb\-file\&.h\&.
+.SS "int dvb_entry::sat_number"
+
+.PP
+Definition at line 115 of file dvb\-file\&.h\&.
+.SS "uint16_t dvb_entry::service_id"
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 106 of file dvb\-file\&.h\&.
+.SS "char* dvb_entry::vchannel"
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 111 of file dvb\-file\&.h\&.
+.PP
+Referenced by dvb_file_free()\&.
+.SS "uint16_t* dvb_entry::video_pid"
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 107 of file dvb\-file\&.h\&.
+.PP
+Referenced by dvb_file_free()\&.
+.SS "unsigned dvb_entry::video_pid_len"
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-zap\&.c\fP\&.
+.PP
+Definition at line 109 of file dvb\-file\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

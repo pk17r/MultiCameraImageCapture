@@ -1,0 +1,78 @@
+.TH "dvb_extension_descriptor" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_extension_descriptor \- Structure containing the extended descriptors\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <desc_extension\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBtype\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBlength\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_desc\fP * \fBnext\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBextension_code\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_desc\fP * \fBdescriptor\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure containing the extended descriptors\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fItype\fP Descriptor type 
+.br
+\fIlength\fP Length of the descriptor 
+.br
+\fInext\fP pointer to the \fBdvb_desc\fP descriptor 
+.br
+\fIextension_code\fP extension code 
+.br
+\fIdescriptor\fP pointer to struct \fBdvb_desc\fP 
+.RE
+.PP
+
+.PP
+Definition at line 116 of file desc_extension\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "struct \fBdvb_desc\fP* dvb_extension_descriptor::descriptor"
+
+.PP
+Definition at line 123 of file desc_extension\&.h\&.
+.SS "uint8_t dvb_extension_descriptor::extension_code"
+
+.PP
+Definition at line 121 of file desc_extension\&.h\&.
+.SS "uint8_t dvb_extension_descriptor::length"
+
+.PP
+Definition at line 118 of file desc_extension\&.h\&.
+.SS "struct \fBdvb_desc\fP* dvb_extension_descriptor::next"
+
+.PP
+Definition at line 119 of file desc_extension\&.h\&.
+.SS "uint8_t dvb_extension_descriptor::type"
+
+.PP
+Definition at line 117 of file desc_extension\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

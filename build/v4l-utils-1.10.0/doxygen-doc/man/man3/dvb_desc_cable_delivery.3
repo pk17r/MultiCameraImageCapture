@@ -1,0 +1,154 @@
+.TH "dvb_desc_cable_delivery" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_desc_cable_delivery \- Structure containing the cable delivery system descriptor\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <desc_cable_delivery\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBtype\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBlength\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_desc\fP * \fBnext\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBfrequency\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint16_t \fBbitfield1\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      uint16_t \fBfec_outer\fP:4"
+.br
+.ti -1c
+.RI "      uint16_t \fBreserved_future_use\fP:12"
+.br
+.ti -1c
+.RI "   } "
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "uint8_t \fBmodulation\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint32_t \fBbitfield2\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      uint32_t \fBfec_inner\fP:4"
+.br
+.ti -1c
+.RI "      uint32_t \fBsymbol_rate\fP:28"
+.br
+.ti -1c
+.RI "   } "
+.br
+.ti -1c
+.RI "}; "
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure containing the cable delivery system descriptor\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fItype\fP descriptor tag 
+.br
+\fIlength\fP descriptor length 
+.br
+\fInext\fP pointer to struct \fBdvb_desc\fP 
+.br
+\fIfrequency\fP frequency, converted to Hz\&. 
+.br
+\fIfec_outer\fP FEC outer (typically, Viterbi) 
+.br
+\fImodulation\fP modulation 
+.br
+\fIfec_inner\fP FEC inner (convolutional code) 
+.br
+\fIsymbol_rate\fP symbol rate, converted to symbols/sec (bauds) 
+.RE
+.PP
+
+.PP
+Definition at line 58 of file desc_cable_delivery\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "union { \&.\&.\&. } "
+
+.SS "union { \&.\&.\&. } "
+
+.SS "uint16_t dvb_desc_cable_delivery::bitfield1"
+
+.PP
+Definition at line 65 of file desc_cable_delivery\&.h\&.
+.SS "uint32_t dvb_desc_cable_delivery::bitfield2"
+
+.PP
+Definition at line 73 of file desc_cable_delivery\&.h\&.
+.SS "uint32_t dvb_desc_cable_delivery::fec_inner"
+
+.PP
+Definition at line 75 of file desc_cable_delivery\&.h\&.
+.SS "uint16_t dvb_desc_cable_delivery::fec_outer"
+
+.PP
+Definition at line 67 of file desc_cable_delivery\&.h\&.
+.SS "uint32_t dvb_desc_cable_delivery::frequency"
+
+.PP
+Definition at line 63 of file desc_cable_delivery\&.h\&.
+.SS "uint8_t dvb_desc_cable_delivery::length"
+
+.PP
+Definition at line 60 of file desc_cable_delivery\&.h\&.
+.SS "uint8_t dvb_desc_cable_delivery::modulation"
+
+.PP
+Definition at line 71 of file desc_cable_delivery\&.h\&.
+.SS "struct \fBdvb_desc\fP* dvb_desc_cable_delivery::next"
+
+.PP
+Definition at line 61 of file desc_cable_delivery\&.h\&.
+.SS "uint16_t dvb_desc_cable_delivery::reserved_future_use"
+
+.PP
+Definition at line 68 of file desc_cable_delivery\&.h\&.
+.SS "uint32_t dvb_desc_cable_delivery::symbol_rate"
+
+.PP
+Definition at line 76 of file desc_cable_delivery\&.h\&.
+.SS "uint8_t dvb_desc_cable_delivery::type"
+
+.PP
+Definition at line 59 of file desc_cable_delivery\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

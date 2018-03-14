@@ -1,0 +1,87 @@
+.TH "dvb_parse_table" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_parse_table \- Describes the fields to parse on a file\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <dvb\-file\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "unsigned int \fBprop\fP"
+.br
+.ti -1c
+.RI "const char ** \fBtable\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBsize\fP"
+.br
+.ti -1c
+.RI "int \fBmult_factor\fP"
+.br
+.ti -1c
+.RI "int \fBhas_default_value\fP"
+.br
+.ti -1c
+.RI "int \fBdefault_value\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Describes the fields to parse on a file\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fIprop\fP Name of the DVBv5 or libdvbv5 property field 
+.br
+\fItable\fP Name of a translation table for string to int conversion 
+.br
+\fIsize\fP Size of the translation table 
+.br
+\fImult_factor\fP Multiply factor - Used, for example, to multiply the symbol rate read from a DVB-S table by 1000\&. 
+.br
+\fIhas_default_value\fP It is different than zero when the property can be optional\&. In this case, the next field should be present 
+.br
+\fIdefault_value\fP Default value for the optional field 
+.RE
+.PP
+
+.PP
+Definition at line 159 of file dvb\-file\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "int dvb_parse_table::default_value"
+
+.PP
+Definition at line 165 of file dvb\-file\&.h\&.
+.SS "int dvb_parse_table::has_default_value"
+
+.PP
+Definition at line 164 of file dvb\-file\&.h\&.
+.SS "int dvb_parse_table::mult_factor"
+
+.PP
+Definition at line 163 of file dvb\-file\&.h\&.
+.SS "unsigned int dvb_parse_table::prop"
+
+.PP
+Definition at line 160 of file dvb\-file\&.h\&.
+.SS "unsigned int dvb_parse_table::size"
+
+.PP
+Definition at line 162 of file dvb\-file\&.h\&.
+.SS "const char** dvb_parse_table::table"
+
+.PP
+Definition at line 161 of file dvb\-file\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

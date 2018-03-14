@@ -1,0 +1,57 @@
+.TH "lib/include/libdvbv5/dvb-log.h" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/include/libdvbv5/dvb-log.h \- Provides interfaces to handle libdvbv5 log messages\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <syslog\&.h>\fP
+.br
+
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void(* \fBdvb_logfunc\fP) (int level, const char *fmt,\&.\&.\&.)"
+.br
+.RI "\fItypedef used by dvb_fe_open2 for the log function \fP"
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBdvb_default_log\fP (int level, const char *fmt,\&.\&.\&.)"
+.br
+.RI "\fIThis is the prototype of the internal log function that it is used, if the library client doesn't desire to override with something else\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides interfaces to handle libdvbv5 log messages\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+GNU General Public License version 2 (GPLv2) 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Mauro Carvalho Chehab 
+.PP
+Andre Roth
+.RE
+.PP
+\fBBug Report\fP
+.RS 4
+Please submit bug reports and patches to linux-media@vger.kernel.org 
+.RE
+.PP
+
+.PP
+Definition in file \fBdvb\-log\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

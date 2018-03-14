@@ -1,0 +1,105 @@
+.TH "lib/include/libdvbv5/desc_t2_delivery.h" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/include/libdvbv5/desc_t2_delivery.h \- Provides the descriptors for the DVB-T2 delivery system descriptor\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <libdvbv5/descriptors\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBdvb_desc_t2_delivery_subcell\fP"
+.br
+.RI "\fIStructure to describe transponder subcell extension and frequencies\&. \fP"
+.ti -1c
+.RI "struct \fBdvb_desc_t2_delivery\fP"
+.br
+.RI "\fIStructure containing the T2 delivery system descriptor\&. \fP"
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBdvb_desc_t2_delivery_init\fP (struct \fBdvb_v5_fe_parms\fP *parms, const uint8_t *buf, struct \fBdvb_extension_descriptor\fP *ext, void *desc)"
+.br
+.RI "\fIInitializes and parses the T2 delivery system descriptor\&. \fP"
+.ti -1c
+.RI "void \fBdvb_desc_t2_delivery_print\fP (struct \fBdvb_v5_fe_parms\fP *parms, const struct \fBdvb_extension_descriptor\fP *ext, const void *desc)"
+.br
+.RI "\fIPrints the content of the T2 delivery system descriptor\&. \fP"
+.ti -1c
+.RI "void \fBdvb_desc_t2_delivery_free\fP (const void *desc)"
+.br
+.RI "\fIFrees all data allocated by the T2 delivery system descriptor\&. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "const unsigned \fBdvbt2_bw\fP []"
+.br
+.RI "\fIconverts from internal representation into bandwidth in Hz \fP"
+.ti -1c
+.RI "const uint32_t \fBdvbt2_interval\fP []"
+.br
+.RI "\fIconverts from internal representation into enum fe_guard_interval, as defined at DVBv5 API\&. \fP"
+.ti -1c
+.RI "const unsigned \fBdvbt2_transmission_mode\fP []"
+.br
+.RI "\fIconverts from the descriptor's transmission mode into enum fe_transmit_mode, as defined by DVBv5 API\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides the descriptors for the DVB-T2 delivery system descriptor\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+GNU General Public License version 2 (GPLv2) 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Mauro Carvalho Chehab
+.RE
+.PP
+\fBRelevant specs\fP
+.RS 4
+The descriptor described herein is defined at:
+.IP "\(bu" 2
+ETSI EN 300 468 V1\&.11\&.1
+.PP
+.RE
+.PP
+\fBBug Report\fP
+.RS 4
+Please submit bug reports and patches to linux-media@vger.kernel.org 
+.RE
+.PP
+
+.PP
+Definition in file \fBdesc_t2_delivery\&.h\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "const unsigned dvbt2_bw[]"
+
+.PP
+converts from internal representation into bandwidth in Hz 
+.SS "const uint32_t dvbt2_interval[]"
+
+.PP
+converts from internal representation into enum fe_guard_interval, as defined at DVBv5 API\&. 
+.SS "const unsigned dvbt2_transmission_mode[]"
+
+.PP
+converts from the descriptor's transmission mode into enum fe_transmit_mode, as defined by DVBv5 API\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

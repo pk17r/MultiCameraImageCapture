@@ -1,0 +1,71 @@
+.TH "atsc_table_eit" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+atsc_table_eit \- ATSC EIT table\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <atsc_eit\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "struct \fBdvb_table_header\fP \fBheader\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBprotocol_version\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBevents\fP"
+.br
+.ti -1c
+.RI "struct \fBatsc_table_eit_event\fP * \fBevent\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+ATSC EIT table\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fIheader\fP struct \fBdvb_table_header\fP content 
+.br
+\fIprotocol_version\fP protocol version 
+.br
+\fIevents\fP events 
+.br
+\fIevent\fP pointer to struct \fBatsc_table_eit_event\fP
+.RE
+.PP
+This structure is used to store the original ATSC EIT table, converting the integer fields to the CPU endianness\&.
+.PP
+Everything after \fBatsc_table_eit::event\fP (including it) won't be bit-mapped to the data parsed from the MPEG TS\&. So, metadata are added there\&. 
+.PP
+Definition at line 147 of file atsc_eit\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "struct \fBatsc_table_eit_event\fP* atsc_table_eit::event"
+
+.PP
+Definition at line 151 of file atsc_eit\&.h\&.
+.SS "uint8_t atsc_table_eit::events"
+
+.PP
+Definition at line 150 of file atsc_eit\&.h\&.
+.SS "struct \fBdvb_table_header\fP atsc_table_eit::header"
+
+.PP
+Definition at line 148 of file atsc_eit\&.h\&.
+.SS "uint8_t atsc_table_eit::protocol_version"
+
+.PP
+Definition at line 149 of file atsc_eit\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

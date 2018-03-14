@@ -1,0 +1,3 @@
+/home/nvidia/work/CameraImage/build/CMakeFiles/edit_cache.dir
+/home/nvidia/work/CameraImage/build/CMakeFiles/rebuild_cache.dir
+/home/nvidia/work/CameraImage/build/CMakeFiles/cv_io.dir

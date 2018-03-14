@@ -1,0 +1,5 @@
+<map id="atsc_table_eit" name="atsc_table_eit">
+<area shape="rect" id="node2" href="$structatsc__table__eit__event.html" title="ATSC EIT event table. " alt="" coords="5,95,148,121"/>
+<area shape="rect" id="node3" href="$structdvb__desc.html" title="Linked list containing the several descriptors found on a MPEG&#45;TS table. " alt="" coords="37,5,116,32"/>
+<area shape="rect" id="node4" href="$structdvb__table__header.html" title="Header of a MPEG&#45;TS table. " alt="" coords="225,95,349,121"/>
+</map>

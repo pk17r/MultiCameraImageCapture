@@ -1,0 +1,4 @@
+<map id="dvb_table_pat" name="dvb_table_pat">
+<area shape="rect" id="node2" href="$structdvb__table__pat__program.html" title="MPEG&#45;TS PAT program table. " alt="" coords="5,5,163,32"/>
+<area shape="rect" id="node3" href="$structdvb__table__header.html" title="Header of a MPEG&#45;TS table. " alt="" coords="241,5,365,32"/>
+</map>

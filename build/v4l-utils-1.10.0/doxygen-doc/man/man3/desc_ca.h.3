@@ -1,0 +1,102 @@
+.TH "lib/include/libdvbv5/desc_ca.h" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/include/libdvbv5/desc_ca.h \- Provides the descriptors for Conditional Access\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <libdvbv5/descriptors\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBdvb_desc_ca\fP"
+.br
+.RI "\fIContains the private data for Conditional Access\&. \fP"
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBdvb_desc_ca_field_first\fP"
+.br
+.RI "\fIinitial descriptor field at \fBdvb_desc_ca\fP struct \fP"
+.ti -1c
+.RI "#define \fBdvb_desc_ca_field_last\fP"
+.br
+.RI "\fIlast descriptor field at \fBdvb_desc_ca\fP struct \fP"
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBdvb_desc_ca_init\fP (struct \fBdvb_v5_fe_parms\fP *parms, const uint8_t *buf, struct \fBdvb_desc\fP *desc)"
+.br
+.RI "\fIInitializes and parses the CA descriptor\&. \fP"
+.ti -1c
+.RI "void \fBdvb_desc_ca_print\fP (struct \fBdvb_v5_fe_parms\fP *parms, const struct \fBdvb_desc\fP *desc)"
+.br
+.RI "\fIPrints the content of the CA descriptor\&. \fP"
+.ti -1c
+.RI "void \fBdvb_desc_ca_free\fP (struct \fBdvb_desc\fP *desc)"
+.br
+.RI "\fIFrees all data allocated by the CA descriptor\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides the descriptors for Conditional Access\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+GNU General Public License version 2 (GPLv2) 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Andre Roth
+.RE
+.PP
+\fBRelevant specs\fP
+.RS 4
+The descriptor described herein is defined at:
+.IP "\(bu" 2
+ETSI EN 300 468 V1\&.11\&.1 (2010-04)
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+http://www.etherguidesystems.com/help/sdos/mpeg/semantics/mpeg-2/descriptors/CA_descriptor.aspx
+.RE
+.PP
+\fBBug Report\fP
+.RS 4
+Please submit bug reports and patches to linux-media@vger.kernel.org 
+.RE
+.PP
+
+.PP
+Definition in file \fBdesc_ca\&.h\fP\&.
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define dvb_desc_ca_field_first"
+
+.PP
+initial descriptor field at \fBdvb_desc_ca\fP struct 
+.PP
+Definition at line 78 of file desc_ca\&.h\&.
+.SS "#define dvb_desc_ca_field_last"
+
+.PP
+last descriptor field at \fBdvb_desc_ca\fP struct 
+.PP
+Definition at line 80 of file desc_ca\&.h\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

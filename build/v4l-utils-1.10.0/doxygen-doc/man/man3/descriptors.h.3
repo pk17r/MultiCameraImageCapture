@@ -1,0 +1,153 @@
+.TH "lib/include/libdvbv5/descriptors.h" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/include/libdvbv5/descriptors.h \- Provides a way to handle MPEG-TS descriptors found on Digital TV streams\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <unistd\&.h>\fP
+.br
+\fC#include <stdint\&.h>\fP
+.br
+\fC#include <arpa/inet\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBdvb_desc\fP"
+.br
+.RI "\fILinked list containing the several descriptors found on a MPEG-TS table\&. \fP"
+.ti -1c
+.RI "struct \fBdvb_descriptor\fP"
+.br
+.RI "\fIContains the parser information for the MPEG-TS parser code\&. \fP"
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBDVB_MAX_PAYLOAD_PACKET_SIZE\fP"
+.br
+.RI "\fIMaximum size of a table session to be parsed\&. \fP"
+.ti -1c
+.RI "#define \fBDVB_CRC_SIZE\fP"
+.br
+.RI "\fInumber of bytes for the descriptor's CRC check \fP"
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void(* \fBdvb_table_init_func\fP) (struct \fBdvb_v5_fe_parms\fP *parms, const uint8_t *buf, ssize_t buflen, void **table)"
+.br
+.RI "\fIFunction prototype for a function that initializes the descriptors parsing on a table\&. \fP"
+.ti -1c
+.RI "typedef int(* \fBdvb_desc_init_func\fP) (struct \fBdvb_v5_fe_parms\fP *parms, const uint8_t *buf, struct \fBdvb_desc\fP *desc)"
+.br
+.RI "\fIFunction prototype for the descriptors parsing init code\&. \fP"
+.ti -1c
+.RI "typedef void(* \fBdvb_desc_print_func\fP) (struct \fBdvb_v5_fe_parms\fP *parms, const struct \fBdvb_desc\fP *desc)"
+.br
+.RI "\fIFunction prototype for the descriptors parsing print code\&. \fP"
+.ti -1c
+.RI "typedef void(* \fBdvb_desc_free_func\fP) (struct \fBdvb_desc\fP *desc)"
+.br
+.RI "\fIFunction prototype for the descriptors memory free code\&. \fP"
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBdescriptors\fP { \fBvideo_stream_descriptor\fP, \fBaudio_stream_descriptor\fP, \fBhierarchy_descriptor\fP, \fBregistration_descriptor\fP, \fBds_alignment_descriptor\fP, \fBtarget_background_grid_descriptor\fP, \fBvideo_window_descriptor\fP, \fBconditional_access_descriptor\fP, \fBiso639_language_descriptor\fP, \fBsystem_clock_descriptor\fP, \fBmultiplex_buffer_utilization_descriptor\fP, \fBcopyright_descriptor\fP, \fBmaximum_bitrate_descriptor\fP, \fBprivate_data_indicator_descriptor\fP, \fBsmoothing_buffer_descriptor\fP, \fBstd_descriptor\fP, \fBibp_descriptor\fP, \fBmpeg4_video_descriptor\fP, \fBmpeg4_audio_descriptor\fP, \fBiod_descriptor\fP, \fBsl_descriptor\fP, \fBfmc_descriptor\fP, \fBexternal_es_id_descriptor\fP, \fBmuxcode_descriptor\fP, \fBfmxbuffersize_descriptor\fP, \fBmultiplexbuffer_descriptor\fP, \fBcontent_labeling_descriptor\fP, \fBmetadata_pointer_descriptor\fP, \fBmetadata_descriptor\fP, \fBmetadata_std_descriptor\fP, \fBAVC_video_descriptor\fP, \fBipmp_descriptor\fP, \fBAVC_timing_and_HRD_descriptor\fP, \fBmpeg2_aac_audio_descriptor\fP, \fBflexmux_timing_descriptor\fP, \fBnetwork_name_descriptor\fP, \fBservice_list_descriptor\fP, \fBstuffing_descriptor\fP, \fBsatellite_delivery_system_descriptor\fP, \fBcable_delivery_system_descriptor\fP, \fBVBI_data_descriptor\fP, \fBVBI_teletext_descriptor\fP, \fBbouquet_name_descriptor\fP, \fBservice_descriptor\fP, \fBcountry_availability_descriptor\fP, \fBlinkage_descriptor\fP, \fBNVOD_reference_descriptor\fP, \fBtime_shifted_service_descriptor\fP, \fBshort_event_descriptor\fP, \fBextended_event_descriptor\fP, \fBtime_shifted_event_descriptor\fP, \fBcomponent_descriptor\fP, \fBmosaic_descriptor\fP, \fBstream_identifier_descriptor\fP, \fBCA_identifier_descriptor\fP, \fBcontent_descriptor\fP, \fBparental_rating_descriptor\fP, \fBteletext_descriptor\fP, \fBtelephone_descriptor\fP, \fBlocal_time_offset_descriptor\fP, \fBsubtitling_descriptor\fP, \fBterrestrial_delivery_system_descriptor\fP, \fBmultilingual_network_name_descriptor\fP, \fBmultilingual_bouquet_name_descriptor\fP, \fBmultilingual_service_name_descriptor\fP, \fBmultilingual_component_descriptor\fP, \fBprivate_data_specifier_descriptor\fP, \fBservice_move_descriptor\fP, \fBshort_smoothing_buffer_descriptor\fP, \fBfrequency_list_descriptor\fP, \fBpartial_transport_stream_descriptor\fP, \fBdata_broadcast_descriptor\fP, \fBscrambling_descriptor\fP, \fBdata_broadcast_id_descriptor\fP, \fBtransport_stream_descriptor\fP, \fBDSNG_descriptor\fP, \fBPDC_descriptor\fP, \fBAC_3_descriptor\fP, \fBancillary_data_descriptor\fP, \fBcell_list_descriptor\fP, \fBcell_frequency_link_descriptor\fP, \fBannouncement_support_descriptor\fP, \fBapplication_signalling_descriptor\fP, \fBadaptation_field_data_descriptor\fP, \fBservice_identifier_descriptor\fP, \fBservice_availability_descriptor\fP, \fBdefault_authority_descriptor\fP, \fBrelated_content_descriptor\fP, \fBTVA_id_descriptor\fP, \fBcontent_identifier_descriptor\fP, \fBtime_slice_fec_identifier_descriptor\fP, \fBECM_repetition_rate_descriptor\fP, \fBS2_satellite_delivery_system_descriptor\fP, \fBenhanced_AC_3_descriptor\fP, \fBDTS_descriptor\fP, \fBAAC_descriptor\fP, \fBXAIT_location_descriptor\fP, \fBFTA_content_management_descriptor\fP, \fBextension_descriptor\fP, \fBCUE_identifier_descriptor\fP, \fBextended_channel_name\fP, \fBservice_location\fP, \fBcomponent_name_descriptor\fP, \fBlogical_channel_number_descriptor\fP, \fBcarousel_id_descriptor\fP, \fBassociation_tag_descriptor\fP, \fBdeferred_association_tags_descriptor\fP, \fBhierarchical_transmission_descriptor\fP, \fBdigital_copy_control_descriptor\fP, \fBnetwork_identifier_descriptor\fP, \fBpartial_transport_stream_time_descriptor\fP, \fBaudio_component_descriptor\fP, \fBhyperlink_descriptor\fP, \fBtarget_area_descriptor\fP, \fBdata_contents_descriptor\fP, \fBvideo_decode_control_descriptor\fP, \fBdownload_content_descriptor\fP, \fBCA_EMM_TS_descriptor\fP, \fBCA_contract_information_descriptor\fP, \fBCA_service_descriptor\fP, \fBTS_Information_descriptior\fP, \fBextended_broadcaster_descriptor\fP, \fBlogo_transmission_descriptor\fP, \fBbasic_local_event_descriptor\fP, \fBreference_descriptor\fP, \fBnode_relation_descriptor\fP, \fBshort_node_information_descriptor\fP, \fBSTC_reference_descriptor\fP, \fBseries_descriptor\fP, \fBevent_group_descriptor\fP, \fBSI_parameter_descriptor\fP, \fBbroadcaster_Name_Descriptor\fP, \fBcomponent_group_descriptor\fP, \fBSI_prime_TS_descriptor\fP, \fBboard_information_descriptor\fP, \fBLDT_linkage_descriptor\fP, \fBconnected_transmission_descriptor\fP, \fBcontent_availability_descriptor\fP, \fBservice_group_descriptor\fP, \fBcarousel_compatible_composite_descriptor\fP, \fBconditional_playback_descriptor\fP, \fBISDBT_delivery_system_descriptor\fP, \fBpartial_reception_descriptor\fP, \fBemergency_information_descriptor\fP, \fBdata_component_descriptor\fP, \fBsystem_management_descriptor\fP, \fBatsc_stuffing_descriptor\fP, \fBatsc_ac3_audio_descriptor\fP, \fBatsc_caption_service_descriptor\fP, \fBatsc_content_advisory_descriptor\fP, \fBatsc_extended_channel_descriptor\fP, \fBatsc_service_location_descriptor\fP, \fBatsc_time_shifted_service_descriptor\fP, \fBatsc_component_name_descriptor\fP, \fBatsc_DCC_departing_request_descriptor\fP, \fBatsc_DCC_arriving_request_descriptor\fP, \fBatsc_redistribution_control_descriptor\fP, \fBatsc_ATSC_private_information_descriptor\fP, \fBatsc_genre_descriptor\fP }
+.RI "\fIList containing all descriptors used by Digital TV MPEG-TS\&. \fP""
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "uint32_t \fBdvb_bcd\fP (uint32_t bcd)"
+.br
+.RI "\fIConverts from BCD to CPU integer internal representation\&. \fP"
+.ti -1c
+.RI "void \fBdvb_hexdump\fP (struct \fBdvb_v5_fe_parms\fP *parms, const char *prefix, const unsigned char *buf, int len)"
+.br
+.RI "\fIdumps data into the logs in hexadecimal format \fP"
+.ti -1c
+.RI "int \fBdvb_desc_parse\fP (struct \fBdvb_v5_fe_parms\fP *parms, const uint8_t *buf, uint16_t buflen, struct \fBdvb_desc\fP **head_desc)"
+.br
+.RI "\fIparse MPEG-TS descriptors \fP"
+.ti -1c
+.RI "void \fBdvb_desc_free\fP (struct \fBdvb_desc\fP **list)"
+.br
+.RI "\fIfrees a \fBdvb_desc\fP linked list \fP"
+.ti -1c
+.RI "void \fBdvb_desc_print\fP (struct \fBdvb_v5_fe_parms\fP *parms, struct \fBdvb_desc\fP *desc)"
+.br
+.RI "\fIprints the contents of a struct \fBdvb_desc\fP linked list \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "const \fBdvb_table_init_func\fP \fBdvb_table_initializers\fP [256]"
+.br
+.RI "\fITable with all possible descriptors\&. \fP"
+.ti -1c
+.RI "const struct \fBdvb_descriptor\fP \fBdvb_descriptors\fP []"
+.br
+.RI "\fIContains the parsers for the several descriptors\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides a way to handle MPEG-TS descriptors found on Digital TV streams\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+GNU General Public License version 2 (GPLv2) 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Mauro Carvalho Chehab 
+.PP
+Andre Roth
+.RE
+.PP
+\fBRelevant specs\fP
+.RS 4
+The descriptors herein are defined on the following specs:
+.IP "\(bu" 2
+ISO/IEC 13818-1
+.IP "\(bu" 2
+ETSI EN 300 468 V1\&.11\&.1 (2010-04)
+.IP "\(bu" 2
+SCTE 35 2004
+.IP "\(bu" 2
+http://www.etherguidesystems.com/Help/SDOs/ATSC/Semantics/Descriptors/Default.aspx
+.IP "\(bu" 2
+http://www.coolstf.com/tsreader/descriptors.html
+.IP "\(bu" 2
+ABNT NBR 15603-1 2007
+.IP "\(bu" 2
+ATSC A/65:2009 spec
+.PP
+.RE
+.PP
+\fBBug Report\fP
+.RS 4
+Please submit bug reports and patches to linux-media@vger.kernel.org 
+.RE
+.PP
+
+.PP
+Definition in file \fBdescriptors\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

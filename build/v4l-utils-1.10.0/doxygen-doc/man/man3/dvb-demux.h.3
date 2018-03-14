@@ -1,0 +1,67 @@
+.TH "lib/include/libdvbv5/dvb-demux.h" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/include/libdvbv5/dvb-demux.h \- Provides interfaces to deal with DVB demux\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/dvb/dmx\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBdvb_dmx_open\fP (int adapter, int demux)"
+.br
+.RI "\fIOpens a DVB demux in read/write mode\&. \fP"
+.ti -1c
+.RI "void \fBdvb_dmx_close\fP (int dmx_fd)"
+.br
+.RI "\fIStops the DMX filter for the file descriptor and closes\&. \fP"
+.ti -1c
+.RI "void \fBdvb_dmx_stop\fP (int dmx_fd)"
+.br
+.RI "\fIStops the DMX filter for a given file descriptor\&. \fP"
+.ti -1c
+.RI "int \fBdvb_set_pesfilter\fP (int dmxfd, int pid, dmx_pes_type_t type, dmx_output_t output, int buffersize)"
+.br
+.RI "\fIStart a filter for a MPEG-TS Packetized Elementary Stream (PES) \fP"
+.ti -1c
+.RI "int \fBdvb_set_section_filter\fP (int dmxfd, int pid, unsigned filtsize, unsigned char *filter, unsigned char *mask, unsigned char *mode, unsigned int flags)"
+.br
+.RI "\fISets a MPEG-TS section filter\&. \fP"
+.ti -1c
+.RI "int \fBdvb_get_pmt_pid\fP (int dmxfd, int sid)"
+.br
+.RI "\fIread the contents of the MPEG-TS PAT table, seeking for an specific service ID \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides interfaces to deal with DVB demux\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+GNU General Public License version 2 (GPLv2) 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Mauro Carvalho Chehab
+.RE
+.PP
+\fBBug Report\fP
+.RS 4
+Please submit bug reports and patches to linux-media@vger.kernel.org 
+.RE
+.PP
+
+.PP
+Definition in file \fBdvb\-demux\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

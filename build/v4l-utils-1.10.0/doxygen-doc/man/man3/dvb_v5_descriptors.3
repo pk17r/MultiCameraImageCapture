@@ -1,0 +1,116 @@
+.TH "dvb_v5_descriptors" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_v5_descriptors \- Contains the descriptors needed to scan the Service ID and other relevant info at a MPEG-TS Digital TV stream\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <dvb\-scan\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint32_t \fBdelivery_system\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_entry\fP * \fBentry\fP"
+.br
+.ti -1c
+.RI "unsigned \fBnum_entry\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_table_pat\fP * \fBpat\fP"
+.br
+.ti -1c
+.RI "struct \fBatsc_table_vct\fP * \fBvct\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_v5_descriptors_program\fP * \fBprogram\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_table_nit\fP * \fBnit\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_table_sdt\fP * \fBsdt\fP"
+.br
+.ti -1c
+.RI "unsigned \fBnum_program\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Contains the descriptors needed to scan the Service ID and other relevant info at a MPEG-TS Digital TV stream\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdelivery_system\fP Delivery system of the parsed MPEG-TS 
+.br
+\fIentry\fP struct \fBdvb_entry\fP pointer (see \fBdvb-file\&.h\fP) 
+.br
+\fIpat\fP PAT table descriptor pointer 
+.br
+\fIvct\fP VCT table descriptor pointer 
+.br
+\fIprogram\fP PAT/PMT array associated programs found at MPEG-TS 
+.br
+\fInit\fP NIT table descriptor pointer 
+.br
+\fIsdt\fP SDT table descriptor pointer 
+.br
+\fInum_program\fP Number of program entries at program array\&.
+.RE
+.PP
+Those descriptors are filled by the scan routines when the tables are found\&. Otherwise, they're NULL\&. 
+.PP
+\fBExamples: \fP
+.in +1c
+\fBdvbv5\-scan\&.c\fP\&.
+.PP
+Definition at line 78 of file dvb\-scan\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "uint32_t dvb_v5_descriptors::delivery_system"
+
+.PP
+Definition at line 79 of file dvb\-scan\&.h\&.
+.SS "struct \fBdvb_entry\fP* dvb_v5_descriptors::entry"
+
+.PP
+Definition at line 81 of file dvb\-scan\&.h\&.
+.SS "struct \fBdvb_table_nit\fP* dvb_v5_descriptors::nit"
+
+.PP
+Definition at line 87 of file dvb\-scan\&.h\&.
+.SS "unsigned dvb_v5_descriptors::num_entry"
+
+.PP
+Definition at line 82 of file dvb\-scan\&.h\&.
+.SS "unsigned dvb_v5_descriptors::num_program"
+
+.PP
+Definition at line 90 of file dvb\-scan\&.h\&.
+.SS "struct \fBdvb_table_pat\fP* dvb_v5_descriptors::pat"
+
+.PP
+Definition at line 84 of file dvb\-scan\&.h\&.
+.SS "struct \fBdvb_v5_descriptors_program\fP* dvb_v5_descriptors::program"
+
+.PP
+Definition at line 86 of file dvb\-scan\&.h\&.
+.SS "struct \fBdvb_table_sdt\fP* dvb_v5_descriptors::sdt"
+
+.PP
+Definition at line 88 of file dvb\-scan\&.h\&.
+.SS "struct \fBatsc_table_vct\fP* dvb_v5_descriptors::vct"
+
+.PP
+Definition at line 85 of file dvb\-scan\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

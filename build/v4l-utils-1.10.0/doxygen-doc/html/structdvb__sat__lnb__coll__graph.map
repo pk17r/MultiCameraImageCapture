@@ -1,0 +1,3 @@
+<map id="dvb_sat_lnb" name="dvb_sat_lnb">
+<area shape="rect" id="node2" href="$structdvbsat__freqrange.html" title="Defines a frequency range used by Satellite. " alt="" coords="5,5,128,32"/>
+</map>

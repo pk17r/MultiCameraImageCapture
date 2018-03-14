@@ -1,0 +1,137 @@
+.TH "dvb_table_sdt_service" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_table_sdt_service \- MPEG-TS SDT service table\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <sdt\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint16_t \fBservice_id\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBEIT_present_following\fP:1"
+.br
+.ti -1c
+.RI "uint8_t \fBEIT_schedule\fP:1"
+.br
+.ti -1c
+.RI "uint8_t \fBreserved\fP:6"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint16_t \fBbitfield\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      uint16_t \fBdesc_length\fP:12"
+.br
+.ti -1c
+.RI "      uint16_t \fBfree_CA_mode\fP:1"
+.br
+.ti -1c
+.RI "      uint16_t \fBrunning_status\fP:3"
+.br
+.ti -1c
+.RI "   } "
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "struct \fBdvb_desc\fP * \fBdescriptor\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_table_sdt_service\fP * \fBnext\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+MPEG-TS SDT service table\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fIservice_id\fP service id 
+.br
+\fIEIT_present_following\fP EIT present following 
+.br
+\fIEIT_schedule\fP EIT schedule 
+.br
+\fIdesc_length\fP desc length 
+.br
+\fIfree_CA_mode\fP free CA mode 
+.br
+\fIrunning_status\fP running status 
+.br
+\fIdescriptor\fP pointer to struct \fBdvb_desc\fP 
+.br
+\fInext\fP pointer to struct \fBdvb_table_sdt_service\fP
+.RE
+.PP
+This structure is used to store the original SDT service table, converting the integer fields to the CPU endianness\&.
+.PP
+The undocumented parameters are used only internally by the API and/or are fields that are reserved\&. They shouldn't be used, as they may change on future API releases\&.
+.PP
+Everything after \fBdvb_table_sdt_service::descriptor\fP (including it) won't be bit-mapped to the data parsed from the MPEG TS\&. So, metadata are added there\&. 
+.PP
+Definition at line 88 of file sdt\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "union { \&.\&.\&. } "
+
+.SS "uint16_t dvb_table_sdt_service::bitfield"
+
+.PP
+Definition at line 94 of file sdt\&.h\&.
+.SS "uint16_t dvb_table_sdt_service::desc_length"
+
+.PP
+Definition at line 96 of file sdt\&.h\&.
+.SS "struct \fBdvb_desc\fP* dvb_table_sdt_service::descriptor"
+
+.PP
+Definition at line 101 of file sdt\&.h\&.
+.SS "uint8_t dvb_table_sdt_service::EIT_present_following"
+
+.PP
+Definition at line 90 of file sdt\&.h\&.
+.SS "uint8_t dvb_table_sdt_service::EIT_schedule"
+
+.PP
+Definition at line 91 of file sdt\&.h\&.
+.SS "uint16_t dvb_table_sdt_service::free_CA_mode"
+
+.PP
+Definition at line 97 of file sdt\&.h\&.
+.SS "struct \fBdvb_table_sdt_service\fP* dvb_table_sdt_service::next"
+
+.PP
+Definition at line 102 of file sdt\&.h\&.
+.SS "uint8_t dvb_table_sdt_service::reserved"
+
+.PP
+Definition at line 92 of file sdt\&.h\&.
+.SS "uint16_t dvb_table_sdt_service::running_status"
+
+.PP
+Definition at line 98 of file sdt\&.h\&.
+.SS "uint16_t dvb_table_sdt_service::service_id"
+
+.PP
+Definition at line 89 of file sdt\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

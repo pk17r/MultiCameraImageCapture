@@ -1,0 +1,105 @@
+.TH "dvb_desc_event_short" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_desc_event_short \- Structure containing the short event descriptor\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <desc_event_short\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBtype\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBlength\fP"
+.br
+.ti -1c
+.RI "struct \fBdvb_desc\fP * \fBnext\fP"
+.br
+.ti -1c
+.RI "unsigned char \fBlanguage\fP [4]"
+.br
+.ti -1c
+.RI "char * \fBname\fP"
+.br
+.ti -1c
+.RI "char * \fBname_emph\fP"
+.br
+.ti -1c
+.RI "char * \fBtext\fP"
+.br
+.ti -1c
+.RI "char * \fBtext_emph\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure containing the short event descriptor\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fItype\fP descriptor tag 
+.br
+\fIlength\fP descriptor length 
+.br
+\fInext\fP pointer to struct \fBdvb_desc\fP 
+.br
+\fIlanguage\fP ISO 639 language code 
+.br
+\fIname\fP event name string 
+.br
+\fIname_emph\fP event name emphasis string 
+.br
+\fItext\fP event text string 
+.br
+\fItext_emph\fP event text emphasis string
+.RE
+.PP
+The emphasis text is the one that uses asterisks\&. For example, in the text: 'the quick *fox* jumps over the lazy table' the emphasis would be 'fox'\&. 
+.PP
+Definition at line 61 of file desc_event_short\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "unsigned char dvb_desc_event_short::language[4]"
+
+.PP
+Definition at line 66 of file desc_event_short\&.h\&.
+.SS "uint8_t dvb_desc_event_short::length"
+
+.PP
+Definition at line 63 of file desc_event_short\&.h\&.
+.SS "char* dvb_desc_event_short::name"
+
+.PP
+Definition at line 67 of file desc_event_short\&.h\&.
+.SS "char* dvb_desc_event_short::name_emph"
+
+.PP
+Definition at line 68 of file desc_event_short\&.h\&.
+.SS "struct \fBdvb_desc\fP* dvb_desc_event_short::next"
+
+.PP
+Definition at line 64 of file desc_event_short\&.h\&.
+.SS "char* dvb_desc_event_short::text"
+
+.PP
+Definition at line 69 of file desc_event_short\&.h\&.
+.SS "char* dvb_desc_event_short::text_emph"
+
+.PP
+Definition at line 70 of file desc_event_short\&.h\&.
+.SS "uint8_t dvb_desc_event_short::type"
+
+.PP
+Definition at line 62 of file desc_event_short\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.

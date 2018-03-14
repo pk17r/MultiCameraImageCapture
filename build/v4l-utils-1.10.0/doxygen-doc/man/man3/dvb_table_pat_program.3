@@ -1,0 +1,92 @@
+.TH "dvb_table_pat_program" 3 "Sun Jan 24 2016" "Version 1.10.0" "libdvbv5" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dvb_table_pat_program \- MPEG-TS PAT program table\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <pat\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint16_t \fBservice_id\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint16_t \fBbitfield\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      uint16_t \fBpid\fP:13"
+.br
+.ti -1c
+.RI "      uint8_t \fBreserved\fP:3"
+.br
+.ti -1c
+.RI "   } "
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "struct \fBdvb_table_pat_program\fP * \fBnext\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+MPEG-TS PAT program table\&. 
+
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fIservice_id\fP service id 
+.br
+\fIpid\fP pid 
+.br
+\fInext\fP pointer to struct \fBdvb_table_pat_program\fP
+.RE
+.PP
+This structure is used to store the original PAT program table, converting the integer fields to the CPU endianness\&.
+.PP
+The undocumented parameters are used only internally by the API and/or are fields that are reserved\&. They shouldn't be used, as they may change on future API releases\&.
+.PP
+Everything after \fBdvb_table_pat_program::next\fP (including it) won't be bit-mapped to the data parsed from the MPEG TS\&. So, metadata are added there\&. 
+.PP
+Definition at line 78 of file pat\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "union { \&.\&.\&. } "
+
+.SS "uint16_t dvb_table_pat_program::bitfield"
+
+.PP
+Definition at line 81 of file pat\&.h\&.
+.SS "struct \fBdvb_table_pat_program\fP* dvb_table_pat_program::next"
+
+.PP
+Definition at line 87 of file pat\&.h\&.
+.SS "uint16_t dvb_table_pat_program::pid"
+
+.PP
+Definition at line 83 of file pat\&.h\&.
+.SS "uint8_t dvb_table_pat_program::reserved"
+
+.PP
+Definition at line 84 of file pat\&.h\&.
+.SS "uint16_t dvb_table_pat_program::service_id"
+
+.PP
+Definition at line 79 of file pat\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libdvbv5 from the source code\&.
