@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nvidia/work/CameraImage
+CMAKE_SOURCE_DIR = /home/pkr/pkr-work/MultiBaselineStereo
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nvidia/work/CameraImage/build
+CMAKE_BINARY_DIR = /home/pkr/pkr-work/MultiBaselineStereo/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/cv_io.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/cv_io.dir/flags.make
 
 CMakeFiles/cv_io.dir/io.cpp.o: CMakeFiles/cv_io.dir/flags.make
 CMakeFiles/cv_io.dir/io.cpp.o: ../io.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nvidia/work/CameraImage/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cv_io.dir/io.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cv_io.dir/io.cpp.o -c /home/nvidia/work/CameraImage/io.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cv_io.dir/io.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cv_io.dir/io.cpp.o -c /home/pkr/pkr-work/MultiBaselineStereo/io.cpp
 
 CMakeFiles/cv_io.dir/io.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cv_io.dir/io.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nvidia/work/CameraImage/io.cpp > CMakeFiles/cv_io.dir/io.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pkr/pkr-work/MultiBaselineStereo/io.cpp > CMakeFiles/cv_io.dir/io.cpp.i
 
 CMakeFiles/cv_io.dir/io.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cv_io.dir/io.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nvidia/work/CameraImage/io.cpp -o CMakeFiles/cv_io.dir/io.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pkr/pkr-work/MultiBaselineStereo/io.cpp -o CMakeFiles/cv_io.dir/io.cpp.s
 
 CMakeFiles/cv_io.dir/io.cpp.o.requires:
 
@@ -90,31 +90,48 @@ cv_io_EXTERNAL_OBJECTS =
 
 cv_io: CMakeFiles/cv_io.dir/io.cpp.o
 cv_io: CMakeFiles/cv_io.dir/build.make
-cv_io: /usr/lib/libopencv_vstab.so.2.4.13
-cv_io: /usr/lib/libopencv_imuvstab.so.2.4.13
-cv_io: /usr/lib/libopencv_facedetect.so.2.4.13
-cv_io: /usr/lib/libopencv_esm_panorama.so.2.4.13
-cv_io: /usr/lib/libopencv_detection_based_tracker.so.2.4.13
-cv_io: /usr/lib/libopencv_videostab.so.2.4.13
-cv_io: /usr/lib/libopencv_ts.a
-cv_io: /usr/lib/libopencv_superres.so.2.4.13
-cv_io: /usr/lib/libopencv_contrib.so.2.4.13
-cv_io: /usr/lib/libopencv_tegra.so.2.4.13
-cv_io: /usr/lib/libopencv_stitching.so.2.4.13
-cv_io: /usr/lib/libopencv_gpu.so.2.4.13
-cv_io: /usr/lib/libopencv_photo.so.2.4.13
-cv_io: /usr/lib/libopencv_legacy.so.2.4.13
-cv_io: /usr/lib/libopencv_video.so.2.4.13
-cv_io: /usr/lib/libopencv_objdetect.so.2.4.13
-cv_io: /usr/lib/libopencv_ml.so.2.4.13
-cv_io: /usr/lib/libopencv_calib3d.so.2.4.13
-cv_io: /usr/lib/libopencv_features2d.so.2.4.13
-cv_io: /usr/lib/libopencv_highgui.so.2.4.13
-cv_io: /usr/lib/libopencv_imgproc.so.2.4.13
-cv_io: /usr/lib/libopencv_flann.so.2.4.13
-cv_io: /usr/lib/libopencv_core.so.2.4.13
+cv_io: /home/pkr/miniconda3/lib/libopencv_xphoto.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_xobjdetect.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_tracking.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_surface_matching.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_structured_light.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_stereo.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_saliency.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_rgbd.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_reg.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_plot.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_optflow.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_line_descriptor.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_fuzzy.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_dpm.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_dnn.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_datasets.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_ccalib.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_bioinspired.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_bgsegm.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_aruco.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_videostab.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_superres.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_stitching.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_photo.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_text.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_face.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_ximgproc.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_xfeatures2d.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_shape.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_video.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_objdetect.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_calib3d.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_features2d.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_ml.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_highgui.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_videoio.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_imgcodecs.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_imgproc.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_flann.so.3.1.0
+cv_io: /home/pkr/miniconda3/lib/libopencv_core.so.3.1.0
 cv_io: CMakeFiles/cv_io.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nvidia/work/CameraImage/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable cv_io"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable cv_io"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cv_io.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -131,6 +148,6 @@ CMakeFiles/cv_io.dir/clean:
 .PHONY : CMakeFiles/cv_io.dir/clean
 
 CMakeFiles/cv_io.dir/depend:
-	cd /home/nvidia/work/CameraImage/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nvidia/work/CameraImage /home/nvidia/work/CameraImage /home/nvidia/work/CameraImage/build /home/nvidia/work/CameraImage/build /home/nvidia/work/CameraImage/build/CMakeFiles/cv_io.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/pkr/pkr-work/MultiBaselineStereo/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pkr/pkr-work/MultiBaselineStereo /home/pkr/pkr-work/MultiBaselineStereo /home/pkr/pkr-work/MultiBaselineStereo/build /home/pkr/pkr-work/MultiBaselineStereo/build /home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles/cv_io.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/cv_io.dir/depend
 

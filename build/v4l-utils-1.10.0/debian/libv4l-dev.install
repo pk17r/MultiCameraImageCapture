@@ -1,4 +1,0 @@
-usr/include/libv4l*
-usr/lib/*/libv4l*.so
-usr/lib/*/libv4l*.a
-usr/lib/*/pkgconfig/libv4l*

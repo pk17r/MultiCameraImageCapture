@@ -1,5 +1,0 @@
-<map id="dvb_ext_descriptor" name="dvb_ext_descriptor">
-<area shape="rect" id="node2" href="$structdvb__v5__fe__parms.html" title="Keeps data needed to handle the DVB frontend. " alt="" coords="9,184,134,211"/>
-<area shape="rect" id="node3" href="$structdvb__sat__lnb.html" title="Stores the information of a LNBf. " alt="" coords="25,95,117,121"/>
-<area shape="rect" id="node4" href="$structdvbsat__freqrange.html" title="Defines a frequency range used by Satellite. " alt="" coords="10,5,133,32"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="dvb_descriptor" name="dvb_descriptor">
-<area shape="rect" id="node2" href="$structdvb__v5__fe__parms.html" title="Keeps data needed to handle the DVB frontend. " alt="" coords="5,184,131,211"/>
-<area shape="rect" id="node3" href="$structdvb__sat__lnb.html" title="Stores the information of a LNBf. " alt="" coords="22,95,114,121"/>
-<area shape="rect" id="node4" href="$structdvbsat__freqrange.html" title="Defines a frequency range used by Satellite. " alt="" coords="7,5,129,32"/>
-<area shape="rect" id="node5" href="$structdvb__desc.html" title="Linked list containing the several descriptors found on a MPEG&#45;TS table. " alt="" coords="155,184,234,211"/>
-</map>

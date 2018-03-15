@@ -1,5 +1,0 @@
-<map id="dvb_table_eit" name="dvb_table_eit">
-<area shape="rect" id="node2" href="$structdvb__table__eit__event.html" title="DVB EIT event table. " alt="" coords="5,95,144,121"/>
-<area shape="rect" id="node3" href="$structdvb__desc.html" title="Linked list containing the several descriptors found on a MPEG&#45;TS table. " alt="" coords="35,5,114,32"/>
-<area shape="rect" id="node4" href="$structdvb__table__header.html" title="Header of a MPEG&#45;TS table. " alt="" coords="222,95,346,121"/>
-</map>

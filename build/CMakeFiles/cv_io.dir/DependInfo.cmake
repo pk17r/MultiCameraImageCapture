@@ -4,13 +4,14 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/nvidia/work/CameraImage/io.cpp" "/home/nvidia/work/CameraImage/build/CMakeFiles/cv_io.dir/io.cpp.o"
+  "/home/pkr/pkr-work/MultiBaselineStereo/io.cpp" "/home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles/cv_io.dir/io.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/usr/include/opencv"
+  "/home/pkr/miniconda3/include/opencv"
+  "/home/pkr/miniconda3/include"
   )
 
 # Targets to which this target links.

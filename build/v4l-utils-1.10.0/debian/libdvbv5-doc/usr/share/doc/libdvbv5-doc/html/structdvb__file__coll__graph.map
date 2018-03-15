@@ -1,4 +1,0 @@
-<map id="dvb_file" name="dvb_file">
-<area shape="rect" id="node2" href="$structdvb__entry.html" title="Represents one entry on a DTV file. " alt="" coords="35,95,114,121"/>
-<area shape="rect" id="node3" href="$structdvb__elementary__pid.html" title="associates an elementary stream type with its PID " alt="" coords="5,5,144,32"/>
-</map>

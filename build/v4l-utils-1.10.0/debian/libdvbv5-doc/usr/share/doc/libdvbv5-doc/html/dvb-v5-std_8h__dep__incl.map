@@ -1,6 +1,0 @@
-<map id="lib/include/libdvbv5/dvb&#45;v5&#45;std.h" name="lib/include/libdvbv5/dvb&#45;v5&#45;std.h">
-<area shape="rect" id="node2" href="$dvb-sat_8h.html" title="Provides interfaces to deal with DVB Satellite systems. " alt="" coords="83,95,215,136"/>
-<area shape="rect" id="node3" href="$dvb-fe_8h.html" title="Provides interfaces to deal with DVB frontend. " alt="" coords="5,184,137,225"/>
-<area shape="rect" id="node5" href="$dvb-scan_8h.html" title="Provides interfaces to scan programs inside MPEG&#45;TS digital TV streams. " alt="" coords="161,184,293,225"/>
-<area shape="rect" id="node4" href="$dvb-file_8h.html" title="Provides interfaces to deal with DVB channel and program files. " alt="" coords="5,273,137,315"/>
-</map>

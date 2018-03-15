@@ -1,5 +1,0 @@
-<map id="atsc_table_mgt" name="atsc_table_mgt">
-<area shape="rect" id="node2" href="$structatsc__table__mgt__table.html" title="ATSC tables descrition at MGT table. " alt="" coords="85,95,231,121"/>
-<area shape="rect" id="node3" href="$structdvb__desc.html" title="Linked list containing the several descriptors found on a MPEG&#45;TS table. " alt="" coords="11,5,89,32"/>
-<area shape="rect" id="node4" href="$structdvb__table__header.html" title="Header of a MPEG&#45;TS table. " alt="" coords="309,95,433,121"/>
-</map>

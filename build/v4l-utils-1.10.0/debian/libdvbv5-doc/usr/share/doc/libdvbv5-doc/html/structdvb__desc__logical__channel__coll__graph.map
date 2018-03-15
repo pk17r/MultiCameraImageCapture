@@ -1,4 +1,0 @@
-<map id="dvb_desc_logical_channel" name="dvb_desc_logical_channel">
-<area shape="rect" id="node2" href="$structdvb__desc__logical__channel__number.html" title="Structure containing the logical channel number entires. " alt="" coords="5,5,180,47"/>
-<area shape="rect" id="node3" href="$structdvb__desc.html" title="Linked list containing the several descriptors found on a MPEG&#45;TS table. " alt="" coords="204,13,283,39"/>
-</map>

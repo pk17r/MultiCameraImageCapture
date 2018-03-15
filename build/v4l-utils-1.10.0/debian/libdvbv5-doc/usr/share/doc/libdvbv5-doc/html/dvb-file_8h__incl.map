@@ -1,6 +1,0 @@
-<map id="lib/include/libdvbv5/dvb&#45;file.h" name="lib/include/libdvbv5/dvb&#45;file.h">
-<area shape="rect" id="node2" href="$dvb-fe_8h.html" title="Provides interfaces to deal with DVB frontend. " alt="" coords="523,95,592,121"/>
-<area shape="rect" id="node13" href="$dvb-sat_8h.html" title="Provides interfaces to deal with DVB Satellite systems. " alt="" coords="911,169,987,196"/>
-<area shape="rect" id="node16" href="$dvb-log_8h.html" title="Provides interfaces to handle libdvbv5 log messages. " alt="" coords="1020,169,1095,196"/>
-<area shape="rect" id="node14" href="$dvb-v5-std_8h.html" title="Provides libdvbv5 defined properties for the frontend. " alt="" coords="906,244,1001,271"/>
-</map>

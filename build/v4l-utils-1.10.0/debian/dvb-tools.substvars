@@ -1,1 +1,0 @@
-shlibs:Depends=libc6 (>= 2.17), libdvbv5-0 (>= 1.8.0)

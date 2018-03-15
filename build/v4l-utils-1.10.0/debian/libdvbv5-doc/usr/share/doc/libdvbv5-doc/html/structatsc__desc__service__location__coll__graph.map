@@ -1,4 +1,0 @@
-<map id="atsc_desc_service_location" name="atsc_desc_service_location">
-<area shape="rect" id="node2" href="$structatsc__desc__service__location__elementary.html" title="service location elementary descriptors " alt="" coords="5,5,188,47"/>
-<area shape="rect" id="node3" href="$structdvb__desc.html" title="Linked list containing the several descriptors found on a MPEG&#45;TS table. " alt="" coords="212,13,291,39"/>
-</map>

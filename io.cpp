@@ -58,9 +58,9 @@ int main()
     char keypressed;
  
     //Opens the first imaging device.
-    cap1.open(0);
-    cap2.open(1);
-    cap3.open(2);
+    cap1.open(1);
+    cap2.open(2);
+    cap3.open(3);
  
     //Check whether user selected camera is opened successfully.
     if(!cap1.isOpened() || !cap2.isOpened() || !cap3.isOpened())
@@ -83,7 +83,7 @@ int main()
     printf("Cam1: FPS: %d, Format:  %d \n", fps, format);
     
     cap1.set(CV_CAP_PROP_FRAME_WIDTH,1280);
-    cap1.set(CV_CAP_PROP_FRAME_HEIGHT,720);
+    cap1.set(CV_CAP_PROP_FRAME_HEIGHT,960);
     cap2.set(CV_CAP_PROP_FRAME_WIDTH,1280);
     cap2.set(CV_CAP_PROP_FRAME_HEIGHT,960);
     cap3.set(CV_CAP_PROP_FRAME_WIDTH,1280);
