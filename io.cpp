@@ -83,7 +83,7 @@ int main()
     printf("Cam1: FPS: %d, Format:  %d \n", fps, format);
     
     cap1.set(CV_CAP_PROP_FRAME_WIDTH,1280);
-    cap1.set(CV_CAP_PROP_FRAME_HEIGHT,960);
+    cap1.set(CV_CAP_PROP_FRAME_HEIGHT,720);
     cap2.set(CV_CAP_PROP_FRAME_WIDTH,1280);
     cap2.set(CV_CAP_PROP_FRAME_HEIGHT,960);
     cap3.set(CV_CAP_PROP_FRAME_WIDTH,1280);
