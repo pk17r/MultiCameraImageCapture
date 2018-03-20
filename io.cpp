@@ -56,6 +56,8 @@ int main()
     VideoCapture cap2;
     VideoCapture cap3;
     char keypressed;
+
+    cout<<"OpenCV version: " << CV_MAJOR_VERSION << "." << CV_MINOR_VERSION << endl;
  
     //Opens the first imaging device.
     cap1.open(1);
@@ -63,7 +65,7 @@ int main()
     cap3.open(3);
  
     //Check whether user selected camera is opened successfully.
-    if(!cap1.isOpened() || !cap2.isOpened() || !cap3.isOpened())
+    /*if(!cap1.isOpened() || !cap2.isOpened() || !cap3.isOpened())
     {
 	cout << "***Could not initialize capturing...***\n";
 	if(!cap1.isOpened())
@@ -75,7 +77,7 @@ int main()
 	return -1;
     }
     else
-	cout << "All cameras initialized.\n";
+	cout << "All cameras initialized.\n";*/
 
     //get the property of video capture
     int fps = cap1.get(CV_CAP_PROP_FPS);
