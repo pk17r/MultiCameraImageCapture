@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -isystem /home/pkr/miniconda3/include/opencv -isystem /home/pkr/miniconda3/include 
+CXX_INCLUDES = -isystem /usr/include/opencv 
 

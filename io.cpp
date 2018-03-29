@@ -9,8 +9,40 @@
 #include <string>
 #include <sstream>
 
+//#include "seecam_10cug_bayer.h"
+//#include "QStringList"
+
+#define SEECAM_10CUG_BAYER_H
+#include "uvccamera.h"
+
+class See3CAM_10CUG_Bayer: public QObject {
+    Q_OBJECT
+private:
+    See3CAM_ModeControls modeControl;
+
+public slots:
+    /**
+     * @brief Enable Master Mode
+     * Enable the camera in master mode
+     * @return
+     * true - Master mode is enabled successfully,
+     * false - Master mode enabling failed
+     */
+    bool enableMasterMode();
+
+    /**
+     * @brief Enable Trigger Mode
+     * @return
+     * true - Trigger mode is enabled successfully,
+     * false - Trigger mode enabling failed
+     */
+    bool enableTriggerMode();
+};
+
 using namespace cv;
 using namespace std;
+
+#define allCameras false
 
 string type2str(int type)
 {
@@ -43,41 +75,78 @@ string IntToString(int a)
     return temp.str();
 }
 
+//Modified by Dhurka - Braces alignment - 14th Oct 2016
+bool See3CAM_ModeControls::enableTriggerMode()
+{
+    int ret =0;
+
+    if(uvccamera::hid_fd < 0)
+    {
+        return false;
+    }
+    //Initialize the buffer
+    memset(g_out_packet_buf, 0x00, sizeof(g_out_packet_buf));
+
+    //Set the Report Number
+    g_out_packet_buf[1] = ENABLETRIGGERMODE; /* Report Number */
+
+    ret = write(uvccamera::hid_fd, g_out_packet_buf, BUFFER_LENGTH);
+    if (ret < 0) {
+        perror("write");
+        return false;
+    }
+    return true;
+}
 
 int main()
 {
-    Mat CameraFrame1, CameraFrame2, CameraFrame3;
-    Mat Grey1, Grey2, Grey3;
+    Mat CameraFrame1, Grey1, CameraFrame2, CameraFrame3, Grey2, Grey3;
     Mat* GreyPtr1 = &Grey1;
     Mat* GreyPtr2 = &Grey2;
-    Mat* GreyPtr3 = &Grey3;
- 
-    VideoCapture cap1;
-    VideoCapture cap2;
-    VideoCapture cap3;
+	Mat* GreyPtr3 = &Grey3;
+	VideoCapture cap1, cap2, cap3;
+    
     char keypressed;
 
     cout<<"OpenCV version: " << CV_MAJOR_VERSION << "." << CV_MINOR_VERSION << endl;
+    
+    See3CAM_ModeControls a;
+    bool set_trigger = a.enableTriggerMode();
+    cout << "Trigger mode set: " << set_trigger << endl;
  
     //Opens the first imaging device.
     cap1.open(1);
-    cap2.open(2);
-    cap3.open(3);
- 
-    //Check whether user selected camera is opened successfully.
-    /*if(!cap1.isOpened() || !cap2.isOpened() || !cap3.isOpened())
+    if(allCameras)
     {
-	cout << "***Could not initialize capturing...***\n";
-	if(!cap1.isOpened())
-		cout << "***Cam1 not initialized...***\n";
-	if(!cap2.isOpened())
-		cout << "***Cam2 not initialized...***\n";
-	if(!cap3.isOpened())
-		cout << "***Cam3 not initialized...***\n";
-	return -1;
+		cap2.open(2);
+		cap3.open(3);
+		//Check whether user selected camera is opened successfully.
+		if(!cap1.isOpened() || !cap2.isOpened() || !cap3.isOpened())
+		{
+			cout << "***Could not initialize capturing...***\n";
+			if(!cap1.isOpened())
+			cout << "***Cam1 not initialized...***\n";
+			if(!cap2.isOpened())
+			cout << "***Cam2 not initialized...***\n";
+			if(!cap3.isOpened())
+			cout << "***Cam3 not initialized...***\n";
+			return -1;
+		}
+		else
+			cout << "All cameras initialized.\n";
     }
     else
-	cout << "All cameras initialized.\n";*/
+    {
+		//Check whether user selected camera is opened successfully.
+		if(!cap1.isOpened())
+		{
+			cout << "***Could not initialize capturing...***\n";
+			cout << "***Cam1 not initialized...***\n";
+			return -1;
+		}
+		else
+			cout << "Camera 1 initialized.\n";
+    }
 
     //get the property of video capture
     int fps = cap1.get(CV_CAP_PROP_FPS);
@@ -86,27 +155,36 @@ int main()
     
     cap1.set(CV_CAP_PROP_FRAME_WIDTH,1280);
     cap1.set(CV_CAP_PROP_FRAME_HEIGHT,960);
-    cap2.set(CV_CAP_PROP_FRAME_WIDTH,1280);
-    cap2.set(CV_CAP_PROP_FRAME_HEIGHT,960);
-    cap3.set(CV_CAP_PROP_FRAME_WIDTH,1280);
-    cap3.set(CV_CAP_PROP_FRAME_HEIGHT,960);
+    if(allCameras)
+    {
+        cap2.set(CV_CAP_PROP_FRAME_WIDTH,1280);
+        cap2.set(CV_CAP_PROP_FRAME_HEIGHT,960);
+        cap3.set(CV_CAP_PROP_FRAME_WIDTH,1280);
+        cap3.set(CV_CAP_PROP_FRAME_HEIGHT,960);
+    }
 
     //test code to know details of cameraFrame
     cap1 >> CameraFrame1;
-    cap2 >> CameraFrame2;
-    cap3 >> CameraFrame3;
     string ty1 =  type2str( CameraFrame1.type() );
-    string ty2 =  type2str( CameraFrame2.type() );
-    string ty3 =  type2str( CameraFrame3.type() );
     printf("Matrix1: %s %dx%d \n", ty1.c_str(), CameraFrame1.cols, CameraFrame1.rows);
-    printf("Matrix2: %s %dx%d \n", ty2.c_str(), CameraFrame2.cols, CameraFrame2.rows);
-    printf("Matrix3: %s %dx%d \n", ty3.c_str(), CameraFrame3.cols, CameraFrame3.rows);
- 
+    if(allCameras)
+    {
+		cap2 >> CameraFrame2;
+		cap3 >> CameraFrame3;
+		string ty2 =  type2str( CameraFrame2.type() );
+		string ty3 =  type2str( CameraFrame3.type() );
+		printf("Matrix2: %s %dx%d \n", ty2.c_str(), CameraFrame2.cols, CameraFrame2.rows);
+		printf("Matrix3: %s %dx%d \n", ty3.c_str(), CameraFrame3.cols, CameraFrame3.rows);
+    }
+
     //Create a windows to display camera preview.
     //namedWindow("RawBayer", CV_WINDOW_AUTOSIZE);
     namedWindow("Cam1", CV_WINDOW_AUTOSIZE);
-    namedWindow("Cam2", CV_WINDOW_AUTOSIZE);
-    namedWindow("Cam3", CV_WINDOW_AUTOSIZE);
+    if(allCameras)
+    {
+		namedWindow("Cam2", CV_WINDOW_AUTOSIZE);
+		namedWindow("Cam3", CV_WINDOW_AUTOSIZE);
+    }
 
     time_t nowTime, lastTime;
     double timeGap;
@@ -126,65 +204,87 @@ int main()
     //Loop infinitely to fetch frame from camera and display it.
     for(;;)
     {
-	time(&nowTime);
-	timeGap = difftime(nowTime,lastTime);
-	if(timeGap >= reqdTimeGap)
-	{
-		lastTime = nowTime;
-		//int fps = cap.get(CV_CAP_PROP_FPS);
-		//int format = cap.get(CV_CAP_PROP_FORMAT);
-		//printf("FPS: %d, Format:  %d \n", fps, format);
-		
-		//Fetch frame from camera. So simple, isn't;-)
-		cap1 >> CameraFrame1;
-		cap2 >> CameraFrame2;
-		cap3 >> CameraFrame3;
-		//cap1.read(CameraFrame1);
-		//cap2.read(CameraFrame2);
-
-		//Check whether received frame has valid pointer.
-		if( CameraFrame1.empty() || CameraFrame2.empty() || CameraFrame3.empty() )
-		    break;
-	 
-		cvtColor(CameraFrame1, Grey1, CV_RGB2GRAY); 
-		cvtColor(CameraFrame2, Grey2, CV_RGB2GRAY);
-		cvtColor(CameraFrame3, Grey3, CV_RGB2GRAY);
-		//imdecode(CameraFrame1, CV_LOAD_IMAGE_COLOR, GreyPtr1);
-		//imdecode(CameraFrame2, CV_LOAD_IMAGE_COLOR, GreyPtr2);
-	 
-		//Display the received frame
-		//imshow("RawBayer", CameraFrame);
-		//Display the grey scale converted frame
-		imshow("Cam1", Grey1);
-		imshow("Cam2", Grey2);
-		imshow("Cam3", Grey3);
-
-		if(false)	//to save images
+		time(&nowTime);
+		timeGap = difftime(nowTime,lastTime);
+		if(timeGap >= reqdTimeGap)
 		{
-			camImgPath1 = camImgPrefix1 + IntToString(counter) + camImgSuffix;
-			camImgPath2 = camImgPrefix2 + IntToString(counter) + camImgSuffix;
-			camImgPath3 = camImgPrefix3 + IntToString(counter) + camImgSuffix;
+			lastTime = nowTime;
 
-			imwrite(camImgPath1, Grey1, compression_params);
-			imwrite(camImgPath2, Grey2, compression_params);
-			imwrite(camImgPath3, Grey3, compression_params);
-			cout<< "Saved to " << camImgPath1 << ", " << camImgPath2 << ", " << camImgPath3 << endl;
+			//Fetch frame from camera. So simple, isn't;-)
+			cap1 >> CameraFrame1;
+			if(allCameras)
+			{
+				cap2 >> CameraFrame2;
+				cap3 >> CameraFrame3;
+			}
+			//cap1.read(CameraFrame1);
+			//cap2.read(CameraFrame2);
 
-			counter++;
+			//Check whether received frame has valid pointer.
+			if(allCameras)
+			{
+				if( CameraFrame1.empty() || CameraFrame2.empty() || CameraFrame3.empty() )
+					break;
+			}
+			else
+			{
+				if( CameraFrame1.empty() )
+					break;
+			}
+		 
+			cvtColor(CameraFrame1, Grey1, CV_RGB2GRAY); 
+			if(allCameras)
+			{
+				cvtColor(CameraFrame2, Grey2, CV_RGB2GRAY);
+				cvtColor(CameraFrame3, Grey3, CV_RGB2GRAY);
+			}
+			//imdecode(CameraFrame1, CV_LOAD_IMAGE_COLOR, GreyPtr1);
+			//imdecode(CameraFrame2, CV_LOAD_IMAGE_COLOR, GreyPtr2);
+		 
+			//Display the received frame
+			//imshow("RawBayer", CameraFrame);
+			//Display the grey scale converted frame
+			imshow("Cam1", Grey1);
+			if(allCameras)
+			{
+				imshow("Cam2", Grey2);
+				imshow("Cam3", Grey3);
+			}
+			
+			if(false)	//to save images
+			{
+				camImgPath1 = camImgPrefix1 + IntToString(counter) + camImgSuffix;
+				camImgPath2 = camImgPrefix2 + IntToString(counter) + camImgSuffix;
+				camImgPath3 = camImgPrefix3 + IntToString(counter) + camImgSuffix;
+
+				imwrite(camImgPath1, Grey1, compression_params);
+				if(allCameras)
+				{
+					imwrite(camImgPath2, Grey2, compression_params);
+					imwrite(camImgPath3, Grey3, compression_params);
+					cout<< "Saved to " << camImgPath1 << ", " << camImgPath2 << ", " << camImgPath3 << endl;
+				}
+				else
+					cout<< "Saved to " << camImgPath1 << endl;
+
+				counter++;
+			}
+			
 		}
-		
-	}
 
-	//Wait for Escape keyevent to exit from loop
-	keypressed = (char)waitKey(10);
-	if( keypressed == 27 )
-	    break;
+		//Wait for Escape keyevent to exit from loop
+		keypressed = (char)waitKey(10);
+		if( keypressed == 27 )
+			break;
     }
  
     //Release the camera interface.
     cap1.release();
-    cap2.release();
-    cap3.release();
+	if(allCameras)
+    {
+		cap2.release();
+		cap3.release();
+	}
  
     return 0;
 }
