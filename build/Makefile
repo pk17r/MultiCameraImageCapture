@@ -111,6 +111,32 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named io_econB
+
+# Build rule for target.
+io_econB: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 io_econB
+.PHONY : io_econB
+
+# fast build rule for target.
+io_econB/fast:
+	$(MAKE) -f CMakeFiles/io_econB.dir/build.make CMakeFiles/io_econB.dir/build
+.PHONY : io_econB/fast
+
+#=============================================================================
+# Target rules for targets named io_econA
+
+# Build rule for target.
+io_econA: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 io_econA
+.PHONY : io_econA
+
+# fast build rule for target.
+io_econA/fast:
+	$(MAKE) -f CMakeFiles/io_econA.dir/build.make CMakeFiles/io_econA.dir/build
+.PHONY : io_econA/fast
+
+#=============================================================================
 # Target rules for targets named cv_io
 
 # Build rule for target.
@@ -150,6 +176,60 @@ io.cpp.s:
 	$(MAKE) -f CMakeFiles/cv_io.dir/build.make CMakeFiles/cv_io.dir/io.cpp.s
 .PHONY : io.cpp.s
 
+xunit_lib.o: xunit_lib.c.o
+
+.PHONY : xunit_lib.o
+
+# target to build an object file
+xunit_lib.c.o:
+	$(MAKE) -f CMakeFiles/io_econA.dir/build.make CMakeFiles/io_econA.dir/xunit_lib.c.o
+.PHONY : xunit_lib.c.o
+
+xunit_lib.i: xunit_lib.c.i
+
+.PHONY : xunit_lib.i
+
+# target to preprocess a source file
+xunit_lib.c.i:
+	$(MAKE) -f CMakeFiles/io_econA.dir/build.make CMakeFiles/io_econA.dir/xunit_lib.c.i
+.PHONY : xunit_lib.c.i
+
+xunit_lib.s: xunit_lib.c.s
+
+.PHONY : xunit_lib.s
+
+# target to generate assembly for a file
+xunit_lib.c.s:
+	$(MAKE) -f CMakeFiles/io_econA.dir/build.make CMakeFiles/io_econA.dir/xunit_lib.c.s
+.PHONY : xunit_lib.c.s
+
+xunit_lib_cug.o: xunit_lib_cug.c.o
+
+.PHONY : xunit_lib_cug.o
+
+# target to build an object file
+xunit_lib_cug.c.o:
+	$(MAKE) -f CMakeFiles/io_econB.dir/build.make CMakeFiles/io_econB.dir/xunit_lib_cug.c.o
+.PHONY : xunit_lib_cug.c.o
+
+xunit_lib_cug.i: xunit_lib_cug.c.i
+
+.PHONY : xunit_lib_cug.i
+
+# target to preprocess a source file
+xunit_lib_cug.c.i:
+	$(MAKE) -f CMakeFiles/io_econB.dir/build.make CMakeFiles/io_econB.dir/xunit_lib_cug.c.i
+.PHONY : xunit_lib_cug.c.i
+
+xunit_lib_cug.s: xunit_lib_cug.c.s
+
+.PHONY : xunit_lib_cug.s
+
+# target to generate assembly for a file
+xunit_lib_cug.c.s:
+	$(MAKE) -f CMakeFiles/io_econB.dir/build.make CMakeFiles/io_econB.dir/xunit_lib_cug.c.s
+.PHONY : xunit_lib_cug.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -157,11 +237,19 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... rebuild_cache"
+	@echo "... io_econB"
+	@echo "... io_econA"
 	@echo "... cv_io"
+	@echo "... rebuild_cache"
 	@echo "... io.o"
 	@echo "... io.i"
 	@echo "... io.s"
+	@echo "... xunit_lib.o"
+	@echo "... xunit_lib.i"
+	@echo "... xunit_lib.s"
+	@echo "... xunit_lib_cug.o"
+	@echo "... xunit_lib_cug.i"
+	@echo "... xunit_lib_cug.s"
 .PHONY : help
 
 

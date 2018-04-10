@@ -9,40 +9,14 @@
 #include <string>
 #include <sstream>
 
-//#include "seecam_10cug_bayer.h"
-//#include "QStringList"
-
-#define SEECAM_10CUG_BAYER_H
-#include "uvccamera.h"
-
-class See3CAM_10CUG_Bayer: public QObject {
-    Q_OBJECT
-private:
-    See3CAM_ModeControls modeControl;
-
-public slots:
-    /**
-     * @brief Enable Master Mode
-     * Enable the camera in master mode
-     * @return
-     * true - Master mode is enabled successfully,
-     * false - Master mode enabling failed
-     */
-    bool enableMasterMode();
-
-    /**
-     * @brief Enable Trigger Mode
-     * @return
-     * true - Trigger mode is enabled successfully,
-     * false - Trigger mode enabling failed
-     */
-    bool enableTriggerMode();
-};
+#include "xunit_lib.c"
+#include "xunit_lib_cug.c"
 
 using namespace cv;
 using namespace std;
 
 #define allCameras false
+#define displayImages false
 
 string type2str(int type)
 {
@@ -75,29 +49,6 @@ string IntToString(int a)
     return temp.str();
 }
 
-//Modified by Dhurka - Braces alignment - 14th Oct 2016
-bool See3CAM_ModeControls::enableTriggerMode()
-{
-    int ret =0;
-
-    if(uvccamera::hid_fd < 0)
-    {
-        return false;
-    }
-    //Initialize the buffer
-    memset(g_out_packet_buf, 0x00, sizeof(g_out_packet_buf));
-
-    //Set the Report Number
-    g_out_packet_buf[1] = ENABLETRIGGERMODE; /* Report Number */
-
-    ret = write(uvccamera::hid_fd, g_out_packet_buf, BUFFER_LENGTH);
-    if (ret < 0) {
-        perror("write");
-        return false;
-    }
-    return true;
-}
-
 int main()
 {
     Mat CameraFrame1, Grey1, CameraFrame2, CameraFrame3, Grey2, Grey3;
@@ -110,12 +61,13 @@ int main()
 
     cout<<"OpenCV version: " << CV_MAJOR_VERSION << "." << CV_MINOR_VERSION << endl;
     
-    See3CAM_ModeControls a;
-    bool set_trigger = a.enableTriggerMode();
-    cout << "Trigger mode set: " << set_trigger << endl;
- 
     //Opens the first imaging device.
     cap1.open(1);
+    bool initcam = InitExtensionUnit("/dev/video1");
+    cout<< "initcam is: " << initcam << endl;
+    bool trig = EnableTriggerMode();
+    cout<< "trigger is: " << trig << endl;
+    
     if(allCameras)
     {
 		cap2.open(2);
@@ -178,13 +130,16 @@ int main()
     }
 
     //Create a windows to display camera preview.
-    //namedWindow("RawBayer", CV_WINDOW_AUTOSIZE);
-    namedWindow("Cam1", CV_WINDOW_AUTOSIZE);
-    if(allCameras)
+    if(displayImages)
     {
-		namedWindow("Cam2", CV_WINDOW_AUTOSIZE);
-		namedWindow("Cam3", CV_WINDOW_AUTOSIZE);
-    }
+		//namedWindow("RawBayer", CV_WINDOW_AUTOSIZE);
+		namedWindow("Cam1", CV_WINDOW_AUTOSIZE);
+		if(allCameras)
+		{
+			namedWindow("Cam2", CV_WINDOW_AUTOSIZE);
+			namedWindow("Cam3", CV_WINDOW_AUTOSIZE);
+		}
+	}
 
     time_t nowTime, lastTime;
     double timeGap;
@@ -200,7 +155,7 @@ int main()
     vector<int> compression_params;
     compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
     compression_params.push_back(0);
-
+	
     //Loop infinitely to fetch frame from camera and display it.
     for(;;)
     {
@@ -208,6 +163,7 @@ int main()
 		timeGap = difftime(nowTime,lastTime);
 		if(timeGap >= reqdTimeGap)
 		{
+			cout << "% Counter: " << counter << endl;
 			lastTime = nowTime;
 
 			//Fetch frame from camera. So simple, isn't;-)
@@ -229,7 +185,10 @@ int main()
 			else
 			{
 				if( CameraFrame1.empty() )
-					break;
+				{
+					cout << "% CameraFrame1.empty()" << endl;
+					continue;
+				}
 			}
 		 
 			cvtColor(CameraFrame1, Grey1, CV_RGB2GRAY); 
@@ -244,14 +203,17 @@ int main()
 			//Display the received frame
 			//imshow("RawBayer", CameraFrame);
 			//Display the grey scale converted frame
-			imshow("Cam1", Grey1);
-			if(allCameras)
+			if(displayImages)
 			{
-				imshow("Cam2", Grey2);
-				imshow("Cam3", Grey3);
+				imshow("Cam1", Grey1);
+				if(allCameras)
+				{
+					imshow("Cam2", Grey2);
+					imshow("Cam3", Grey3);
+				}
 			}
 			
-			if(false)	//to save images
+			if(true)	//to save images
 			{
 				camImgPath1 = camImgPrefix1 + IntToString(counter) + camImgSuffix;
 				camImgPath2 = camImgPrefix2 + IntToString(counter) + camImgSuffix;
@@ -266,10 +228,8 @@ int main()
 				}
 				else
 					cout<< "Saved to " << camImgPath1 << endl;
-
-				counter++;
 			}
-			
+			counter++;
 		}
 
 		//Wait for Escape keyevent to exit from loop

@@ -1,9 +1,0 @@
-nvidia@tegra-ubuntu:~/work$ v4l2-ctl --list-formats
-ioctl: VIDIOC_ENUM_FMT
-	Index       : 0
-	Type        : Video Capture
-	Pixel Format: 'BA81'
-	Name        : 8-bit Bayer BGBG/GRGR
-
-
-
