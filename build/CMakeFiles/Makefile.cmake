@@ -89,6 +89,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.5/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake"
   "/usr/share/cmake-3.5/Modules/FindPackageHandleStandardArgs.cmake"
   "/usr/share/cmake-3.5/Modules/FindPackageMessage.cmake"
+  "/usr/share/cmake-3.5/Modules/FindPkgConfig.cmake"
   "/usr/share/cmake-3.5/Modules/Internal/FeatureTesting.cmake"
   "/usr/share/cmake-3.5/Modules/MultiArchCross.cmake"
   "/usr/share/cmake-3.5/Modules/Platform/Linux-CXX.cmake"
@@ -117,7 +118,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/io_econB.dir/DependInfo.cmake"
-  "CMakeFiles/io_econA.dir/DependInfo.cmake"
+  "CMakeFiles/uvc.dir/DependInfo.cmake"
+  "CMakeFiles/xunit.dir/DependInfo.cmake"
   "CMakeFiles/cv_io.dir/DependInfo.cmake"
   )

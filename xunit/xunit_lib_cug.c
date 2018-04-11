@@ -63,7 +63,7 @@ BOOL EnableTriggerMode()
 
 	//Set the Report Number
 	g_out_packet_buf[1] = ENABLETRIGGERMODE; /* Report Number */
-	
+
 	ret = write(hid_fd, g_out_packet_buf, BUFFER_LENGTH);
 	if (ret < 0) {
 		perror("write");

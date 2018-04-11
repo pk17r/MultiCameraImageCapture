@@ -116,8 +116,7 @@ cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_xfeatures2d3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_ximgproc3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_xobjdetect3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_xphoto3.so.3.3.1
-cv_io: libio_econA.a
-cv_io: libio_econB.a
+cv_io: libuvc.a
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_shape3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_photo3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_datasets3.so.3.3.1
@@ -137,6 +136,7 @@ cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_imgcodecs3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_objdetect3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_imgproc3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_core3.so.3.3.1
+cv_io: libxunit.a
 cv_io: CMakeFiles/cv_io.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nvidia/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable cv_io"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cv_io.dir/link.txt --verbose=$(VERBOSE)

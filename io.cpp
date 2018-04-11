@@ -9,14 +9,48 @@
 #include <string>
 #include <sstream>
 
-#include "xunit_lib.c"
-#include "xunit_lib_cug.c"
+#include "uvc_cam.h"
 
 using namespace cv;
 using namespace std;
 
 #define allCameras false
 #define displayImages false
+
+namespace uvc_camera {
+	class Camera {
+	  private:
+		int width, height, fps;
+		string device, frame;
+		uvc_cam::Cam *cam;
+		
+	  public:
+		Camera(int &a):cam(0){
+			a++;
+			/* default config values */
+			printf("begin Camera()\n");
+			cout << "***** aaaa *****" << endl;
+			width = 640;
+			height = 480;
+			fps = 10;
+			device = "/dev/video0";
+			
+			/* initialize the cameras */
+			printf("initialize Cam()\n");
+			cam = new uvc_cam::Cam(device.c_str(), uvc_cam::Cam::MODE_BAYER, width, height, fps);
+			printf("end Cam()\n");
+			//cam->set_motion_thresholds(100, -1);
+			cam->set_control(0x009a0901, 1); // exposure, auto (0 = auto, 1 = manual)
+			cam->set_control(0x00980900, 8); // brightness
+			cam->set_control(0x9a0902, 78); // exposure time 15.6ms
+			printf("end Camera()\n");
+		}
+		
+		~Camera() {
+			if (cam) delete cam;
+		}
+	};
+};
 
 string type2str(int type)
 {
@@ -61,17 +95,22 @@ int main()
 
     cout<<"OpenCV version: " << CV_MAJOR_VERSION << "." << CV_MINOR_VERSION << endl;
     
-    //Opens the first imaging device.
-    cap1.open(1);
-    bool initcam = InitExtensionUnit("/dev/video1");
-    cout<< "initcam is: " << initcam << endl;
-    bool trig = EnableTriggerMode();
-    cout<< "trigger is: " << trig << endl;
-    
+    //bool initcam = InitExtensionUnit("/dev/video1");
+    //cout<< "initcam is: " << initcam << endl;
+    //bool trig = EnableTriggerMode();
+    //cout<< "trigger is: " << trig << endl;
+    cout<< "** Calling camera()" << endl;
+    int a = 30;
+    uvc_camera::Camera camera(a);
+    cout<< "a: " << a << endl;
+	cout<< "** camera() Called." << endl;
+	
+	//Opens the first imaging device.
+    cap1.open(0);
     if(allCameras)
     {
-		cap2.open(2);
-		cap3.open(3);
+		cap2.open(1);
+		cap3.open(2);
 		//Check whether user selected camera is opened successfully.
 		if(!cap1.isOpened() || !cap2.isOpened() || !cap3.isOpened())
 		{
@@ -105,8 +144,8 @@ int main()
     int format = cap1.get(CV_CAP_PROP_FORMAT);
     printf("Cam1: FPS: %d, Format:  %d \n", fps, format);
     
-    cap1.set(CV_CAP_PROP_FRAME_WIDTH,1280);
-    cap1.set(CV_CAP_PROP_FRAME_HEIGHT,960);
+    //cap1.set(CV_CAP_PROP_FRAME_WIDTH,1280);
+    //cap1.set(CV_CAP_PROP_FRAME_HEIGHT,960);
     if(allCameras)
     {
         cap2.set(CV_CAP_PROP_FRAME_WIDTH,1280);
@@ -144,7 +183,7 @@ int main()
     time_t nowTime, lastTime;
     double timeGap;
     time(&lastTime);
-    double reqdTimeGap = 0; //seconds
+    double reqdTimeGap = 1; //seconds
     int counter = 1;
     string camImgPrefix1 = "cam1/";
     string camImgPrefix2 = "cam2/";
@@ -245,6 +284,6 @@ int main()
 		cap2.release();
 		cap3.release();
 	}
- 
+	
     return 0;
 }

@@ -3,10 +3,7 @@
 
 CMakeFiles/cv_io.dir/io.cpp.o
  /home/nvidia/MultiBaselineStereo/io.cpp
- /home/nvidia/MultiBaselineStereo/xunit_lib.c
- /home/nvidia/MultiBaselineStereo/xunit_lib.h
- /home/nvidia/MultiBaselineStereo/xunit_lib_cug.c
- /home/nvidia/MultiBaselineStereo/xunit_tab_lib.h
+ /home/nvidia/MultiBaselineStereo/uvc_cam.h
  /opt/ros/kinetic/include/opencv-3.3.1-dev/opencv/cxcore.h
  /opt/ros/kinetic/include/opencv-3.3.1-dev/opencv2/calib3d.hpp
  /opt/ros/kinetic/include/opencv-3.3.1-dev/opencv2/calib3d/calib3d_c.h

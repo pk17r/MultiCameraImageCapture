@@ -11,6 +11,8 @@
 #include <linux/hidraw.h>
 
 #include "xunit_lib.h"
+
+#include <errno.h>
 /*
   **********************************************************************************************************
  *  MODULE TYPE	:	LIBRAY API 									    *
@@ -28,11 +30,13 @@ int hid_fd = -1;
 
 BOOL InitExtensionUnit(const char* bus_info)
 {
+	printf("bus_info: %s\n", bus_info);
 	int i, ret, desc_size = 0;
 	char buf[256];
 	struct hidraw_devinfo info;
 	struct hidraw_report_descriptor rpt_desc;
 	ret = find_hid_device(bus_info);
+	printf("hid_fd: %d\n", hid_fd);
 	if(ret < 0)
 	{
 		printf("%s(): Not able to find the e-con's see3cam device\n", __func__);
@@ -285,7 +289,6 @@ int find_hid_device(const char* physical_location)
 	udev_enumerate_add_match_subsystem(enumerate, "hidraw");
 	udev_enumerate_scan_devices(enumerate);
 	devices = udev_enumerate_get_list_entry(enumerate);
-	
 	/* For each item enumerated, print out its information. udev_list_entry_foreach is a macro which expands to a loop. The loop will be executed for each member in
 	   devices, setting dev_list_entry to a list entry which contains the device's path in /sys. */
 	udev_list_entry_foreach(dev_list_entry, devices) {
@@ -296,7 +299,7 @@ int find_hid_device(const char* physical_location)
 		dev = udev_device_new_from_syspath(udev, path);
 
 		/* usb_device_get_devnode() returns the path to the device node itself in /dev. */
-		//printf("Device Node Path: %s\n", udev_device_get_devnode(dev));
+		printf("Device Node Path: %s\n", udev_device_get_devnode(dev)); //pkr
 		
 		/* The device pointed to by dev contains information about the hidraw device. In order to get information about the USB device, get the parent device with the subsystem/devtype pair of "usb"/"usb_device". This will be several levels up the tree, but the function will find it.*/
 		pdev = udev_device_get_parent_with_subsystem_devtype(
@@ -309,7 +312,7 @@ int find_hid_device(const char* physical_location)
 		}
 
 		/* From here, we can call get_sysattr_value() for each file in the device's /sys entry. The strings passed into these functions (idProduct, idVendor, serial, 			etc.) correspond directly to the files in the /sys directory which represents the USB device. Note that USB strings are Unicode, UCS2 encoded, but the strings    		returned from udev_device_get_sysattr_value() are UTF-8 encoded. */
-		/*
+		///*	//pkr
 		printf("  VID/PID: %s %s\n",
 		        udev_device_get_sysattr_value(pdev,"idVendor"),
 		        udev_device_get_sysattr_value(pdev, "idProduct"));
@@ -335,31 +338,36 @@ int find_hid_device(const char* physical_location)
 					udev_list_entry_get_name(list_entry),
 					udev_device_get_sysattr_value(pdev,udev_list_entry_get_name(list_entry)));
 		}
-		*/
+		//*/	//pkr
 
 		BOOL vp_id_match = FALSE;
 
 		if(!strncmp(udev_device_get_sysattr_value(pdev,"idVendor"), "2560", 4) && !strncmp(udev_device_get_sysattr_value(pdev, "idProduct"), "c110", 4))
 		{
 			vp_id_match = TRUE;
+			printf("c110\n");
 		}
 		if(!strncmp(udev_device_get_sysattr_value(pdev,"idVendor"), "2560", 4) && !strncmp(udev_device_get_sysattr_value(pdev, "idProduct"), "c111", 4))
 		{
 			vp_id_match = TRUE;
+			printf("c111\n");
 		}
 		else if(!strncmp(udev_device_get_sysattr_value(pdev,"idVendor"), "2560", 4) && !strncmp(udev_device_get_sysattr_value(pdev, "idProduct"), "c080", 4))
 		{
 			vp_id_match = TRUE;
+			printf("c080\n");
 		}
-
+		printf("pkr\n");
+		printf("vp_id_match = %d\n",vp_id_match);
 		// get device address
 		if ( vp_id_match )
 		{
 			vp_id_match = FALSE;
-			// open device & match bus_info
 			hid_device = udev_device_get_devnode(dev);
+			printf("hid_device = %s\n",hid_device);
 			hid_fd = open(hid_device, O_RDWR|O_NONBLOCK);
-
+			printf("errno = %s\n",strerror(errno));
+			printf("hid_fd after open = %d\n",hid_fd);
 			if (hid_fd >= 0) {
 				char hid_physical_location[256];
 				memset(hid_physical_location, 0x0, sizeof(hid_physical_location));
@@ -395,3 +403,4 @@ int find_hid_device(const char* physical_location)
 
 	return ret;
 }
+

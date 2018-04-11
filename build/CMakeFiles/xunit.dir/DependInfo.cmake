@@ -1,23 +1,22 @@
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
-  "CXX"
+  "C"
   )
 # The set of files for implicit dependencies of each language:
-set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/nvidia/MultiBaselineStereo/io.cpp" "/home/nvidia/MultiBaselineStereo/build/CMakeFiles/cv_io.dir/io.cpp.o"
+set(CMAKE_DEPENDS_CHECK_C
+  "/home/nvidia/MultiBaselineStereo/xunit/xunit_lib.c" "/home/nvidia/MultiBaselineStereo/build/CMakeFiles/xunit.dir/xunit/xunit_lib.c.o"
+  "/home/nvidia/MultiBaselineStereo/xunit/xunit_lib_cug.c" "/home/nvidia/MultiBaselineStereo/build/CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_C_COMPILER_ID "GNU")
 
 # The include file search paths:
-set(CMAKE_CXX_TARGET_INCLUDE_PATH
+set(CMAKE_C_TARGET_INCLUDE_PATH
   "/opt/ros/kinetic/include/opencv-3.3.1-dev"
   "/opt/ros/kinetic/include/opencv-3.3.1-dev/opencv"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/nvidia/MultiBaselineStereo/build/CMakeFiles/uvc.dir/DependInfo.cmake"
-  "/home/nvidia/MultiBaselineStereo/build/CMakeFiles/xunit.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

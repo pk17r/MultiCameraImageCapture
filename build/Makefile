@@ -111,30 +111,30 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named io_econB
+# Target rules for targets named uvc
 
 # Build rule for target.
-io_econB: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 io_econB
-.PHONY : io_econB
+uvc: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 uvc
+.PHONY : uvc
 
 # fast build rule for target.
-io_econB/fast:
-	$(MAKE) -f CMakeFiles/io_econB.dir/build.make CMakeFiles/io_econB.dir/build
-.PHONY : io_econB/fast
+uvc/fast:
+	$(MAKE) -f CMakeFiles/uvc.dir/build.make CMakeFiles/uvc.dir/build
+.PHONY : uvc/fast
 
 #=============================================================================
-# Target rules for targets named io_econA
+# Target rules for targets named xunit
 
 # Build rule for target.
-io_econA: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 io_econA
-.PHONY : io_econA
+xunit: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 xunit
+.PHONY : xunit
 
 # fast build rule for target.
-io_econA/fast:
-	$(MAKE) -f CMakeFiles/io_econA.dir/build.make CMakeFiles/io_econA.dir/build
-.PHONY : io_econA/fast
+xunit/fast:
+	$(MAKE) -f CMakeFiles/xunit.dir/build.make CMakeFiles/xunit.dir/build
+.PHONY : xunit/fast
 
 #=============================================================================
 # Target rules for targets named cv_io
@@ -176,59 +176,86 @@ io.cpp.s:
 	$(MAKE) -f CMakeFiles/cv_io.dir/build.make CMakeFiles/cv_io.dir/io.cpp.s
 .PHONY : io.cpp.s
 
-xunit_lib.o: xunit_lib.c.o
+uvc_cam.o: uvc_cam.cpp.o
 
-.PHONY : xunit_lib.o
-
-# target to build an object file
-xunit_lib.c.o:
-	$(MAKE) -f CMakeFiles/io_econA.dir/build.make CMakeFiles/io_econA.dir/xunit_lib.c.o
-.PHONY : xunit_lib.c.o
-
-xunit_lib.i: xunit_lib.c.i
-
-.PHONY : xunit_lib.i
-
-# target to preprocess a source file
-xunit_lib.c.i:
-	$(MAKE) -f CMakeFiles/io_econA.dir/build.make CMakeFiles/io_econA.dir/xunit_lib.c.i
-.PHONY : xunit_lib.c.i
-
-xunit_lib.s: xunit_lib.c.s
-
-.PHONY : xunit_lib.s
-
-# target to generate assembly for a file
-xunit_lib.c.s:
-	$(MAKE) -f CMakeFiles/io_econA.dir/build.make CMakeFiles/io_econA.dir/xunit_lib.c.s
-.PHONY : xunit_lib.c.s
-
-xunit_lib_cug.o: xunit_lib_cug.c.o
-
-.PHONY : xunit_lib_cug.o
+.PHONY : uvc_cam.o
 
 # target to build an object file
-xunit_lib_cug.c.o:
-	$(MAKE) -f CMakeFiles/io_econB.dir/build.make CMakeFiles/io_econB.dir/xunit_lib_cug.c.o
-.PHONY : xunit_lib_cug.c.o
+uvc_cam.cpp.o:
+	$(MAKE) -f CMakeFiles/uvc.dir/build.make CMakeFiles/uvc.dir/uvc_cam.cpp.o
+.PHONY : uvc_cam.cpp.o
 
-xunit_lib_cug.i: xunit_lib_cug.c.i
+uvc_cam.i: uvc_cam.cpp.i
 
-.PHONY : xunit_lib_cug.i
+.PHONY : uvc_cam.i
 
 # target to preprocess a source file
-xunit_lib_cug.c.i:
-	$(MAKE) -f CMakeFiles/io_econB.dir/build.make CMakeFiles/io_econB.dir/xunit_lib_cug.c.i
-.PHONY : xunit_lib_cug.c.i
+uvc_cam.cpp.i:
+	$(MAKE) -f CMakeFiles/uvc.dir/build.make CMakeFiles/uvc.dir/uvc_cam.cpp.i
+.PHONY : uvc_cam.cpp.i
 
-xunit_lib_cug.s: xunit_lib_cug.c.s
+uvc_cam.s: uvc_cam.cpp.s
 
-.PHONY : xunit_lib_cug.s
+.PHONY : uvc_cam.s
 
 # target to generate assembly for a file
-xunit_lib_cug.c.s:
-	$(MAKE) -f CMakeFiles/io_econB.dir/build.make CMakeFiles/io_econB.dir/xunit_lib_cug.c.s
-.PHONY : xunit_lib_cug.c.s
+uvc_cam.cpp.s:
+	$(MAKE) -f CMakeFiles/uvc.dir/build.make CMakeFiles/uvc.dir/uvc_cam.cpp.s
+.PHONY : uvc_cam.cpp.s
+
+xunit/xunit_lib.o: xunit/xunit_lib.c.o
+
+.PHONY : xunit/xunit_lib.o
+
+# target to build an object file
+xunit/xunit_lib.c.o:
+	$(MAKE) -f CMakeFiles/xunit.dir/build.make CMakeFiles/xunit.dir/xunit/xunit_lib.c.o
+.PHONY : xunit/xunit_lib.c.o
+
+xunit/xunit_lib.i: xunit/xunit_lib.c.i
+
+.PHONY : xunit/xunit_lib.i
+
+# target to preprocess a source file
+xunit/xunit_lib.c.i:
+	$(MAKE) -f CMakeFiles/xunit.dir/build.make CMakeFiles/xunit.dir/xunit/xunit_lib.c.i
+.PHONY : xunit/xunit_lib.c.i
+
+xunit/xunit_lib.s: xunit/xunit_lib.c.s
+
+.PHONY : xunit/xunit_lib.s
+
+# target to generate assembly for a file
+xunit/xunit_lib.c.s:
+	$(MAKE) -f CMakeFiles/xunit.dir/build.make CMakeFiles/xunit.dir/xunit/xunit_lib.c.s
+.PHONY : xunit/xunit_lib.c.s
+
+xunit/xunit_lib_cug.o: xunit/xunit_lib_cug.c.o
+
+.PHONY : xunit/xunit_lib_cug.o
+
+# target to build an object file
+xunit/xunit_lib_cug.c.o:
+	$(MAKE) -f CMakeFiles/xunit.dir/build.make CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.o
+.PHONY : xunit/xunit_lib_cug.c.o
+
+xunit/xunit_lib_cug.i: xunit/xunit_lib_cug.c.i
+
+.PHONY : xunit/xunit_lib_cug.i
+
+# target to preprocess a source file
+xunit/xunit_lib_cug.c.i:
+	$(MAKE) -f CMakeFiles/xunit.dir/build.make CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.i
+.PHONY : xunit/xunit_lib_cug.c.i
+
+xunit/xunit_lib_cug.s: xunit/xunit_lib_cug.c.s
+
+.PHONY : xunit/xunit_lib_cug.s
+
+# target to generate assembly for a file
+xunit/xunit_lib_cug.c.s:
+	$(MAKE) -f CMakeFiles/xunit.dir/build.make CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.s
+.PHONY : xunit/xunit_lib_cug.c.s
 
 # Help Target
 help:
@@ -237,19 +264,22 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... io_econB"
-	@echo "... io_econA"
+	@echo "... uvc"
+	@echo "... xunit"
 	@echo "... cv_io"
 	@echo "... rebuild_cache"
 	@echo "... io.o"
 	@echo "... io.i"
 	@echo "... io.s"
-	@echo "... xunit_lib.o"
-	@echo "... xunit_lib.i"
-	@echo "... xunit_lib.s"
-	@echo "... xunit_lib_cug.o"
-	@echo "... xunit_lib_cug.i"
-	@echo "... xunit_lib_cug.s"
+	@echo "... uvc_cam.o"
+	@echo "... uvc_cam.i"
+	@echo "... uvc_cam.s"
+	@echo "... xunit/xunit_lib.o"
+	@echo "... xunit/xunit_lib.i"
+	@echo "... xunit/xunit_lib.s"
+	@echo "... xunit/xunit_lib_cug.o"
+	@echo "... xunit/xunit_lib_cug.i"
+	@echo "... xunit/xunit_lib_cug.s"
 .PHONY : help
 
 
