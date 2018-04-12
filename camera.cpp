@@ -73,7 +73,7 @@ Camera::Camera(){
              *image[0]=*img_frame;
              //cv::Mat aa = cv::Mat(image);
              //cv::imshow("Cam1", aa);
-             //cout << "% Counter: " << counter << endl;
+             cout << "% Counter: " << counter << endl;
              //ofstream myfile;
 			 //camImgPath1 = camImgPrefix1 + to_string(counter) + camImgSuffixTxt;
              //myfile.open (camImgPath1);
@@ -99,10 +99,12 @@ Camera::Camera(){
              counter++;
              
              ++pair_id;
+             
+             cam->release(idx);
           }
 
 
-        if (img_frame) cam->release(idx);
+        //if (img_frame) cam->release(idx);
         
         //Wait for Escape keyevent to exit from loop
 		keypressed = (char)cv::waitKey(10);

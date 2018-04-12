@@ -86,7 +86,7 @@ private:
   v4l2_requestbuffers request_buffers_;
   v4l2_buffer buffer_;
   v4l2_timecode time_code_;
-  static const unsigned NUM_BUFFERS = 2;
+  static const unsigned NUM_BUFFERS = 1;
   void *buffer_mem_[NUM_BUFFERS];
   unsigned buffer_length_;
   unsigned char *rgb_frame_;
