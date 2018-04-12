@@ -90,6 +90,8 @@ cv_io_EXTERNAL_OBJECTS =
 
 cv_io: CMakeFiles/cv_io.dir/io.cpp.o
 cv_io: CMakeFiles/cv_io.dir/build.make
+cv_io: libuvc.a
+cv_io: libcam.a
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_stitching3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_superres3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_videostab3.so.3.3.1
@@ -100,6 +102,7 @@ cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_ccalib3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_cvv3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_dpm3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_face3.so.3.3.1
+cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_photo3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_fuzzy3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_hdf3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_img_hash3.so.3.3.1
@@ -110,33 +113,38 @@ cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_rgbd3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_saliency3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_stereo3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_structured_light3.so.3.3.1
+cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_viz3.so.3.3.1
+cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_phase_unwrapping3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_surface_matching3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_tracking3.so.3.3.1
-cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_xfeatures2d3.so.3.3.1
-cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_ximgproc3.so.3.3.1
-cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_xobjdetect3.so.3.3.1
-cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_xphoto3.so.3.3.1
-cv_io: libuvc.a
-cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_shape3.so.3.3.1
-cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_photo3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_datasets3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_plot3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_text3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_dnn3.so.3.3.1
+cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_xfeatures2d3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_ml3.so.3.3.1
+cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_shape3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_video3.so.3.3.1
+cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_ximgproc3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_calib3d3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_features2d3.so.3.3.1
+cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_flann3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_highgui3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_videoio3.so.3.3.1
-cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_viz3.so.3.3.1
-cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_phase_unwrapping3.so.3.3.1
-cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_flann3.so.3.3.1
+cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_xobjdetect3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_imgcodecs3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_objdetect3.so.3.3.1
+cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_xphoto3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_imgproc3.so.3.3.1
 cv_io: /opt/ros/kinetic/lib/aarch64-linux-gnu/libopencv_core3.so.3.3.1
+cv_io: libuvc.a
 cv_io: libxunit.a
+cv_io: /usr/lib/aarch64-linux-gnu/libboost_thread.so
+cv_io: /usr/lib/aarch64-linux-gnu/libboost_system.so
+cv_io: /usr/lib/aarch64-linux-gnu/libboost_chrono.so
+cv_io: /usr/lib/aarch64-linux-gnu/libboost_date_time.so
+cv_io: /usr/lib/aarch64-linux-gnu/libboost_atomic.so
+cv_io: /usr/lib/aarch64-linux-gnu/libpthread.so
 cv_io: CMakeFiles/cv_io.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nvidia/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable cv_io"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cv_io.dir/link.txt --verbose=$(VERBOSE)

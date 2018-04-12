@@ -6,6 +6,16 @@
 
 #IncludeRegexTransform: 
 
+/home/nvidia/MultiBaselineStereo/camera.h
+uvc_cam.h
+/home/nvidia/MultiBaselineStereo/uvc_cam.h
+boost/thread.hpp
+-
+boost/thread/mutex.hpp
+-
+string
+-
+
 /home/nvidia/MultiBaselineStereo/io.cpp
 opencv2/video/tracking.hpp
 /home/nvidia/MultiBaselineStereo/opencv2/video/tracking.hpp
@@ -25,8 +35,8 @@ string
 -
 sstream
 -
-uvc_cam.h
-/home/nvidia/MultiBaselineStereo/uvc_cam.h
+camera.h
+/home/nvidia/MultiBaselineStereo/camera.h
 
 /home/nvidia/MultiBaselineStereo/uvc_cam.h
 string

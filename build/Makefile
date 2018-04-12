@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/nvidia/MultiBaselineStereo/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -77,6 +66,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -124,6 +124,19 @@ uvc/fast:
 .PHONY : uvc/fast
 
 #=============================================================================
+# Target rules for targets named cam
+
+# Build rule for target.
+cam: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 cam
+.PHONY : cam
+
+# fast build rule for target.
+cam/fast:
+	$(MAKE) -f CMakeFiles/cam.dir/build.make CMakeFiles/cam.dir/build
+.PHONY : cam/fast
+
+#=============================================================================
 # Target rules for targets named xunit
 
 # Build rule for target.
@@ -148,6 +161,33 @@ cv_io: cmake_check_build_system
 cv_io/fast:
 	$(MAKE) -f CMakeFiles/cv_io.dir/build.make CMakeFiles/cv_io.dir/build
 .PHONY : cv_io/fast
+
+camera.o: camera.cpp.o
+
+.PHONY : camera.o
+
+# target to build an object file
+camera.cpp.o:
+	$(MAKE) -f CMakeFiles/cam.dir/build.make CMakeFiles/cam.dir/camera.cpp.o
+.PHONY : camera.cpp.o
+
+camera.i: camera.cpp.i
+
+.PHONY : camera.i
+
+# target to preprocess a source file
+camera.cpp.i:
+	$(MAKE) -f CMakeFiles/cam.dir/build.make CMakeFiles/cam.dir/camera.cpp.i
+.PHONY : camera.cpp.i
+
+camera.s: camera.cpp.s
+
+.PHONY : camera.s
+
+# target to generate assembly for a file
+camera.cpp.s:
+	$(MAKE) -f CMakeFiles/cam.dir/build.make CMakeFiles/cam.dir/camera.cpp.s
+.PHONY : camera.cpp.s
 
 io.o: io.cpp.o
 
@@ -263,11 +303,15 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... uvc"
+	@echo "... cam"
 	@echo "... xunit"
 	@echo "... cv_io"
-	@echo "... rebuild_cache"
+	@echo "... camera.o"
+	@echo "... camera.i"
+	@echo "... camera.s"
 	@echo "... io.o"
 	@echo "... io.i"
 	@echo "... io.s"

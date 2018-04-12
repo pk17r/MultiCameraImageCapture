@@ -17,6 +17,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
   "/home/nvidia/MultiBaselineStereo/build/CMakeFiles/uvc.dir/DependInfo.cmake"
+  "/home/nvidia/MultiBaselineStereo/build/CMakeFiles/cam.dir/DependInfo.cmake"
   "/home/nvidia/MultiBaselineStereo/build/CMakeFiles/xunit.dir/DependInfo.cmake"
   )
 

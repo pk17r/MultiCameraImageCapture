@@ -1,10 +1,13 @@
 cmake_minimum_required (VERSION 2.8)
+set (CMAKE_CXX_STANDARD 11)
 
 project(io)
 
 find_package(OpenCV REQUIRED)
 
 find_package(PkgConfig REQUIRED)
+
+find_package(Boost REQUIRED COMPONENTS thread system)
 
 pkg_check_modules(udev REQUIRED libudev)
 
@@ -16,7 +19,10 @@ add_library(xunit
 target_link_libraries(xunit ${udev_LIBRARIES})
 
 add_library(uvc uvc_cam.cpp)
-target_link_libraries(uvc xunit ${udev_LIBRARIES} udev)
+target_link_libraries(uvc xunit ${udev_LIBRARIES} ${Boost_LIBRARIES} udev)
+
+add_library(cam camera.cpp)
+target_link_libraries(cam ${udev_LIBRARIES} ${OpenCV_LIBS} ${Boost_LIBRARIES} udev uvc)
 
 add_executable(cv_io io.cpp)
-target_link_libraries(cv_io ${OpenCV_LIBS} udev uvc)
+target_link_libraries(cv_io ${OpenCV_LIBS} udev uvc cam)

@@ -36,8 +36,7 @@ bool EnableMasterMode();
 bool EnableTriggerMode();
 }
 
-namespace uvc_cam
-{
+namespace uvc_cam {
 
 enum v4l2_uvc_exposure_auto_type
 {
@@ -60,8 +59,7 @@ static const int exp_vals[]=
 
 #define CSU32 const static uint32_t
 
-class Cam
-{
+class Cam {
 public:
   enum mode_t { MODE_RGB, MODE_MJPG, MODE_YUYV, MODE_BAYER } mode_;
   Cam(const char *device, mode_t _mode = MODE_RGB,
