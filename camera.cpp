@@ -91,10 +91,11 @@ Camera::Camera(){
 			 //cout << "*** A ****" << endl;
 			 cv::Mat image_mat_Bayer(height,width,CV_8UC(1),image);
 			 //cout << "*** B ****" << endl;
-             cv::cvtColor(image_mat_Bayer, image_mat_BGR, CV_BayerRG2RGB);	//CV_BayerRG2RGB
+             cv::cvtColor(image_mat_Bayer, image_mat_BGR, CV_BayerGR2RGB);	//CV_BayerRG2RGB
              //cout << "*** C ****" << endl;
              camImgPath1 = camImgPrefix1 + to_string(counter) + camImgSuffix;
              cv::imwrite(camImgPath1, image_mat_BGR, compression_params);
+             
              cout<< "Saved to " << camImgPath1 << endl;
              counter++;
              

@@ -28,28 +28,28 @@ The CXX compiler identification is GNU, found in "/home/nvidia/MultiBaselineSter
 Determining if the C compiler works passed with the following output:
 Change Dir: /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_8a625/fast"
-/usr/bin/make -f CMakeFiles/cmTC_8a625.dir/build.make CMakeFiles/cmTC_8a625.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_9f4b0/fast"
+/usr/bin/make -f CMakeFiles/cmTC_9f4b0.dir/build.make CMakeFiles/cmTC_9f4b0.dir/build
 make[1]: Entering directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_8a625.dir/testCCompiler.c.o
-/usr/bin/cc     -o CMakeFiles/cmTC_8a625.dir/testCCompiler.c.o   -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp/testCCompiler.c
-Linking C executable cmTC_8a625
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8a625.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_8a625.dir/testCCompiler.c.o  -o cmTC_8a625 -rdynamic 
+Building C object CMakeFiles/cmTC_9f4b0.dir/testCCompiler.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_9f4b0.dir/testCCompiler.c.o   -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_9f4b0
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9f4b0.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_9f4b0.dir/testCCompiler.c.o  -o cmTC_9f4b0 -rdynamic 
 make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
 
 
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_91603/fast"
-/usr/bin/make -f CMakeFiles/cmTC_91603.dir/build.make CMakeFiles/cmTC_91603.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_eba06/fast"
+/usr/bin/make -f CMakeFiles/cmTC_eba06.dir/build.make CMakeFiles/cmTC_eba06.dir/build
 make[1]: Entering directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_91603.dir/CMakeCCompilerABI.c.o
-/usr/bin/cc     -o CMakeFiles/cmTC_91603.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.5/Modules/CMakeCCompilerABI.c
-Linking C executable cmTC_91603
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_91603.dir/link.txt --verbose=1
-/usr/bin/cc      -v CMakeFiles/cmTC_91603.dir/CMakeCCompilerABI.c.o  -o cmTC_91603 -rdynamic  
+Building C object CMakeFiles/cmTC_eba06.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_eba06.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.5/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_eba06
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_eba06.dir/link.txt --verbose=1
+/usr/bin/cc      -v CMakeFiles/cmTC_eba06.dir/CMakeCCompilerABI.c.o  -o cmTC_eba06 -rdynamic  
 Using built-in specs.
 COLLECT_GCC=/usr/bin/cc
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/aarch64-linux-gnu/5/lto-wrapper
@@ -59,8 +59,8 @@ Thread model: posix
 gcc version 5.4.0 20160609 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.9) 
 COMPILER_PATH=/usr/lib/gcc/aarch64-linux-gnu/5/:/usr/lib/gcc/aarch64-linux-gnu/5/:/usr/lib/gcc/aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/5/:/usr/lib/gcc/aarch64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/aarch64-linux-gnu/5/:/usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/5/../../../../lib/:/lib/aarch64-linux-gnu/:/lib/../lib/:/usr/lib/aarch64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/aarch64-linux-gnu/5/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_91603' '-rdynamic' '-mlittle-endian' '-mabi=lp64'
- /usr/lib/gcc/aarch64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccNN0VNk.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -z relro -o cmTC_91603 /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crt1.o /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/aarch64-linux-gnu/5 -L/usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/5/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/5/../../.. CMakeFiles/cmTC_91603.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/aarch64-linux-gnu/5/crtend.o /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_eba06' '-rdynamic' '-mlittle-endian' '-mabi=lp64'
+ /usr/lib/gcc/aarch64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccw4eNdI.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -z relro -o cmTC_eba06 /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crt1.o /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/aarch64-linux-gnu/5 -L/usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/5/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/5/../../.. CMakeFiles/cmTC_eba06.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/aarch64-linux-gnu/5/crtend.o /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crtn.o
 make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
 
 
@@ -68,14 +68,14 @@ Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_91603/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_91603.dir/build.make CMakeFiles/cmTC_91603.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_eba06/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_eba06.dir/build.make CMakeFiles/cmTC_eba06.dir/build]
   ignore line: [make[1]: Entering directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building C object CMakeFiles/cmTC_91603.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/usr/bin/cc     -o CMakeFiles/cmTC_91603.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.5/Modules/CMakeCCompilerABI.c]
-  ignore line: [Linking C executable cmTC_91603]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_91603.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/cc      -v CMakeFiles/cmTC_91603.dir/CMakeCCompilerABI.c.o  -o cmTC_91603 -rdynamic  ]
+  ignore line: [Building C object CMakeFiles/cmTC_eba06.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc     -o CMakeFiles/cmTC_eba06.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.5/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_eba06]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_eba06.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc      -v CMakeFiles/cmTC_eba06.dir/CMakeCCompilerABI.c.o  -o cmTC_eba06 -rdynamic  ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/cc]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/aarch64-linux-gnu/5/lto-wrapper]
@@ -85,13 +85,13 @@ Parsed C implicit link information from above output:
   ignore line: [gcc version 5.4.0 20160609 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.9) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/aarch64-linux-gnu/5/:/usr/lib/gcc/aarch64-linux-gnu/5/:/usr/lib/gcc/aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/5/:/usr/lib/gcc/aarch64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/aarch64-linux-gnu/5/:/usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/5/../../../../lib/:/lib/aarch64-linux-gnu/:/lib/../lib/:/usr/lib/aarch64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/aarch64-linux-gnu/5/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_91603' '-rdynamic' '-mlittle-endian' '-mabi=lp64']
-  link line: [ /usr/lib/gcc/aarch64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccNN0VNk.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -z relro -o cmTC_91603 /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crt1.o /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/aarch64-linux-gnu/5 -L/usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/5/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/5/../../.. CMakeFiles/cmTC_91603.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/aarch64-linux-gnu/5/crtend.o /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_eba06' '-rdynamic' '-mlittle-endian' '-mabi=lp64']
+  link line: [ /usr/lib/gcc/aarch64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccw4eNdI.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -z relro -o cmTC_eba06 /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crt1.o /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/aarch64-linux-gnu/5 -L/usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/5/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/5/../../.. CMakeFiles/cmTC_eba06.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/aarch64-linux-gnu/5/crtend.o /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/aarch64-linux-gnu/5/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/lib/gcc/aarch64-linux-gnu/5/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/5/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccNN0VNk.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccw4eNdI.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -111,7 +111,7 @@ Parsed C implicit link information from above output:
     arg [--fix-cortex-a53-843419] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_91603] ==> ignore
+    arg [cmTC_eba06] ==> ignore
     arg [/usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crt1.o] ==> ignore
     arg [/usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/aarch64-linux-gnu/5/crtbegin.o] ==> ignore
@@ -123,7 +123,7 @@ Parsed C implicit link information from above output:
     arg [-L/usr/lib/aarch64-linux-gnu] ==> dir [/usr/lib/aarch64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/aarch64-linux-gnu/5/../../..] ==> dir [/usr/lib/gcc/aarch64-linux-gnu/5/../../..]
-    arg [CMakeFiles/cmTC_91603.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_eba06.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--as-needed] ==> ignore
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -157,14 +157,14 @@ Parsed C implicit link information from above output:
 Detecting C [-std=c11] compiler features compiled with the following output:
 Change Dir: /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_ac6b8/fast"
-/usr/bin/make -f CMakeFiles/cmTC_ac6b8.dir/build.make CMakeFiles/cmTC_ac6b8.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_7f04f/fast"
+/usr/bin/make -f CMakeFiles/cmTC_7f04f.dir/build.make CMakeFiles/cmTC_7f04f.dir/build
 make[1]: Entering directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_ac6b8.dir/feature_tests.c.o
-/usr/bin/cc    -std=c11 -o CMakeFiles/cmTC_ac6b8.dir/feature_tests.c.o   -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_ac6b8
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ac6b8.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_ac6b8.dir/feature_tests.c.o  -o cmTC_ac6b8 -rdynamic 
+Building C object CMakeFiles/cmTC_7f04f.dir/feature_tests.c.o
+/usr/bin/cc    -std=c11 -o CMakeFiles/cmTC_7f04f.dir/feature_tests.c.o   -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_7f04f
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7f04f.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_7f04f.dir/feature_tests.c.o  -o cmTC_7f04f -rdynamic 
 make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
 
 
@@ -177,14 +177,14 @@ make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CM
 Detecting C [-std=c99] compiler features compiled with the following output:
 Change Dir: /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_0bb6e/fast"
-/usr/bin/make -f CMakeFiles/cmTC_0bb6e.dir/build.make CMakeFiles/cmTC_0bb6e.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_adf6e/fast"
+/usr/bin/make -f CMakeFiles/cmTC_adf6e.dir/build.make CMakeFiles/cmTC_adf6e.dir/build
 make[1]: Entering directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_0bb6e.dir/feature_tests.c.o
-/usr/bin/cc    -std=c99 -o CMakeFiles/cmTC_0bb6e.dir/feature_tests.c.o   -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_0bb6e
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0bb6e.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_0bb6e.dir/feature_tests.c.o  -o cmTC_0bb6e -rdynamic 
+Building C object CMakeFiles/cmTC_adf6e.dir/feature_tests.c.o
+/usr/bin/cc    -std=c99 -o CMakeFiles/cmTC_adf6e.dir/feature_tests.c.o   -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_adf6e
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_adf6e.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_adf6e.dir/feature_tests.c.o  -o cmTC_adf6e -rdynamic 
 make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
 
 
@@ -197,14 +197,14 @@ make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CM
 Detecting C [-std=c90] compiler features compiled with the following output:
 Change Dir: /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_7dbec/fast"
-/usr/bin/make -f CMakeFiles/cmTC_7dbec.dir/build.make CMakeFiles/cmTC_7dbec.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_0a7f8/fast"
+/usr/bin/make -f CMakeFiles/cmTC_0a7f8.dir/build.make CMakeFiles/cmTC_0a7f8.dir/build
 make[1]: Entering directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_7dbec.dir/feature_tests.c.o
-/usr/bin/cc    -std=c90 -o CMakeFiles/cmTC_7dbec.dir/feature_tests.c.o   -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_7dbec
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7dbec.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_7dbec.dir/feature_tests.c.o  -o cmTC_7dbec -rdynamic 
+Building C object CMakeFiles/cmTC_0a7f8.dir/feature_tests.c.o
+/usr/bin/cc    -std=c90 -o CMakeFiles/cmTC_0a7f8.dir/feature_tests.c.o   -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_0a7f8
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0a7f8.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_0a7f8.dir/feature_tests.c.o  -o cmTC_0a7f8 -rdynamic 
 make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
 
 
@@ -215,28 +215,28 @@ make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CM
 Determining if the CXX compiler works passed with the following output:
 Change Dir: /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_8c83f/fast"
-/usr/bin/make -f CMakeFiles/cmTC_8c83f.dir/build.make CMakeFiles/cmTC_8c83f.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_c1267/fast"
+/usr/bin/make -f CMakeFiles/cmTC_c1267.dir/build.make CMakeFiles/cmTC_c1267.dir/build
 make[1]: Entering directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_8c83f.dir/testCXXCompiler.cxx.o
-/usr/bin/c++      -o CMakeFiles/cmTC_8c83f.dir/testCXXCompiler.cxx.o -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
-Linking CXX executable cmTC_8c83f
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8c83f.dir/link.txt --verbose=1
-/usr/bin/c++        CMakeFiles/cmTC_8c83f.dir/testCXXCompiler.cxx.o  -o cmTC_8c83f -rdynamic 
+Building CXX object CMakeFiles/cmTC_c1267.dir/testCXXCompiler.cxx.o
+/usr/bin/c++      -o CMakeFiles/cmTC_c1267.dir/testCXXCompiler.cxx.o -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_c1267
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c1267.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_c1267.dir/testCXXCompiler.cxx.o  -o cmTC_c1267 -rdynamic 
 make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_e0048/fast"
-/usr/bin/make -f CMakeFiles/cmTC_e0048.dir/build.make CMakeFiles/cmTC_e0048.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_489c0/fast"
+/usr/bin/make -f CMakeFiles/cmTC_489c0.dir/build.make CMakeFiles/cmTC_489c0.dir/build
 make[1]: Entering directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_e0048.dir/CMakeCXXCompilerABI.cpp.o
-/usr/bin/c++      -o CMakeFiles/cmTC_e0048.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.5/Modules/CMakeCXXCompilerABI.cpp
-Linking CXX executable cmTC_e0048
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e0048.dir/link.txt --verbose=1
-/usr/bin/c++       -v CMakeFiles/cmTC_e0048.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_e0048 -rdynamic  
+Building CXX object CMakeFiles/cmTC_489c0.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/c++      -o CMakeFiles/cmTC_489c0.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.5/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTC_489c0
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_489c0.dir/link.txt --verbose=1
+/usr/bin/c++       -v CMakeFiles/cmTC_489c0.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_489c0 -rdynamic  
 Using built-in specs.
 COLLECT_GCC=/usr/bin/c++
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/aarch64-linux-gnu/5/lto-wrapper
@@ -246,8 +246,8 @@ Thread model: posix
 gcc version 5.4.0 20160609 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.9) 
 COMPILER_PATH=/usr/lib/gcc/aarch64-linux-gnu/5/:/usr/lib/gcc/aarch64-linux-gnu/5/:/usr/lib/gcc/aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/5/:/usr/lib/gcc/aarch64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/aarch64-linux-gnu/5/:/usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/5/../../../../lib/:/lib/aarch64-linux-gnu/:/lib/../lib/:/usr/lib/aarch64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/aarch64-linux-gnu/5/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_e0048' '-rdynamic' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64'
- /usr/lib/gcc/aarch64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccbBODGd.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -z relro -o cmTC_e0048 /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crt1.o /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/aarch64-linux-gnu/5 -L/usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/5/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/5/../../.. CMakeFiles/cmTC_e0048.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/aarch64-linux-gnu/5/crtend.o /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_489c0' '-rdynamic' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64'
+ /usr/lib/gcc/aarch64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/cciRJcuS.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -z relro -o cmTC_489c0 /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crt1.o /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/aarch64-linux-gnu/5 -L/usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/5/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/5/../../.. CMakeFiles/cmTC_489c0.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/aarch64-linux-gnu/5/crtend.o /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crtn.o
 make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
 
 
@@ -255,14 +255,14 @@ Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_e0048/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_e0048.dir/build.make CMakeFiles/cmTC_e0048.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_489c0/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_489c0.dir/build.make CMakeFiles/cmTC_489c0.dir/build]
   ignore line: [make[1]: Entering directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building CXX object CMakeFiles/cmTC_e0048.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/usr/bin/c++      -o CMakeFiles/cmTC_e0048.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.5/Modules/CMakeCXXCompilerABI.cpp]
-  ignore line: [Linking CXX executable cmTC_e0048]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e0048.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/c++       -v CMakeFiles/cmTC_e0048.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_e0048 -rdynamic  ]
+  ignore line: [Building CXX object CMakeFiles/cmTC_489c0.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/c++      -o CMakeFiles/cmTC_489c0.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.5/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTC_489c0]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_489c0.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++       -v CMakeFiles/cmTC_489c0.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_489c0 -rdynamic  ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/c++]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/aarch64-linux-gnu/5/lto-wrapper]
@@ -272,13 +272,13 @@ Parsed CXX implicit link information from above output:
   ignore line: [gcc version 5.4.0 20160609 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.9) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/aarch64-linux-gnu/5/:/usr/lib/gcc/aarch64-linux-gnu/5/:/usr/lib/gcc/aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/5/:/usr/lib/gcc/aarch64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/aarch64-linux-gnu/5/:/usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/5/../../../../lib/:/lib/aarch64-linux-gnu/:/lib/../lib/:/usr/lib/aarch64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/aarch64-linux-gnu/5/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_e0048' '-rdynamic' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64']
-  link line: [ /usr/lib/gcc/aarch64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccbBODGd.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -z relro -o cmTC_e0048 /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crt1.o /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/aarch64-linux-gnu/5 -L/usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/5/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/5/../../.. CMakeFiles/cmTC_e0048.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/aarch64-linux-gnu/5/crtend.o /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_489c0' '-rdynamic' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64']
+  link line: [ /usr/lib/gcc/aarch64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/cciRJcuS.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -z relro -o cmTC_489c0 /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crt1.o /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/aarch64-linux-gnu/5 -L/usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/5/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/5/../../.. CMakeFiles/cmTC_489c0.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/aarch64-linux-gnu/5/crtend.o /usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/aarch64-linux-gnu/5/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/lib/gcc/aarch64-linux-gnu/5/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/5/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccbBODGd.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/cciRJcuS.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -298,7 +298,7 @@ Parsed CXX implicit link information from above output:
     arg [--fix-cortex-a53-843419] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_e0048] ==> ignore
+    arg [cmTC_489c0] ==> ignore
     arg [/usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crt1.o] ==> ignore
     arg [/usr/lib/gcc/aarch64-linux-gnu/5/../../../aarch64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/aarch64-linux-gnu/5/crtbegin.o] ==> ignore
@@ -310,7 +310,7 @@ Parsed CXX implicit link information from above output:
     arg [-L/usr/lib/aarch64-linux-gnu] ==> dir [/usr/lib/aarch64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/aarch64-linux-gnu/5/../../..] ==> dir [/usr/lib/gcc/aarch64-linux-gnu/5/../../..]
-    arg [CMakeFiles/cmTC_e0048.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_489c0.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -342,14 +342,14 @@ Parsed CXX implicit link information from above output:
 Detecting CXX [-std=c++14] compiler features compiled with the following output:
 Change Dir: /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_af447/fast"
-/usr/bin/make -f CMakeFiles/cmTC_af447.dir/build.make CMakeFiles/cmTC_af447.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_99e0d/fast"
+/usr/bin/make -f CMakeFiles/cmTC_99e0d.dir/build.make CMakeFiles/cmTC_99e0d.dir/build
 make[1]: Entering directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_af447.dir/feature_tests.cxx.o
-/usr/bin/c++     -std=c++14 -o CMakeFiles/cmTC_af447.dir/feature_tests.cxx.o -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_af447
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_af447.dir/link.txt --verbose=1
-/usr/bin/c++        CMakeFiles/cmTC_af447.dir/feature_tests.cxx.o  -o cmTC_af447 -rdynamic 
+Building CXX object CMakeFiles/cmTC_99e0d.dir/feature_tests.cxx.o
+/usr/bin/c++     -std=c++14 -o CMakeFiles/cmTC_99e0d.dir/feature_tests.cxx.o -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_99e0d
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_99e0d.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_99e0d.dir/feature_tests.cxx.o  -o cmTC_99e0d -rdynamic 
 make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
 
 
@@ -415,14 +415,14 @@ make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CM
 Detecting CXX [-std=c++11] compiler features compiled with the following output:
 Change Dir: /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_9a04f/fast"
-/usr/bin/make -f CMakeFiles/cmTC_9a04f.dir/build.make CMakeFiles/cmTC_9a04f.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_5e80a/fast"
+/usr/bin/make -f CMakeFiles/cmTC_5e80a.dir/build.make CMakeFiles/cmTC_5e80a.dir/build
 make[1]: Entering directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_9a04f.dir/feature_tests.cxx.o
-/usr/bin/c++     -std=c++11 -o CMakeFiles/cmTC_9a04f.dir/feature_tests.cxx.o -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_9a04f
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9a04f.dir/link.txt --verbose=1
-/usr/bin/c++        CMakeFiles/cmTC_9a04f.dir/feature_tests.cxx.o  -o cmTC_9a04f -rdynamic 
+Building CXX object CMakeFiles/cmTC_5e80a.dir/feature_tests.cxx.o
+/usr/bin/c++     -std=c++11 -o CMakeFiles/cmTC_5e80a.dir/feature_tests.cxx.o -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_5e80a
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5e80a.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_5e80a.dir/feature_tests.cxx.o  -o cmTC_5e80a -rdynamic 
 make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
 
 
@@ -488,14 +488,14 @@ make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CM
 Detecting CXX [-std=c++98] compiler features compiled with the following output:
 Change Dir: /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_18609/fast"
-/usr/bin/make -f CMakeFiles/cmTC_18609.dir/build.make CMakeFiles/cmTC_18609.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_ca168/fast"
+/usr/bin/make -f CMakeFiles/cmTC_ca168.dir/build.make CMakeFiles/cmTC_ca168.dir/build
 make[1]: Entering directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_18609.dir/feature_tests.cxx.o
-/usr/bin/c++     -std=c++98 -o CMakeFiles/cmTC_18609.dir/feature_tests.cxx.o -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_18609
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_18609.dir/link.txt --verbose=1
-/usr/bin/c++        CMakeFiles/cmTC_18609.dir/feature_tests.cxx.o  -o cmTC_18609 -rdynamic 
+Building CXX object CMakeFiles/cmTC_ca168.dir/feature_tests.cxx.o
+/usr/bin/c++     -std=c++98 -o CMakeFiles/cmTC_ca168.dir/feature_tests.cxx.o -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_ca168
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ca168.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_ca168.dir/feature_tests.cxx.o  -o cmTC_ca168 -rdynamic 
 make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
 
 
@@ -559,28 +559,28 @@ make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CM
 Determining if the include file pthread.h exists passed with the following output:
 Change Dir: /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_f8c60/fast"
-/usr/bin/make -f CMakeFiles/cmTC_f8c60.dir/build.make CMakeFiles/cmTC_f8c60.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_7708f/fast"
+/usr/bin/make -f CMakeFiles/cmTC_7708f.dir/build.make CMakeFiles/cmTC_7708f.dir/build
 make[1]: Entering directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_f8c60.dir/CheckIncludeFile.c.o
-/usr/bin/cc     -o CMakeFiles/cmTC_f8c60.dir/CheckIncludeFile.c.o   -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
-Linking C executable cmTC_f8c60
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f8c60.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_f8c60.dir/CheckIncludeFile.c.o  -o cmTC_f8c60 -rdynamic 
+Building C object CMakeFiles/cmTC_7708f.dir/CheckIncludeFile.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_7708f.dir/CheckIncludeFile.c.o   -c /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_7708f
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7708f.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_7708f.dir/CheckIncludeFile.c.o  -o cmTC_7708f -rdynamic 
 make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
 
 
 Determining if the function pthread_create exists in the pthread passed with the following output:
 Change Dir: /home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_b7175/fast"
-/usr/bin/make -f CMakeFiles/cmTC_b7175.dir/build.make CMakeFiles/cmTC_b7175.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_f57c2/fast"
+/usr/bin/make -f CMakeFiles/cmTC_f57c2.dir/build.make CMakeFiles/cmTC_f57c2.dir/build
 make[1]: Entering directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_b7175.dir/CheckFunctionExists.c.o
-/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_b7175.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
-Linking C executable cmTC_b7175
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b7175.dir/link.txt --verbose=1
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_b7175.dir/CheckFunctionExists.c.o  -o cmTC_b7175 -rdynamic -lpthread 
+Building C object CMakeFiles/cmTC_f57c2.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_f57c2.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_f57c2
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f57c2.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_f57c2.dir/CheckFunctionExists.c.o  -o cmTC_f57c2 -rdynamic -lpthread 
 make[1]: Leaving directory '/home/nvidia/MultiBaselineStereo/build/CMakeFiles/CMakeTmp'
 
 
