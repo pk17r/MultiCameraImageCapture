@@ -320,13 +320,12 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
     if (buffer_.length <= 0)
       throw std::runtime_error("buffer length is bogus");
     buffer_mem_[i] = mmap(0, buffer_.length, PROT_READ, MAP_SHARED, device_file_h_, buffer_.m.offset);
-    printf("buf length = %d at %i\n", buffer_.length, i);
     //printf("buf length = %d at %x\n", buf.length, mem[i]);
     if (buffer_mem_[i] == MAP_FAILED)
       throw std::runtime_error("couldn't map buffer");
   }
   buffer_length_ = buffer_.length;
-  printf("*** buffer_length_: %u", buffer_length_);
+  //printf("*** buffer_length_: %u", buffer_length_);
   for (unsigned i = 0; i < NUM_BUFFERS; i++)
   {
     memset(&buffer_, 0, sizeof(buffer_));
@@ -345,7 +344,7 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
     throw std::runtime_error("unable to start capture");
   rgb_frame_ = new unsigned char[width_ * height_ * 3];
   last_yuv_frame_ = new unsigned char[width_ * height_ * 2];
-  printf("*** rgb_frame_: %c, width_: %c, height_: %c", rgb_frame_, width_, height_);
+  //printf("*** width_: %u, height_: %u, fps_: %u", (unsigned int)width_, (unsigned int)height_, (unsigned int)fps_);
 
   // initialize see3cam extension unit
   //printf("**** capability_.bus_info *******: %s\n", capability_.bus_info);

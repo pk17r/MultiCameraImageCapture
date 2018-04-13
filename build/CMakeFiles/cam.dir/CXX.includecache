@@ -15,8 +15,6 @@ opencv2/highgui/highgui.hpp
 /home/nvidia/MultiBaselineStereo/opencv2/highgui/highgui.hpp
 camera.h
 /home/nvidia/MultiBaselineStereo/camera.h
-stdlib.h
--
 iostream
 -
 fstream

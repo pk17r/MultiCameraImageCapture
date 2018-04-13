@@ -3,7 +3,7 @@
 #include "opencv2/highgui/highgui.hpp"
 
 #include "camera.h"
-#include <stdlib.h>     /* atoi */
+//#include <stdlib.h>     /* atoi */
 #include <iostream>
 #include <fstream>
 
@@ -17,20 +17,16 @@ Camera::Camera(){
 	//cout << "a: " << a << endl;
       /* default config values */
       cout<<"here"<<endl;
-      height = 480;
-      width = 640;
       fps = 10;
-      skip_frames = 0;
-      frames_to_skip = 0;
       device = "/dev/video0";
       frame = "camera";
-      rotate = false;
+      //rotate = false;
       counter = 0;
       compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
       compression_params.push_back(0);
       image[height][width] = {};
       cv::Mat image_mat_Bayer = cv::Mat(height,width,CV_8U);
-      cv::Mat image_mat_BGR = cv::Mat(height,width,CV_8UC(3));
+      cv::Mat image_mat_RGB = cv::Mat(height,width,CV_8UC(3));
 
       /* initialize the cameras */
       cam = new uvc_cam::Cam(device.c_str(), uvc_cam::Cam::MODE_BAYER, width, height, fps);
@@ -67,7 +63,7 @@ Camera::Camera(){
              cout << "**** First 10 pixel readings: ";
              for (int i = 0; i < 10; i++)
 			 {
-				 printf("%u ", img_frame[i]);
+				 printf("%u ", (unsigned int)img_frame[i]);
 			 }
 			 printf("\n");
              *image[0]=*img_frame;
@@ -91,12 +87,12 @@ Camera::Camera(){
 			 //cout << "*** A ****" << endl;
 			 cv::Mat image_mat_Bayer(height,width,CV_8UC(1),image);
 			 //cout << "*** B ****" << endl;
-             cv::cvtColor(image_mat_Bayer, image_mat_BGR, CV_BayerGR2RGB);	//CV_BayerRG2RGB
+             cv::cvtColor(image_mat_Bayer, image_mat_RGB, CV_BayerGR2RGB);	//CV_BayerRG2RGB
              //cout << "*** C ****" << endl;
-             camImgPath1 = camImgPrefix1 + to_string(counter) + camImgSuffix;
-             cv::imwrite(camImgPath1, image_mat_BGR, compression_params);
+             //camImgPath1 = camImgPrefix1 + to_string(counter) + camImgSuffix;
+             cv::imwrite(camImgPrefix1 + to_string(counter) + camImgSuffix, image_mat_RGB, compression_params);
              
-             cout<< "Saved to " << camImgPath1 << endl;
+             //cout<< "Saved to " << camImgPath1 << endl;
              counter++;
              
              ++pair_id;

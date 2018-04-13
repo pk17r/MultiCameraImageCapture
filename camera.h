@@ -5,38 +5,34 @@
 
 namespace uvc_camera {
 
+const int width = 1280;	//640, 1280
+const int height = 960;	//480, 960
+const std::string camImgPrefix1 = "cam1/";
+const std::string camImgPrefix2 = "cam2/";
+const std::string camImgPrefix3 = "cam3/";
+const std::string camImgSuffix = ".png";
+	
 class Camera {
   public:
     Camera();
     void onInit();
-    //void sendInfo(sensor_msgs::ImagePtr &image, ros::Time time);
     void feedImages();
     ~Camera();
 
-    //void timeCb(std_msgs::Time time);
-
   private:
     bool ok;
-	//static const int width = 640, height = 480;
-	int width, height;
-	int fps, skip_frames, frames_to_skip;
+	int fps;
     std::string device, frame;
-    bool rotate;
     
-    //Time last_time;
     boost::mutex time_mutex_;
-
     boost::thread image_thread;
     
     int counter;
-    const std::string camImgPrefix1 = "cam1/";
-	const std::string camImgSuffixTxt = ".txt";
-	const std::string camImgSuffix = ".png";
-    std::string camImgPath1;
+    
     std::vector<int> compression_params;
-    unsigned char image[480][640];
+    unsigned char image[height][width];
     cv::Mat image_mat_Bayer;
-    cv::Mat image_mat_BGR;
+    cv::Mat image_mat_RGB;
     
     uvc_cam::Cam *cam;
 };
