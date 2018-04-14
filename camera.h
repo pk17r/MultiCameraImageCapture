@@ -2,6 +2,7 @@
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
 #include <string>
+#include <chrono>
 
 namespace uvc_camera {
 
@@ -30,6 +31,7 @@ class Camera {
     boost::thread image_thread;
     
     unsigned int counter;
+    std::chrono::system_clock::time_point t_base;
     
     std::vector<int> compression_params;
     
