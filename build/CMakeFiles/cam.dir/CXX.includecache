@@ -19,6 +19,10 @@ iostream
 -
 fstream
 -
+unistd.h
+-
+chrono
+-
 
 /home/nvidia/MultiBaselineStereo/camera.h
 uvc_cam.h
