@@ -23,9 +23,7 @@ int main()
     cout<<"OpenCV version: " << CV_MAJOR_VERSION << "." << CV_MINOR_VERSION << endl;
     
     cout<< "** Calling camera()" << endl;
-    int a = 20;
     uvc_camera::Camera camera;
-    cout << "a: " << a << endl;
 	cout<< "** camera() Called." << endl;
 	
 	return 0;

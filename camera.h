@@ -15,10 +15,9 @@ const std::string camImgSuffix = ".png";
 class Camera {
   public:
     Camera();
-    void setCamera(uvc_cam::Cam*, std::string);
+    uvc_cam::Cam* setCamera(uvc_cam::Cam*, std::string);
     void onInit();
     void feedImages();
-    void cleanCameras(uvc_cam::Cam*, unsigned char*, uint32_t);
     void getImgMatFromCamera(unsigned char*, unsigned char (*)[height][width]);
     ~Camera();
 
@@ -36,10 +35,6 @@ class Camera {
     unsigned char image1[height][width];
 	unsigned char image2[height][width];
 	unsigned char image3[height][width];
-    cv::Mat image_mat_Bayer1;
-    cv::Mat image_mat_Bayer2;
-    cv::Mat image_mat_Bayer3;
-    cv::Mat image_mat_RGB;
     
     uvc_cam::Cam *cam1, *cam2, *cam3;
 };

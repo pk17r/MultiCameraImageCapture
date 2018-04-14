@@ -23,6 +23,8 @@ unistd.h
 -
 chrono
 -
+math.h
+-
 
 /home/nvidia/MultiBaselineStereo/camera.h
 uvc_cam.h
