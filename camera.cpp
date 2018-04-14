@@ -85,16 +85,15 @@ namespace uvc_camera {
 	}
 	
 	void Camera::getImgMatFromCamera(unsigned char *img_frame, unsigned char (*image_ptr)[height][width]) {
-		cout << "**** First 10 pixel readings: ";
+		/*cout << "**** First 10 pixel readings: ";
 		for (int i = 0; i < 10; i++)
 		{
 			printf("%u ", (unsigned int)img_frame[i]);
 		}
-		printf("\n");
+		printf("\n");*/
 		//*image[0]=*img_frame;
 		//cv::Mat aa = cv::Mat(image);
 		//cv::imshow("Cam1", aa);
-		cout << "% Counter: " << counter << endl;
 		//ofstream myfile;
 		//camImgPath1 = camImgPrefix1 + to_string(counter) + camImgSuffixTxt;
 		//myfile.open (camImgPath1);
@@ -111,18 +110,16 @@ namespace uvc_camera {
 	}
 
     void Camera::feedImages() {
-	  cout << "In feedImages() "<<endl;
-      char keypressed;
-      while (ok) {
+		cout << "In feedImages() "<<endl;
 		unsigned char *img_frame = NULL;
-        uint32_t bytes_used;
-        int idx;
-        unsigned char (*img1)[height][width] = &image1;
-        unsigned char (*img2)[height][width] = &image2;
-        unsigned char (*img3)[height][width] = &image3;
-        cout << "*** A ****" << endl;
-        high_resolution_clock::time_point t1, t2, t3, t4;
-        duration<double, std::milli> time_span;
+		uint32_t bytes_used;
+		int idx;
+		unsigned char (*img1)[height][width] = &image1;
+		unsigned char (*img2)[height][width] = &image2;
+		unsigned char (*img3)[height][width] = &image3;
+		cout << "*** A ****" << endl;
+		high_resolution_clock::time_point t1, t2, t3, t4;
+		duration<double, std::milli> time_span;
 		t1 = high_resolution_clock::now();
 		cout << "*** B ****" << endl;
 		//Camera::cleanCameras(cam1, img_frame, bytes_used);
@@ -142,19 +139,22 @@ namespace uvc_camera {
 		t4 = high_resolution_clock::now();
 		time_span = t2 - t1;
 		cout << "*** F ****" << endl;
-		cout<< "Time to clean cam1: " << time_span.count() << "us" << endl;
+		cout<< "Time to clean cam1: " << time_span.count() << "ms" << endl;
 		time_span = t3 - t2;
-		cout<< "Time to clean cam2: " << time_span.count() << "us" << endl;
+		cout<< "Time to clean cam2: " << time_span.count() << "ms" << endl;
 		time_span = t4 - t3;
-		cout<< "Time to clean cam3: " << time_span.count() << "us" << endl;
+		cout<< "Time to clean cam3: " << time_span.count() << "ms" << endl;
 		t1 = high_resolution_clock::now();
 		time_span = t1 - t4;
-		cout<< "Time to print this: " << time_span.count() << "us" << endl;
-		
+		cout<< "Time to print this: " << time_span.count() << "ms" << endl;
+
 		usleep(10000);	//sleep for ## microseconds before start capturing images
 		
-        
-        
+		cout<< "Capturing start!" << endl;
+		
+		int time_diff;
+		
+      while (ok) {
         //time start
         //if image in cam1 -> get image, release camera
         //wait for image in cam2 -> get image, release camera
@@ -162,20 +162,21 @@ namespace uvc_camera {
         //note time
         //if time is less than 300 ms, save images and update counter else clean all cameras
 
-		int time_diff;
-		t1 = high_resolution_clock::now();
 		//cam1
         idx = cam1->grab(&img_frame, bytes_used);
         if (img_frame) {
+			t1 = high_resolution_clock::now();
 			Camera::getImgMatFromCamera(img_frame, img1);
 			cam1->release(idx);
 			//cam2
 			idx = cam2->grab(&img_frame, bytes_used);
+			while(!img_frame) { cout << "2"; idx = cam2->grab(&img_frame, bytes_used); }
 			if (img_frame) {
 				Camera::getImgMatFromCamera(img_frame, img2);
 				cam2->release(idx);
 				//cam3
 				idx = cam3->grab(&img_frame, bytes_used);
+				while(!img_frame) { cout << "3"; idx = cam3->grab(&img_frame, bytes_used); }
 				if (img_frame) {
 					Camera::getImgMatFromCamera(img_frame, img3);
 					cam3->release(idx);
@@ -195,68 +196,17 @@ namespace uvc_camera {
 						cv::Mat image_mat_Bayer3(height,width,CV_8UC(1),image3);
 						cv::cvtColor(image_mat_Bayer3, image_mat_RGB, CV_BayerGR2RGB);	//CV_BayerRG2RGB
 						cv::imwrite(camImgPrefix3 + to_string(counter) + camImgSuffix, image_mat_RGB, compression_params);
-						counter++;
 						t3 = high_resolution_clock::now();
 						time_span = t3 - t2;
 						cout << "Time to save images: " << time_span.count() << "ms" << endl;
+						time_span = t3 - t1;
+						cout << "Total Cycle Time is: " << time_span.count() << "ms" << endl;
+						cout << "% Counter: " << counter << endl;
+						counter++;
 					}
 				}
 			}
 		}
-
-          /*if (img_frame) {
-             //INFO
-             //&img_frame = unsigned char **frame		therefore *img_frame = unsigned char frame
-             //bytes_used = uint32_t &bytes_used
-             //*frame = (unsigned char *)buffer_mem_[buffer_.index];
-             
-             //*image_linear = (uint8_t)atoi((const char*)img_frame);
-             //cout << "**** bytes_used: " << bytes_used << endl;
-             cout << "**** First 10 pixel readings: ";
-             for (int i = 0; i < 10; i++)
-			 {
-				 printf("%u ", (unsigned int)img_frame[i]);
-			 }
-			 printf("\n");
-             //*image[0]=*img_frame;
-             //cv::Mat aa = cv::Mat(image);
-             //cv::imshow("Cam1", aa);
-             cout << "% Counter: " << counter << endl;
-             //ofstream myfile;
-			 //camImgPath1 = camImgPrefix1 + to_string(counter) + camImgSuffixTxt;
-             //myfile.open (camImgPath1);
-             for (int i = 0; i < height; i++)
-			 {
-				 for (int j = 0; j < width; j++)
-				 {
-					 image[i][j]=img_frame[i*width + j];
-					 //image_mat_Bayer.data[i*width + j]=img_frame[i*width + j];
-					 //myfile<< (int)img_frame[i*width + j] << " ";
-				 }
-				 //myfile<<"\n";
-			 }
-			 //myfile.close();
-			 //cout << "*** A ****" << endl;
-			 cv::Mat image_mat_Bayer(height,width,CV_8UC(1),image);
-			 //cout << "*** B ****" << endl;
-             cv::cvtColor(image_mat_Bayer, image_mat_RGB, CV_BayerGR2RGB);	//CV_BayerRG2RGB
-             //cout << "*** C ****" << endl;
-             //camImgPath1 = camImgPrefix1 + to_string(counter) + camImgSuffix;
-             cv::imwrite(camImgPrefix1 + to_string(counter) + camImgSuffix, image_mat_RGB, compression_params);
-             
-             //cout<< "Saved to " << camImgPath1 << endl;
-             counter++;
-             
-             cam->release(idx);
-          }*/
-
-
-        //if (img_frame) cam->release(idx);
-        
-        //Wait for Escape keyevent to exit from loop
-		keypressed = (char)cv::waitKey(10);
-		if( keypressed == 27 )
-			ok = false;
       }
     }
 
