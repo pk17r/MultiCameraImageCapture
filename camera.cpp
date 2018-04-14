@@ -3,10 +3,7 @@
 #include "opencv2/highgui/highgui.hpp"
 
 #include "camera.h"
-//#include <stdlib.h>     /* atoi */
 #include <iostream>
-#include <fstream>
-#include <unistd.h>		//for usleep
 #include <chrono>
 #include <math.h>
 
@@ -27,9 +24,6 @@ namespace uvc_camera {
 		counter = 0;
 		compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
 		compression_params.push_back(0);
-		image1[height][width] = {};
-		image2[height][width] = {};
-		image3[height][width] = {};
 
 		/* initialize the cameras */
 		cam1 = Camera::setCamera(cam1, device1);
@@ -54,11 +48,17 @@ namespace uvc_camera {
 	}
     
 	void saveCapturedImage(string camImgPrefix, int counter_, unsigned char (*image_ptr)[height][width], std::vector<int> compression_params) {
-		cv::Mat image_mat_Bayer(height,width,CV_8UC(1),*image_ptr);
+		high_resolution_clock::time_point t1, t2;
+		t1 = high_resolution_clock::now();
+		duration<double, std::milli> time_span;
+		cv::Mat image_mat_Bayer(height,width,CV_8UC(1),*image_ptr);		//making an opencv Mat array
 		cv::Mat image_mat_RGB;
-		cv::cvtColor(image_mat_Bayer, image_mat_RGB, CV_BayerGR2RGB);	//CV_BayerRG2RGB
+		cv::cvtColor(image_mat_Bayer, image_mat_RGB, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
+		//saving image to disk
 		cv::imwrite(camImgPrefix + to_string(counter_) + camImgSuffix, image_mat_RGB, compression_params);
-		cout << camImgPrefix << counter_ << " ";
+		t2 = high_resolution_clock::now();
+		time_span = t2 - t1;
+		cout << camImgPrefix << counter_ << "_" << ceil(time_span.count()) << "ms " ;
 	}
 	
     void Camera::feedImages() {
@@ -68,29 +68,20 @@ namespace uvc_camera {
 		//*frame = (unsigned char *)buffer_mem_[buffer_.index];
 			 
 		cout << "In feedImages() "<<endl;
-		unsigned char *img_frame1 = NULL;
-		unsigned char *img_frame2 = NULL;
-		unsigned char *img_frame3 = NULL;
-		uint32_t bytes_used1, bytes_used2, bytes_used3;
-		int idx1, idx2, idx3;
-		unsigned char (*img1)[height][width] = &image1;
-		unsigned char (*img2)[height][width] = &image2;
-		unsigned char (*img3)[height][width] = &image3;
+		unsigned char *img_frame = NULL;
+		uint32_t bytes_used;
+		int idx;
+		
 		high_resolution_clock::time_point t1, t2;
 		duration<double, std::milli> time_span;
-		t1 = high_resolution_clock::now();
-		idx1 = cam1->grab(&img_frame1, bytes_used1);
-		if (img_frame1) cam1->release(idx1);
-		cout << "*** Cleaned Cam1 ****" << endl;
-		idx2 = cam2->grab(&img_frame2, bytes_used2);
-		if (img_frame2) cam2->release(idx2);
-		cout << "*** Cleaned Cam2 ****" << endl;
-		idx3 = cam3->grab(&img_frame3, bytes_used3);
-		if (img_frame3) cam3->release(idx3);
-		cout << "*** Cleaned Cam3 ****" << endl;
-		t2 = high_resolution_clock::now();
-		time_span = t2 - t1;
-		cout<< "Time to call clean camera functions : " << time_span.count() << "ms" << endl;
+		
+		//remove current image from cameras
+		idx = cam1->grab(&img_frame, bytes_used);
+		if (img_frame) cam1->release(idx);
+		idx = cam2->grab(&img_frame, bytes_used);
+		if (img_frame) cam2->release(idx);
+		idx = cam3->grab(&img_frame, bytes_used);
+		if (img_frame) cam3->release(idx);
 
 		cout<< "Capturing start!" << endl;
 
@@ -105,21 +96,27 @@ namespace uvc_camera {
 		//save images in multi-threading and update counter else clean all cameras
 
 		//cam1
-		idx1 = cam1->grab(&img_frame1, bytes_used1);
-		if (img_frame1) {
-			t1 = high_resolution_clock::now();
-			memcpy( image1[0], img_frame1, height*width * sizeof(unsigned char));
-			cam1->release(idx1);
+		idx = cam1->grab(&img_frame, bytes_used);
+		t1 = high_resolution_clock::now();
+		if (img_frame) {
+			unsigned char image1[height][width];
+			memcpy( image1[0], img_frame, height*width * sizeof(unsigned char));
+			cam1->release(idx);
 			//cam2
-			idx2 = cam2->grab(&img_frame2, bytes_used2);
-			if (img_frame2) {
-				memcpy( image2[0], img_frame2, height*width * sizeof(unsigned char));
-				cam2->release(idx2);
+			idx = cam2->grab(&img_frame, bytes_used);
+			if (img_frame) {
+				unsigned char image2[height][width];
+				memcpy( image2[0], img_frame, height*width * sizeof(unsigned char));
+				cam2->release(idx);
 				//cam3
-				idx3 = cam3->grab(&img_frame3, bytes_used3);
-				if (img_frame3) {
-					memcpy( image3[0], img_frame3, height*width * sizeof(unsigned char));
-					cam3->release(idx3);
+				idx = cam3->grab(&img_frame, bytes_used);
+				if (img_frame) {
+					unsigned char image3[height][width];
+					memcpy( image3[0], img_frame, height*width * sizeof(unsigned char));
+					cam3->release(idx);
+					unsigned char (*img1)[height][width] = &image1;
+					unsigned char (*img2)[height][width] = &image2;
+					unsigned char (*img3)[height][width] = &image3;
 					boost::thread thread_cam1(saveCapturedImage, camImgPrefix1, counter, img1, compression_params);
 					boost::thread thread_cam2(saveCapturedImage, camImgPrefix2, counter, img2, compression_params);
 					boost::thread thread_cam3(saveCapturedImage, camImgPrefix3, counter, img3, compression_params);
@@ -128,11 +125,11 @@ namespace uvc_camera {
 					cout << "\nSet " << counter<< " time " << ceil(time_span.count()) << "ms ";
 					counter++;
 				}
-				else { cout << " CATCH_ME Cam3 not fetched!" << endl; }
+				else { cout << "Cam3 not_grabbed,_nothing_saved_and_counter_not_updated!"; }
 			}
-			else { cout << " CATCH_ME Cam2 not fetched!" << endl; }
+			else { cout << "Cam2 not_grabbed,_nothing_saved_and_counter_not_updated!"; }
 		}
-		else { cout << " CATCH_ME Cam1 not fetched!" << endl; }
+		else { cout << "Cam1 not_grabbed,_nothing_saved_and_counter_not_updated!"; }
 		}
     }
 

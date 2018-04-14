@@ -32,9 +32,6 @@ class Camera {
     unsigned int counter;
     
     std::vector<int> compression_params;
-    unsigned char image1[height][width];
-	unsigned char image2[height][width];
-	unsigned char image3[height][width];
     
     uvc_cam::Cam *cam1, *cam2, *cam3;
 };
