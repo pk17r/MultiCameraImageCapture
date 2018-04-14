@@ -53,31 +53,6 @@ namespace uvc_camera {
 		return cam;
 	}
     
-	void Camera::getImgMatFromCamera(unsigned char *img_frame, unsigned char (*image_ptr)[height][width]) {
-		/*cout << "**** First 10 pixel readings: ";
-		for (int i = 0; i < 10; i++)
-		{
-			printf("%u ", (unsigned int)img_frame[i]);
-		}
-		printf("\n");*/
-		//*image[0]=*img_frame;
-		//cv::Mat aa = cv::Mat(image);
-		//cv::imshow("Cam1", aa);
-		//ofstream myfile;
-		//camImgPath1 = camImgPrefix1 + to_string(counter) + camImgSuffixTxt;
-		//myfile.open (camImgPath1);
-		for (int i = 0; i < height; i++)
-		{
-		 for (int j = 0; j < width; j++)
-		 {
-			 (*image_ptr)[i][j]=img_frame[i*width + j];
-			 //image_mat_Bayer.data[i*width + j]=img_frame[i*width + j];
-			 //myfile<< (int)img_frame[i*width + j] << " ";
-		 }
-		 //myfile<<"\n";
-		}
-	}
-	
 	void saveCapturedImage(string camImgPrefix, int counter_, unsigned char (*image_ptr)[height][width], std::vector<int> compression_params) {
 		cv::Mat image_mat_Bayer(height,width,CV_8UC(1),*image_ptr);
 		cv::Mat image_mat_RGB;
@@ -133,24 +108,24 @@ namespace uvc_camera {
 		idx1 = cam1->grab(&img_frame1, bytes_used1);
 		if (img_frame1) {
 			t1 = high_resolution_clock::now();
-			Camera::getImgMatFromCamera(img_frame1, img1);
+			memcpy( image1[0], img_frame1, height*width * sizeof(unsigned char));
 			cam1->release(idx1);
 			//cam2
 			idx2 = cam2->grab(&img_frame2, bytes_used2);
 			if (img_frame2) {
-				Camera::getImgMatFromCamera(img_frame2, img2);
+				memcpy( image2[0], img_frame2, height*width * sizeof(unsigned char));
 				cam2->release(idx2);
 				//cam3
 				idx3 = cam3->grab(&img_frame3, bytes_used3);
 				if (img_frame3) {
-					Camera::getImgMatFromCamera(img_frame3, img3);
+					memcpy( image3[0], img_frame3, height*width * sizeof(unsigned char));
 					cam3->release(idx3);
 					boost::thread thread_cam1(saveCapturedImage, camImgPrefix1, counter, img1, compression_params);
 					boost::thread thread_cam2(saveCapturedImage, camImgPrefix2, counter, img2, compression_params);
 					boost::thread thread_cam3(saveCapturedImage, camImgPrefix3, counter, img3, compression_params);
 					t2 = high_resolution_clock::now();
 					time_span = t2 - t1;
-					cout << "\nSet " << counter<< " time " << ceil(time_span.count()) << " ";
+					cout << "\nSet " << counter<< " time " << ceil(time_span.count()) << "ms ";
 					counter++;
 				}
 				else { cout << " CATCH_ME Cam3 not fetched!" << endl; }
