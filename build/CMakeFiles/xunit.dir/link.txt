@@ -1,2 +1,0 @@
-/usr/bin/ar qc libxunit.a  CMakeFiles/xunit.dir/xunit/xunit_lib.c.o CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.o
-/usr/bin/ranlib libxunit.a
