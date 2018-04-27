@@ -14,13 +14,10 @@ namespace uvc_camera {
 	
 	Camera::Camera(){
 		/* default config values */
-		cout<<"here"<<endl;
 		fps = 10;
 		device1 = "/dev/video0";
 		device2 = "/dev/video1";
 		device3 = "/dev/video2";
-		frame = "camera";
-		//rotate = false;
 		counter = 0;
 		compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
 		compression_params.push_back(0);
@@ -29,6 +26,8 @@ namespace uvc_camera {
 		cam1 = Camera::setCamera(cam1, device1);
 		cam2 = Camera::setCamera(cam2, device2);
 		cam3 = Camera::setCamera(cam3, device3);
+		
+		cout << "\nAll Cameras Initialized!\n"<<endl;
 
 		/* and turn on the streamer */
 		ok = true;
@@ -42,7 +41,6 @@ namespace uvc_camera {
 		std::time_t tt = std::mktime (&timeinfo);
 		t_base = system_clock::from_time_t (tt);
 		
-		cout << "Call feedImages()" << endl;
 		Camera::feedImages();
     }
         
@@ -57,17 +55,17 @@ namespace uvc_camera {
 	}
     
 	void saveCapturedImage(string camImgPrefix, int counter_, uint64_t time_from_base, unsigned char (*image_ptr)[height][width], std::vector<int> compression_params) {
-		//std::chrono::high_resolution_clock::time_point t1, t2;
-		//t1 = std::chrono::high_resolution_clock::now();
-		//std::chrono::duration<double, std::milli> time_span;
+		std::chrono::high_resolution_clock::time_point t1, t2;
+		t1 = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double, std::milli> time_span;
 		cv::Mat image_mat_Bayer(height,width,CV_8UC(1),*image_ptr);		//making an opencv Mat array
 		cv::Mat image_mat_RGB;
 		cv::cvtColor(image_mat_Bayer, image_mat_RGB, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
 		//saving image to disk
 		cv::imwrite(camImgPrefix + to_string(time_from_base) + camImgSuffix, image_mat_RGB, compression_params);
-		//t2 = std::chrono::high_resolution_clock::now();
-		//time_span = t2 - t1;
-		//cout << camImgPrefix << counter_ << "_" << ceil(time_span.count()) << "ms " ;
+		t2 = std::chrono::high_resolution_clock::now();
+		time_span = t2 - t1;
+		cout << counter_ << "_" << ceil(time_span.count()) << "ms " ;
 	}
 	
     void Camera::feedImages() {
@@ -76,12 +74,11 @@ namespace uvc_camera {
 		//bytes_used = uint32_t &bytes_used
 		//*frame = (unsigned char *)buffer_mem_[buffer_.index];
 			 
-		cout << "In feedImages() "<<endl;
 		unsigned char *img_frame = NULL;
 		uint32_t bytes_used;
 		int idx;
 		
-		high_resolution_clock::time_point t1, t2;
+		high_resolution_clock::time_point t1, t2, ta, tb;
 		duration<double, std::milli> time_span;
 		system_clock::duration time_tag;
 		
@@ -112,21 +109,24 @@ namespace uvc_camera {
 			img_frame = NULL;	//just a precaution so that old frame is not picked again
 			//cam1
 			idx = cam1->grab(&img_frame, bytes_used);
-			//t1 = high_resolution_clock::now();
+			t1 = high_resolution_clock::now();
 			time_tag = system_clock::now() - t_base;
 			if (img_frame) {
+				ta = high_resolution_clock::now();
 				unsigned char image1[height][width];
 				memcpy( image1[0], img_frame, height*width * sizeof(unsigned char));
 				cam1->release(idx);
 				//cam2
 				idx = cam2->grab(&img_frame, bytes_used);
 				if (img_frame) {
+					tb = high_resolution_clock::now();
 					unsigned char image2[height][width];
 					memcpy( image2[0], img_frame, height*width * sizeof(unsigned char));
 					cam2->release(idx);
 					//cam3
 					idx = cam3->grab(&img_frame, bytes_used);
 					if (img_frame) {
+						//tc = high_resolution_clock::now();
 						unsigned char image3[height][width];
 						memcpy( image3[0], img_frame, height*width * sizeof(unsigned char));
 						cam3->release(idx);
@@ -138,9 +138,9 @@ namespace uvc_camera {
 						boost::thread thread_cam1(saveCapturedImage, camImgPrefix1, counter, time_from_base, img1, compression_params);
 						boost::thread thread_cam2(saveCapturedImage, camImgPrefix2, counter, time_from_base, img2, compression_params);
 						boost::thread thread_cam3(saveCapturedImage, camImgPrefix3, counter, time_from_base, img3, compression_params);
-						//t2 = high_resolution_clock::now();
-						//time_span = t2 - t1;
-						//cout << "\nSet " << counter<< " time_from_base " << time_from_base << " time " << ceil(time_span.count()) << "ms ";
+						t2 = high_resolution_clock::now();
+						time_span = t2 - t1;
+						cout << "\nSet " << counter<< " time_from_base " << time_from_base << " time " << ceil(time_span.count()) << "ms ";
 						counter++;
 					}
 					else { cout << "Cam3_not_grabbed"; }

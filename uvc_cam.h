@@ -37,6 +37,8 @@ bool EnableTriggerMode();
 }
 
 namespace uvc_cam {
+	
+extern bool PrintAll;
 
 enum v4l2_uvc_exposure_auto_type
 {

@@ -25,24 +25,24 @@
   **********************************************************************************************************
 */
 
-
+bool PrintAllXunit = false;
 int hid_fd = -1;
 
 BOOL InitExtensionUnit(const char* bus_info)
 {
-	printf("bus_info: %s\n", bus_info);
+	if(PrintAllXunit) printf("bus_info: %s\n", bus_info);
 	int i, ret, desc_size = 0;
 	char buf[256];
 	struct hidraw_devinfo info;
 	struct hidraw_report_descriptor rpt_desc;
 	ret = find_hid_device(bus_info);
-	printf("hid_fd: %d\n", hid_fd);
+	if(PrintAllXunit) printf("hid_fd: %d\n", hid_fd);
 	if(ret < 0)
 	{
 		printf("%s(): Not able to find the e-con's see3cam device\n", __func__);
 		return FALSE;
 	}
-	printf(" Selected HID Device : %s\n",hid_device);
+	if(PrintAllXunit) printf(" Selected HID Device : %s\n",hid_device);
 
 	/* Open the Device with non-blocking reads. In real life,
 	   don't use a hard coded path; use libudev instead. */
@@ -63,7 +63,7 @@ BOOL InitExtensionUnit(const char* bus_info)
 		perror("HIDIOCGRDESCSIZE");
 		return FALSE;
 	}
-	else
+	else if(PrintAllXunit)
 		printf("Report Descriptor Size: %d\n", desc_size);
 
 	/* Get Report Descriptor */
@@ -72,7 +72,7 @@ BOOL InitExtensionUnit(const char* bus_info)
 	if (ret < 0) {
 		perror("HIDIOCGRDESC");
 		return FALSE;
-	} else {
+	} else if(PrintAllXunit) {
 		printf("Report Descriptors:\n");
 		for (i = 0; i < rpt_desc.size; i++)
 			printf("%hhx ", rpt_desc.value[i]);
@@ -94,7 +94,7 @@ BOOL InitExtensionUnit(const char* bus_info)
 		perror("HIDIOCGRAWPHYS");
 		return FALSE;
 	}
-	else
+	else if(PrintAllXunit) 
 		printf("Raw Phys: %s\n", buf);
 
 	/* Get Raw Info */
@@ -102,7 +102,7 @@ BOOL InitExtensionUnit(const char* bus_info)
 	if (ret < 0) {
 		perror("HIDIOCGRAWINFO");
 		return FALSE;
-	} else {
+	} else if(PrintAllXunit) {
 		printf("Raw Info:\n");
 		printf("\tbustype: %d (%s)\n", info.bustype, bus_str(info.bustype));
 		printf("\tvendor: 0x%04hx\n", info.vendor);
@@ -345,28 +345,28 @@ int find_hid_device(const char* physical_location)
 		if(!strncmp(udev_device_get_sysattr_value(pdev,"idVendor"), "2560", 4) && !strncmp(udev_device_get_sysattr_value(pdev, "idProduct"), "c110", 4))
 		{
 			vp_id_match = TRUE;
-			printf("c110\n");
+			if(PrintAllXunit) printf("c110\n");
 		}
 		if(!strncmp(udev_device_get_sysattr_value(pdev,"idVendor"), "2560", 4) && !strncmp(udev_device_get_sysattr_value(pdev, "idProduct"), "c111", 4))
 		{
 			vp_id_match = TRUE;
-			printf("c111\n");
+			if(PrintAllXunit) printf("c111\n");
 		}
 		else if(!strncmp(udev_device_get_sysattr_value(pdev,"idVendor"), "2560", 4) && !strncmp(udev_device_get_sysattr_value(pdev, "idProduct"), "c080", 4))
 		{
 			vp_id_match = TRUE;
-			printf("c080\n");
+			if(PrintAllXunit) printf("c080\n");
 		}
-		printf("vp_id_match = %d\n",vp_id_match);
+		if(PrintAllXunit) printf("vp_id_match = %d\n",vp_id_match);
 		// get device address
 		if ( vp_id_match )
 		{
 			vp_id_match = FALSE;
 			hid_device = udev_device_get_devnode(dev);
-			printf("hid_device = %s\n",hid_device);
+			if(PrintAllXunit) printf("hid_device = %s\n",hid_device);
 			hid_fd = open(hid_device, O_RDWR|O_NONBLOCK);
-			printf("errno = %s\n",strerror(errno));
-			printf("hid_fd after open = %d\n",hid_fd);
+			if(PrintAllXunit) printf("errno = %s\n",strerror(errno));
+			if(PrintAllXunit) printf("hid_fd after open = %d\n",hid_fd);
 			if (hid_fd >= 0) {
 				char hid_physical_location[256];
 				memset(hid_physical_location, 0x0, sizeof(hid_physical_location));
@@ -374,7 +374,7 @@ int find_hid_device(const char* physical_location)
 				/* Get Physical Location */
 				ret = ioctl(hid_fd, HIDIOCGRAWPHYS(256), hid_physical_location);
 				if (ret >= 0) {
-					printf("Physical Location: %s\n", hid_physical_location);
+					if(PrintAllXunit) printf("Physical Location: %s\n", hid_physical_location);
 					if ( strncmp(physical_location,hid_physical_location,strlen(physical_location)) == 0 )
 					{
 						vp_id_match = true;

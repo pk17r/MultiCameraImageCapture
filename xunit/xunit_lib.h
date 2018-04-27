@@ -58,6 +58,7 @@
 #define HID_LIST_MAX				32
 
 extern int hid_fd;
+extern bool PrintAllXunit;
 
 unsigned char g_out_packet_buf[BUFFER_LENGTH];
 unsigned char g_in_packet_buf[BUFFER_LENGTH];
