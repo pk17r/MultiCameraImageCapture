@@ -6,6 +6,8 @@
 #include <iostream>
 #include <math.h>
 #include <ctime>
+#include <unistd.h>
+#include <string.h>
 
 using namespace std;
 using namespace std::chrono;
@@ -15,9 +17,9 @@ namespace uvc_camera {
 	Camera::Camera(){
 		/* default config values */
 		fps = 10;
-		device1 = "/dev/video0";
-		device2 = "/dev/video1";
-		device3 = "/dev/video2";
+		device1 = "/dev/video1";
+		device2 = "/dev/video2";
+		device3 = "/dev/video3";
 		counter = 0;
 		compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
 		compression_params.push_back(0);
@@ -48,9 +50,10 @@ namespace uvc_camera {
 		/* initialize the cameras */
 		cam = new uvc_cam::Cam(device.c_str(), uvc_cam::Cam::MODE_BAYER, width, height, fps);
 		//cam1->set_motion_thresholds(100, -1);
-		cam->set_control(0x009a0901, 1); // exposure, auto (0 = auto, 1 = manual)
-		cam->set_control(0x00980900, 8); // brightness
-		cam->set_control(0x9a0902, 78); // exposure time 15.6ms
+		cam->set_control(0x009a0901, 0); // exposure, auto (0 = auto, 1 = manual)
+		cam->set_control(0x00980900, 9); // brightness
+		//cam->set_control(0x9a0902, 78); // exposure time 15.6ms
+		//usleep(300000);
 		return cam;
 	}
     
@@ -62,7 +65,7 @@ namespace uvc_camera {
 		cv::Mat image_mat_RGB;
 		cv::cvtColor(image_mat_Bayer, image_mat_RGB, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
 		//saving image to disk
-		cv::imwrite(camImgPrefix + to_string(time_from_base) + camImgSuffix, image_mat_RGB, compression_params);
+		cv::imwrite(camImgPrefix + to_string(counter_) + camImgSuffix, image_mat_RGB, compression_params);
 		t2 = std::chrono::high_resolution_clock::now();
 		time_span = t2 - t1;
 		cout << counter_ << "_" << ceil(time_span.count()) << "ms " ;
@@ -77,6 +80,18 @@ namespace uvc_camera {
 		unsigned char *img_frame = NULL;
 		uint32_t bytes_used;
 		int idx;
+		
+		string window1 = "Cam1";
+		string window2 = "Cam2";
+		string window3 = "Cam3";
+		
+		bool showCaptures = true;	//to display the captured images during runtime
+		
+		if(showCaptures) {
+			cv::namedWindow(window1, CV_WINDOW_AUTOSIZE);
+			cv::namedWindow(window2, CV_WINDOW_AUTOSIZE);
+			cv::namedWindow(window3, CV_WINDOW_AUTOSIZE);
+		}
 		
 		high_resolution_clock::time_point t1, t2, ta, tb;
 		duration<double, std::milli> time_span;
@@ -135,6 +150,23 @@ namespace uvc_camera {
 						unsigned char (*img3)[height][width] = &image3;
 						millisecondTimeType n_time = duration_cast<millisecondTimeType> (time_tag);
 						time_from_base = (uint64_t)n_time.count();
+						
+						if(showCaptures) {
+							cv::Mat image_mat_Bayer1(height,width,CV_8UC(1),image1);		//making an opencv Mat array
+							cv::Mat image_mat_RGB1;
+							cv::cvtColor(image_mat_Bayer1, image_mat_RGB1, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
+							cv::Mat image_mat_Bayer2(height,width,CV_8UC(1),image2);		//making an opencv Mat array
+							cv::Mat image_mat_RGB2;
+							cv::cvtColor(image_mat_Bayer2, image_mat_RGB2, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
+							cv::Mat image_mat_Bayer3(height,width,CV_8UC(1),image3);		//making an opencv Mat array
+							cv::Mat image_mat_RGB3;
+							cv::cvtColor(image_mat_Bayer3, image_mat_RGB3, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
+							//Display the grey scale converted frame
+							cv::imshow(window1, image_mat_RGB1);
+							cv::imshow(window2, image_mat_RGB2);
+							cv::imshow(window3, image_mat_RGB3);
+						}
+						
 						boost::thread thread_cam1(saveCapturedImage, camImgPrefix1, counter, time_from_base, img1, compression_params);
 						boost::thread thread_cam2(saveCapturedImage, camImgPrefix2, counter, time_from_base, img2, compression_params);
 						boost::thread thread_cam3(saveCapturedImage, camImgPrefix3, counter, time_from_base, img3, compression_params);
@@ -142,6 +174,7 @@ namespace uvc_camera {
 						time_span = t2 - t1;
 						cout << "\nSet " << counter<< " time_from_base " << time_from_base << " time " << ceil(time_span.count()) << "ms ";
 						counter++;
+						cv::waitKey(0);
 					}
 					else { cout << "Cam3_not_grabbed"; }
 				}

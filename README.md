@@ -20,4 +20,8 @@ uvc_cam.h: Header file which defines the Cam class.
 
 xunit folder files: Implement functions like finding cameras, camera initialization, setting trigger mode.
 
+Self Notes:
+-Check video devices attached to computer using 'ls -ltrh /dev/video*'. Use the video devices which actually are the e-con cameras in the camera.cpp file.
+-Set image save locations in camera.h file. Make sure the folders exist.
+-Use sudo ./cv_io on laptop while just ./cv_io on TX2 to run application.
 

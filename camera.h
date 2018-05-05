@@ -8,9 +8,9 @@ namespace uvc_camera {
 
 const int width = 1280;	//640, 1280, 1280
 const int height = 960;	//480,  760,  960
-const std::string camImgPrefix1 = "/mnt/ssd/cam1/";
-const std::string camImgPrefix2 = "/mnt/ssd/cam2/";
-const std::string camImgPrefix3 = "/mnt/ssd/cam3/";
+const std::string camImgPrefix1 = "cam1/";
+const std::string camImgPrefix2 = "cam2/";
+const std::string camImgPrefix3 = "cam3/";
 const std::string camImgSuffix = ".png";
 	
 class Camera {
