@@ -16,7 +16,7 @@ const std::string camImgSuffix = ".png";
 class Camera {
   public:
     Camera();
-    uvc_cam::Cam* setCamera(uvc_cam::Cam*, std::string);
+    uvc_cam::Cam* setCamera(uvc_cam::Cam*, int);
     void onInit();
     void feedImages();
     void getImgMatFromCamera(unsigned char*, unsigned char (*)[height][width]);
@@ -24,9 +24,7 @@ class Camera {
 
   private:
     bool ok;
-	int fps;
-    std::string device1, device2, device3, frame;
-    
+	
     boost::mutex time_mutex_;
     boost::thread image_thread;
     

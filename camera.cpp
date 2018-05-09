@@ -16,18 +16,14 @@ namespace uvc_camera {
 	
 	Camera::Camera(){
 		/* default config values */
-		fps = 10;
-		device1 = "/dev/video1";
-		device2 = "/dev/video2";
-		device3 = "/dev/video3";
 		counter = 0;
 		compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
 		compression_params.push_back(0);
 
 		/* initialize the cameras */
-		cam1 = Camera::setCamera(cam1, device1);
-		cam2 = Camera::setCamera(cam2, device2);
-		cam3 = Camera::setCamera(cam3, device3);
+		cam1 = Camera::setCamera(cam1, 1);
+		cam2 = Camera::setCamera(cam2, 2);
+		cam3 = Camera::setCamera(cam3, 3);
 		
 		cout << "\nAll Cameras Initialized!\n"<<endl;
 
@@ -46,14 +42,35 @@ namespace uvc_camera {
 		Camera::feedImages();
     }
         
-    uvc_cam::Cam* Camera::setCamera(uvc_cam::Cam *cam, string device){
+    uvc_cam::Cam* Camera::setCamera(uvc_cam::Cam *cam, int deviceID){
+		string deviceStr = "/dev/video" + to_string(deviceID);
+		
+		/*using namespace cv;
+		//try to get the cameras in specific resolution
+		VideoCapture cap;
+		cap.open(deviceID);
+		if(!cap.isOpened())
+			cout << "***Cam " << deviceID <<  " resolution not set***\n";
+		cap.set(CV_CAP_PROP_FRAME_WIDTH,width);
+		cap.set(CV_CAP_PROP_FRAME_HEIGHT,height);
+		//Mat CameraFrame;
+		//cap >> CameraFrame;
+		//if( CameraFrame.empty() )
+		//    cout << "***Cam " << deviceID <<  " CameraFrame not captured***\n";
+		//namedWindow(deviceStr, CV_WINDOW_AUTOSIZE);
+		//imshow(deviceStr, CameraFrame);
+		//cv::waitKey(1000);
+		cap.release();
+		*/
+		
 		/* initialize the cameras */
-		cam = new uvc_cam::Cam(device.c_str(), uvc_cam::Cam::MODE_BAYER, width, height, fps);
+		int fps = 10;
+		cam = new uvc_cam::Cam(deviceStr.c_str(), uvc_cam::Cam::MODE_BAYER, width, height, fps);
 		//cam1->set_motion_thresholds(100, -1);
 		cam->set_control(0x009a0901, 0); // exposure, auto (0 = auto, 1 = manual)
 		cam->set_control(0x00980900, 9); // brightness
 		//cam->set_control(0x9a0902, 78); // exposure time 15.6ms
-		//usleep(300000);
+		//usleep(500000);
 		return cam;
 	}
     
@@ -85,7 +102,7 @@ namespace uvc_camera {
 		string window2 = "Cam2";
 		string window3 = "Cam3";
 		
-		bool showCaptures = true;	//to display the captured images during runtime
+		bool showCaptures = false;	//to display the captured images during runtime
 		
 		if(showCaptures) {
 			cv::namedWindow(window1, CV_WINDOW_AUTOSIZE);
@@ -165,6 +182,7 @@ namespace uvc_camera {
 							cv::imshow(window1, image_mat_RGB1);
 							cv::imshow(window2, image_mat_RGB2);
 							cv::imshow(window3, image_mat_RGB3);
+							cv::waitKey(0);
 						}
 						
 						boost::thread thread_cam1(saveCapturedImage, camImgPrefix1, counter, time_from_base, img1, compression_params);
@@ -174,7 +192,6 @@ namespace uvc_camera {
 						time_span = t2 - t1;
 						cout << "\nSet " << counter<< " time_from_base " << time_from_base << " time " << ceil(time_span.count()) << "ms ";
 						counter++;
-						cv::waitKey(0);
 					}
 					else { cout << "Cam3_not_grabbed"; }
 				}
