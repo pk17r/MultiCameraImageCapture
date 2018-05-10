@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmav.a  CMakeFiles/mav.dir/serial_port.cpp.o CMakeFiles/mav.dir/autopilot_interface.cpp.o
+/usr/bin/ranlib libmav.a
