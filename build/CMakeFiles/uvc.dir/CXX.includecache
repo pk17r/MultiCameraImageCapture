@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/nvidia/MultiBaselineStereo/uvc_cam.cpp
+cstring
+-
+string
+-
+cstdio
+-
+stdexcept
+-
+dirent.h
+-
+sys/stat.h
+-
+sys/ioctl.h
+-
+sys/mman.h
+-
+fcntl.h
+-
+errno.h
+-
+unistd.h
+-
+uvc_cam.h
+/home/nvidia/MultiBaselineStereo/uvc_cam.h
+
+/home/nvidia/MultiBaselineStereo/uvc_cam.h
+string
+-
+linux/videodev2.h
+-
+stdint.h
+-
+

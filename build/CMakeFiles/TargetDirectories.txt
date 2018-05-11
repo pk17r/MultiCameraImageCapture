@@ -1,0 +1,7 @@
+/home/nvidia/MultiBaselineStereo/build/CMakeFiles/rebuild_cache.dir
+/home/nvidia/MultiBaselineStereo/build/CMakeFiles/cv_io.dir
+/home/nvidia/MultiBaselineStereo/build/CMakeFiles/xunit.dir
+/home/nvidia/MultiBaselineStereo/build/CMakeFiles/edit_cache.dir
+/home/nvidia/MultiBaselineStereo/build/CMakeFiles/uvc.dir
+/home/nvidia/MultiBaselineStereo/build/CMakeFiles/cam.dir
+/home/nvidia/MultiBaselineStereo/build/CMakeFiles/mav.dir
