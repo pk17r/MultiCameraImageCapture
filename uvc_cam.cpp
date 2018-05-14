@@ -11,11 +11,12 @@
 #include <errno.h>
 #include <unistd.h>
 #include "uvc_cam.h"
+#include <iostream>
 
 using std::string;
 using namespace uvc_cam;
 
-bool uvc_cam::PrintAll = false;
+bool uvc_cam::PrintAll = true;
 
 
 static void
@@ -45,7 +46,7 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
 {
 	//enumerate();
 
-  printf("\nOpening %s\n", _device);
+  printf("\n**** Opening %s ****\n", _device);
 
   if ((device_file_h_ = open(_device, O_RDWR)) == -1)
   {
@@ -69,14 +70,14 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
   format_desc.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   int ret;
 
-  //printf("## FORMATS: ##\n");
+  printf("## FORMATS: ##\n");
 
   while ((ret = ioctl(device_file_h_, VIDIOC_ENUM_FMT, &format_desc)) == 0)
   {
     if(PrintAll) printf("pixfmt %d = '%4s' desc = '%s'\n", format_desc.index, (char *)&format_desc.pixelformat, format_desc.description);
 
     format_desc.index++;
-
+    
     // enumerate frame sizes
     v4l2_frmsizeenum fsize;
     fsize.index = 0;
@@ -182,9 +183,13 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
   //////////////////////////////////////////
 
   format_.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+  //format_.fmt.index = 1;
   format_.fmt.pix.width = width_;
   format_.fmt.pix.height = height_;
-
+  format_.fmt.pix.colorspace = V4L2_COLORSPACE_RAW;
+  format_.fmt.pix.sizeimage = sizeof(unsigned char) * width_ * height_;
+  std::cout << "input format_.fmt.pix.sizeimage: " << format_.fmt.pix.sizeimage << std::endl;
+  
   if (mode_ == MODE_RGB || mode_ == MODE_YUYV) // we'll convert later
     format_.fmt.pix.pixelformat = 'Y' | ('U' << 8) | ('Y' << 16) | ('V' << 24);
   else if (mode_ == MODE_BAYER)
@@ -196,6 +201,7 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
 
   if ((ret = ioctl(device_file_h_, VIDIOC_S_FMT, &format_)) < 0)
     throw std::runtime_error("couldn't set format");
+  std::cout << "format_.fmt.pix.sizeimage: " << format_.fmt.pix.sizeimage << std::endl;
 
   if (format_.fmt.pix.width != width_ || format_.fmt.pix.height != height_)
     throw std::runtime_error("pixel format unavailable");
@@ -205,6 +211,7 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
   stream_parm_.parm.capture.timeperframe.denominator = fps_;
   if ((ret = ioctl(device_file_h_, VIDIOC_S_PARM, &stream_parm_)) < 0)
     throw std::runtime_error("unable to set framerate");
+  std::cout << "stream_parm_.parm.capture.timeperframe.denominator: " << stream_parm_.parm.capture.timeperframe.denominator << std::endl;
   //v4l2_queryctrl queryctrl;
   memset(&queryctrl, 0, sizeof(queryctrl));
 
@@ -306,6 +313,7 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
   request_buffers_.memory = V4L2_MEMORY_MMAP;
   if (ioctl(device_file_h_, VIDIOC_REQBUFS, &request_buffers_) < 0)
     throw std::runtime_error("unable to allocate buffers");
+  
   for (unsigned i = 0; i < NUM_BUFFERS; i++)
   {
     memset(&buffer_, 0, sizeof(buffer_));
@@ -321,12 +329,12 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
     if (buffer_.length <= 0)
       throw std::runtime_error("buffer length is bogus");
     buffer_mem_[i] = mmap(0, buffer_.length, PROT_READ, MAP_SHARED, device_file_h_, buffer_.m.offset);
-    //printf("buf length = %d at %x\n", buf.length, mem[i]);
+    printf("buf length = %d\n", buffer_.length);
     if (buffer_mem_[i] == MAP_FAILED)
       throw std::runtime_error("couldn't map buffer");
   }
   buffer_length_ = buffer_.length;
-  //printf("*** buffer_length_: %u", buffer_length_);
+  printf("buffer_length_: %u", buffer_length_);
   for (unsigned i = 0; i < NUM_BUFFERS; i++)
   {
     memset(&buffer_, 0, sizeof(buffer_));
@@ -345,12 +353,6 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
     throw std::runtime_error("unable to start capture");
   rgb_frame_ = new unsigned char[width_ * height_ * 3];
   last_yuv_frame_ = new unsigned char[width_ * height_ * 2];
-  //printf("*** width_: %u, height_: %u, fps_: %u", (unsigned int)width_, (unsigned int)height_, (unsigned int)fps_);
-
-  // initialize see3cam extension unit
-  //printf("**** capability_.bus_info *******: %s\n", capability_.bus_info);
-  //const char* cap_bus_info = (const char*)capability_.bus_info;
-  //printf("cap_bus_info: %s\n", (void*)cap_bus_info);
   InitExtensionUnit( (char*)&capability_.bus_info );
   EnableTriggerMode();
 }
@@ -589,21 +591,21 @@ void Cam::set_control(uint32_t id, int val)
   queryctrl.id = id;
   if (0 == ioctl (device_file_h_, VIDIOC_QUERYCTRL, &queryctrl))
   {
-		if (queryctrl.flags & V4L2_CTRL_FLAG_DISABLED)
-		{
-			printf ("Control '%s' is disabled.\n", queryctrl.name);
-			return;
-		}
-	}
+    if (queryctrl.flags & V4L2_CTRL_FLAG_DISABLED)
+    {
+      printf ("Control '%s' is disabled.\n", queryctrl.name);
+      return;
+    }
+  }
   else
-	{
+  {
     printf("Control #%d does not exist.\n", id);
-  	return;
-	}
+    return;
+  }
 
   if (ioctl(device_file_h_, VIDIOC_G_CTRL, &c) == 0)
   {
-    printf("current value of %s is %d\n", queryctrl.name, c.value);
+    printf("\ncurrent value of %s is %d\n", queryctrl.name, c.value);
   }
 
   printf("Setting control '%s' from %d to %d\n", queryctrl.name, c.value, val);
@@ -613,6 +615,11 @@ void Cam::set_control(uint32_t id, int val)
   {
     printf("unable to set control '%s'!\n", queryctrl.name);
   }
+  memset (&queryctrl, 0, sizeof (queryctrl));
+  queryctrl.id = id;
+  if (0 == ioctl (device_file_h_, VIDIOC_QUERYCTRL, &queryctrl))
+    if (ioctl(device_file_h_, VIDIOC_G_CTRL, &c) == 0)
+      printf("Value of '%s' is now %d\n", queryctrl.name, c.value);
 }
 
 void Cam::set_motion_thresholds(int lum, int count)

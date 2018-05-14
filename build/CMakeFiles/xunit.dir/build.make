@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nvidia/MultiBaselineStereo
+CMAKE_SOURCE_DIR = /home/pkr/pkr-work/MultiBaselineStereo
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nvidia/MultiBaselineStereo/build
+CMAKE_BINARY_DIR = /home/pkr/pkr-work/MultiBaselineStereo/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/xunit.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/xunit.dir/flags.make
 
 CMakeFiles/xunit.dir/xunit/xunit_lib.c.o: CMakeFiles/xunit.dir/flags.make
 CMakeFiles/xunit.dir/xunit/xunit_lib.c.o: ../xunit/xunit_lib.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nvidia/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/xunit.dir/xunit/xunit_lib.c.o"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/xunit.dir/xunit/xunit_lib.c.o   -c /home/nvidia/MultiBaselineStereo/xunit/xunit_lib.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/xunit.dir/xunit/xunit_lib.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/xunit.dir/xunit/xunit_lib.c.o   -c /home/pkr/pkr-work/MultiBaselineStereo/xunit/xunit_lib.c
 
 CMakeFiles/xunit.dir/xunit/xunit_lib.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/xunit.dir/xunit/xunit_lib.c.i"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nvidia/MultiBaselineStereo/xunit/xunit_lib.c > CMakeFiles/xunit.dir/xunit/xunit_lib.c.i
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/pkr/pkr-work/MultiBaselineStereo/xunit/xunit_lib.c > CMakeFiles/xunit.dir/xunit/xunit_lib.c.i
 
 CMakeFiles/xunit.dir/xunit/xunit_lib.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/xunit.dir/xunit/xunit_lib.c.s"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nvidia/MultiBaselineStereo/xunit/xunit_lib.c -o CMakeFiles/xunit.dir/xunit/xunit_lib.c.s
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/pkr/pkr-work/MultiBaselineStereo/xunit/xunit_lib.c -o CMakeFiles/xunit.dir/xunit/xunit_lib.c.s
 
 CMakeFiles/xunit.dir/xunit/xunit_lib.c.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/xunit.dir/xunit/xunit_lib.c.o.provides.build: CMakeFiles/xunit.dir/xu
 
 CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.o: CMakeFiles/xunit.dir/flags.make
 CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.o: ../xunit/xunit_lib_cug.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nvidia/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.o"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.o   -c /home/nvidia/MultiBaselineStereo/xunit/xunit_lib_cug.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.o   -c /home/pkr/pkr-work/MultiBaselineStereo/xunit/xunit_lib_cug.c
 
 CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.i"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nvidia/MultiBaselineStereo/xunit/xunit_lib_cug.c > CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.i
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/pkr/pkr-work/MultiBaselineStereo/xunit/xunit_lib_cug.c > CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.i
 
 CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.s"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nvidia/MultiBaselineStereo/xunit/xunit_lib_cug.c -o CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.s
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/pkr/pkr-work/MultiBaselineStereo/xunit/xunit_lib_cug.c -o CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.s
 
 CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.o.requires:
 
@@ -117,7 +117,7 @@ libxunit.a: CMakeFiles/xunit.dir/xunit/xunit_lib.c.o
 libxunit.a: CMakeFiles/xunit.dir/xunit/xunit_lib_cug.c.o
 libxunit.a: CMakeFiles/xunit.dir/build.make
 libxunit.a: CMakeFiles/xunit.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nvidia/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C static library libxunit.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C static library libxunit.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/xunit.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/xunit.dir/link.txt --verbose=$(VERBOSE)
 
@@ -136,6 +136,6 @@ CMakeFiles/xunit.dir/clean:
 .PHONY : CMakeFiles/xunit.dir/clean
 
 CMakeFiles/xunit.dir/depend:
-	cd /home/nvidia/MultiBaselineStereo/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nvidia/MultiBaselineStereo /home/nvidia/MultiBaselineStereo /home/nvidia/MultiBaselineStereo/build /home/nvidia/MultiBaselineStereo/build /home/nvidia/MultiBaselineStereo/build/CMakeFiles/xunit.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/pkr/pkr-work/MultiBaselineStereo/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pkr/pkr-work/MultiBaselineStereo /home/pkr/pkr-work/MultiBaselineStereo /home/pkr/pkr-work/MultiBaselineStereo/build /home/pkr/pkr-work/MultiBaselineStereo/build /home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles/xunit.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/xunit.dir/depend
 

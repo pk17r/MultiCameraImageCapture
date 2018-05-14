@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nvidia/MultiBaselineStereo
+CMAKE_SOURCE_DIR = /home/pkr/pkr-work/MultiBaselineStereo
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nvidia/MultiBaselineStereo/build
+CMAKE_BINARY_DIR = /home/pkr/pkr-work/MultiBaselineStereo/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/mav.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/mav.dir/flags.make
 
 CMakeFiles/mav.dir/serial_port.cpp.o: CMakeFiles/mav.dir/flags.make
 CMakeFiles/mav.dir/serial_port.cpp.o: ../serial_port.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nvidia/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/mav.dir/serial_port.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mav.dir/serial_port.cpp.o -c /home/nvidia/MultiBaselineStereo/serial_port.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/mav.dir/serial_port.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mav.dir/serial_port.cpp.o -c /home/pkr/pkr-work/MultiBaselineStereo/serial_port.cpp
 
 CMakeFiles/mav.dir/serial_port.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mav.dir/serial_port.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nvidia/MultiBaselineStereo/serial_port.cpp > CMakeFiles/mav.dir/serial_port.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pkr/pkr-work/MultiBaselineStereo/serial_port.cpp > CMakeFiles/mav.dir/serial_port.cpp.i
 
 CMakeFiles/mav.dir/serial_port.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mav.dir/serial_port.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nvidia/MultiBaselineStereo/serial_port.cpp -o CMakeFiles/mav.dir/serial_port.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pkr/pkr-work/MultiBaselineStereo/serial_port.cpp -o CMakeFiles/mav.dir/serial_port.cpp.s
 
 CMakeFiles/mav.dir/serial_port.cpp.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/mav.dir/serial_port.cpp.o.provides.build: CMakeFiles/mav.dir/serial_p
 
 CMakeFiles/mav.dir/autopilot_interface.cpp.o: CMakeFiles/mav.dir/flags.make
 CMakeFiles/mav.dir/autopilot_interface.cpp.o: ../autopilot_interface.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nvidia/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/mav.dir/autopilot_interface.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mav.dir/autopilot_interface.cpp.o -c /home/nvidia/MultiBaselineStereo/autopilot_interface.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/mav.dir/autopilot_interface.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mav.dir/autopilot_interface.cpp.o -c /home/pkr/pkr-work/MultiBaselineStereo/autopilot_interface.cpp
 
 CMakeFiles/mav.dir/autopilot_interface.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mav.dir/autopilot_interface.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nvidia/MultiBaselineStereo/autopilot_interface.cpp > CMakeFiles/mav.dir/autopilot_interface.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pkr/pkr-work/MultiBaselineStereo/autopilot_interface.cpp > CMakeFiles/mav.dir/autopilot_interface.cpp.i
 
 CMakeFiles/mav.dir/autopilot_interface.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mav.dir/autopilot_interface.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nvidia/MultiBaselineStereo/autopilot_interface.cpp -o CMakeFiles/mav.dir/autopilot_interface.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pkr/pkr-work/MultiBaselineStereo/autopilot_interface.cpp -o CMakeFiles/mav.dir/autopilot_interface.cpp.s
 
 CMakeFiles/mav.dir/autopilot_interface.cpp.o.requires:
 
@@ -117,7 +117,7 @@ libmav.a: CMakeFiles/mav.dir/serial_port.cpp.o
 libmav.a: CMakeFiles/mav.dir/autopilot_interface.cpp.o
 libmav.a: CMakeFiles/mav.dir/build.make
 libmav.a: CMakeFiles/mav.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nvidia/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libmav.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libmav.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/mav.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mav.dir/link.txt --verbose=$(VERBOSE)
 
@@ -136,6 +136,6 @@ CMakeFiles/mav.dir/clean:
 .PHONY : CMakeFiles/mav.dir/clean
 
 CMakeFiles/mav.dir/depend:
-	cd /home/nvidia/MultiBaselineStereo/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nvidia/MultiBaselineStereo /home/nvidia/MultiBaselineStereo /home/nvidia/MultiBaselineStereo/build /home/nvidia/MultiBaselineStereo/build /home/nvidia/MultiBaselineStereo/build/CMakeFiles/mav.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/pkr/pkr-work/MultiBaselineStereo/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pkr/pkr-work/MultiBaselineStereo /home/pkr/pkr-work/MultiBaselineStereo /home/pkr/pkr-work/MultiBaselineStereo/build /home/pkr/pkr-work/MultiBaselineStereo/build /home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles/mav.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/mav.dir/depend
 

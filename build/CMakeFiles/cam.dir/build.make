@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nvidia/MultiBaselineStereo
+CMAKE_SOURCE_DIR = /home/pkr/pkr-work/MultiBaselineStereo
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nvidia/MultiBaselineStereo/build
+CMAKE_BINARY_DIR = /home/pkr/pkr-work/MultiBaselineStereo/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/cam.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/cam.dir/flags.make
 
 CMakeFiles/cam.dir/camera.cpp.o: CMakeFiles/cam.dir/flags.make
 CMakeFiles/cam.dir/camera.cpp.o: ../camera.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nvidia/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cam.dir/camera.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cam.dir/camera.cpp.o -c /home/nvidia/MultiBaselineStereo/camera.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cam.dir/camera.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cam.dir/camera.cpp.o -c /home/pkr/pkr-work/MultiBaselineStereo/camera.cpp
 
 CMakeFiles/cam.dir/camera.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cam.dir/camera.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nvidia/MultiBaselineStereo/camera.cpp > CMakeFiles/cam.dir/camera.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pkr/pkr-work/MultiBaselineStereo/camera.cpp > CMakeFiles/cam.dir/camera.cpp.i
 
 CMakeFiles/cam.dir/camera.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cam.dir/camera.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nvidia/MultiBaselineStereo/camera.cpp -o CMakeFiles/cam.dir/camera.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pkr/pkr-work/MultiBaselineStereo/camera.cpp -o CMakeFiles/cam.dir/camera.cpp.s
 
 CMakeFiles/cam.dir/camera.cpp.o.requires:
 
@@ -91,7 +91,7 @@ cam_EXTERNAL_OBJECTS =
 libcam.a: CMakeFiles/cam.dir/camera.cpp.o
 libcam.a: CMakeFiles/cam.dir/build.make
 libcam.a: CMakeFiles/cam.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nvidia/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libcam.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libcam.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/cam.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cam.dir/link.txt --verbose=$(VERBOSE)
 
@@ -109,6 +109,6 @@ CMakeFiles/cam.dir/clean:
 .PHONY : CMakeFiles/cam.dir/clean
 
 CMakeFiles/cam.dir/depend:
-	cd /home/nvidia/MultiBaselineStereo/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nvidia/MultiBaselineStereo /home/nvidia/MultiBaselineStereo /home/nvidia/MultiBaselineStereo/build /home/nvidia/MultiBaselineStereo/build /home/nvidia/MultiBaselineStereo/build/CMakeFiles/cam.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/pkr/pkr-work/MultiBaselineStereo/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pkr/pkr-work/MultiBaselineStereo /home/pkr/pkr-work/MultiBaselineStereo /home/pkr/pkr-work/MultiBaselineStereo/build /home/pkr/pkr-work/MultiBaselineStereo/build /home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles/cam.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/cam.dir/depend
 

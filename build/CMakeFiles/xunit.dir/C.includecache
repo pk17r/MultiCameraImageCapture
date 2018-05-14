@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/nvidia/MultiBaselineStereo/xunit/xunit_lib.c
+/home/pkr/pkr-work/MultiBaselineStereo/xunit/xunit_lib.c
 stdio.h
 -
 stdlib.h
@@ -30,17 +30,17 @@ linux/input.h
 linux/hidraw.h
 -
 xunit_lib.h
-/home/nvidia/MultiBaselineStereo/xunit/xunit_lib.h
+/home/pkr/pkr-work/MultiBaselineStereo/xunit/xunit_lib.h
 errno.h
 -
 
-/home/nvidia/MultiBaselineStereo/xunit/xunit_lib.h
+/home/pkr/pkr-work/MultiBaselineStereo/xunit/xunit_lib.h
 xunit_tab_lib.h
-/home/nvidia/MultiBaselineStereo/xunit/xunit_tab_lib.h
+/home/pkr/pkr-work/MultiBaselineStereo/xunit/xunit_tab_lib.h
 libudev.h
 -
 
-/home/nvidia/MultiBaselineStereo/xunit/xunit_lib_cug.c
+/home/pkr/pkr-work/MultiBaselineStereo/xunit/xunit_lib_cug.c
 stdio.h
 -
 stdlib.h
@@ -64,9 +64,9 @@ linux/input.h
 linux/hidraw.h
 -
 xunit_lib.h
-/home/nvidia/MultiBaselineStereo/xunit/xunit_lib.h
+/home/pkr/pkr-work/MultiBaselineStereo/xunit/xunit_lib.h
 
-/home/nvidia/MultiBaselineStereo/xunit/xunit_tab_lib.h
+/home/pkr/pkr-work/MultiBaselineStereo/xunit/xunit_tab_lib.h
 stdbool.h
 -
 

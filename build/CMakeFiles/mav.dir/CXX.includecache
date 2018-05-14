@@ -486,13 +486,13 @@ mavlink_types.h
 mavlink_helpers.h
 ../mavlink/mavlink_helpers.h
 
-/home/nvidia/MultiBaselineStereo/autopilot_interface.cpp
+/home/pkr/pkr-work/MultiBaselineStereo/autopilot_interface.cpp
 autopilot_interface.h
-/home/nvidia/MultiBaselineStereo/autopilot_interface.h
+/home/pkr/pkr-work/MultiBaselineStereo/autopilot_interface.h
 
-/home/nvidia/MultiBaselineStereo/autopilot_interface.h
+/home/pkr/pkr-work/MultiBaselineStereo/autopilot_interface.h
 serial_port.h
-/home/nvidia/MultiBaselineStereo/serial_port.h
+/home/pkr/pkr-work/MultiBaselineStereo/serial_port.h
 signal.h
 -
 time.h
@@ -502,11 +502,11 @@ sys/time.h
 common/mavlink.h
 -
 
-/home/nvidia/MultiBaselineStereo/serial_port.cpp
+/home/pkr/pkr-work/MultiBaselineStereo/serial_port.cpp
 serial_port.h
-/home/nvidia/MultiBaselineStereo/serial_port.h
+/home/pkr/pkr-work/MultiBaselineStereo/serial_port.h
 
-/home/nvidia/MultiBaselineStereo/serial_port.h
+/home/pkr/pkr-work/MultiBaselineStereo/serial_port.h
 cstdlib
 -
 stdio.h

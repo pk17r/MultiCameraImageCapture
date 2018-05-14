@@ -119,9 +119,9 @@ CMakeFiles/mav.dir/autopilot_interface.cpp.o
  ../mavlink/mavlink_helpers.h
  ../mavlink/mavlink_types.h
  ../mavlink/protocol.h
- /home/nvidia/MultiBaselineStereo/autopilot_interface.cpp
- /home/nvidia/MultiBaselineStereo/autopilot_interface.h
- /home/nvidia/MultiBaselineStereo/serial_port.h
+ /home/pkr/pkr-work/MultiBaselineStereo/autopilot_interface.cpp
+ /home/pkr/pkr-work/MultiBaselineStereo/autopilot_interface.h
+ /home/pkr/pkr-work/MultiBaselineStereo/serial_port.h
 CMakeFiles/mav.dir/serial_port.cpp.o
  ../mavlink/checksum.h
  ../mavlink/common/./mavlink_msg_attitude.h
@@ -240,5 +240,5 @@ CMakeFiles/mav.dir/serial_port.cpp.o
  ../mavlink/mavlink_helpers.h
  ../mavlink/mavlink_types.h
  ../mavlink/protocol.h
- /home/nvidia/MultiBaselineStereo/serial_port.cpp
- /home/nvidia/MultiBaselineStereo/serial_port.h
+ /home/pkr/pkr-work/MultiBaselineStereo/serial_port.cpp
+ /home/pkr/pkr-work/MultiBaselineStereo/serial_port.h

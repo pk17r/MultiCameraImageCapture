@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nvidia/MultiBaselineStereo
+CMAKE_SOURCE_DIR = /home/pkr/pkr-work/MultiBaselineStereo
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nvidia/MultiBaselineStereo/build
+CMAKE_BINARY_DIR = /home/pkr/pkr-work/MultiBaselineStereo/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/cv_io.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/cv_io.dir/flags.make
 
 CMakeFiles/cv_io.dir/io.cpp.o: CMakeFiles/cv_io.dir/flags.make
 CMakeFiles/cv_io.dir/io.cpp.o: ../io.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nvidia/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cv_io.dir/io.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cv_io.dir/io.cpp.o -c /home/nvidia/MultiBaselineStereo/io.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cv_io.dir/io.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cv_io.dir/io.cpp.o -c /home/pkr/pkr-work/MultiBaselineStereo/io.cpp
 
 CMakeFiles/cv_io.dir/io.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cv_io.dir/io.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nvidia/MultiBaselineStereo/io.cpp > CMakeFiles/cv_io.dir/io.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pkr/pkr-work/MultiBaselineStereo/io.cpp > CMakeFiles/cv_io.dir/io.cpp.i
 
 CMakeFiles/cv_io.dir/io.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cv_io.dir/io.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nvidia/MultiBaselineStereo/io.cpp -o CMakeFiles/cv_io.dir/io.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pkr/pkr-work/MultiBaselineStereo/io.cpp -o CMakeFiles/cv_io.dir/io.cpp.s
 
 CMakeFiles/cv_io.dir/io.cpp.o.requires:
 
@@ -92,45 +92,47 @@ cv_io: CMakeFiles/cv_io.dir/io.cpp.o
 cv_io: CMakeFiles/cv_io.dir/build.make
 cv_io: libuvc.a
 cv_io: libcam.a
-cv_io: /usr/lib/libopencv_videostab.so.3.1.0
-cv_io: /usr/lib/libopencv_superres.so.3.1.0
-cv_io: /usr/lib/libopencv_stitching.so.3.1.0
-cv_io: /usr/lib/libopencv_shape.so.3.1.0
-cv_io: /usr/lib/libopencv_photo.so.3.1.0
-cv_io: /usr/lib/libopencv_cudastereo.so.3.1.0
-cv_io: /usr/lib/libopencv_cudaoptflow.so.3.1.0
-cv_io: /usr/lib/libopencv_cudaobjdetect.so.3.1.0
-cv_io: /usr/lib/libopencv_cudalegacy.so.3.1.0
-cv_io: /usr/lib/libopencv_objdetect.so.3.1.0
-cv_io: /usr/lib/libopencv_cudaimgproc.so.3.1.0
-cv_io: /usr/lib/libopencv_cudafeatures2d.so.3.1.0
-cv_io: /usr/lib/libopencv_cudawarping.so.3.1.0
-cv_io: /usr/lib/libopencv_cudafilters.so.3.1.0
-cv_io: /usr/lib/libopencv_cudacodec.so.3.1.0
-cv_io: /usr/lib/libopencv_cudabgsegm.so.3.1.0
-cv_io: /usr/lib/libopencv_video.so.3.1.0
-cv_io: /usr/lib/libopencv_cudaarithm.so.3.1.0
-cv_io: /usr/lib/libopencv_calib3d.so.3.1.0
-cv_io: /usr/lib/libopencv_features2d.so.3.1.0
-cv_io: /usr/lib/libopencv_ml.so.3.1.0
-cv_io: /usr/lib/libopencv_highgui.so.3.1.0
-cv_io: /usr/lib/libopencv_videoio.so.3.1.0
-cv_io: /usr/lib/libopencv_imgcodecs.so.3.1.0
-cv_io: /usr/lib/libopencv_imgproc.so.3.1.0
-cv_io: /usr/lib/libopencv_flann.so.3.1.0
-cv_io: /usr/lib/libopencv_core.so.3.1.0
-cv_io: /usr/lib/libopencv_cudev.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_rgbd.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_ccalib.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_videostab.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_superres.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_stitching.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_shape.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_photo.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_cudastereo.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_cudaoptflow.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_cudaobjdetect.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_cudalegacy.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_objdetect.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_cudaimgproc.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_cudafeatures2d.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_cudawarping.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_cudafilters.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_cudacodec.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_cudabgsegm.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_video.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_cudaarithm.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_calib3d.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_features2d.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_ml.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_highgui.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_videoio.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_imgcodecs.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_imgproc.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_flann.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_core.so.3.1.0
+cv_io: /usr/local/opencv/build/lib/libopencv_cudev.so.3.1.0
 cv_io: libuvc.a
 cv_io: libxunit.a
-cv_io: /usr/lib/aarch64-linux-gnu/libboost_thread.so
-cv_io: /usr/lib/aarch64-linux-gnu/libboost_system.so
-cv_io: /usr/lib/aarch64-linux-gnu/libboost_chrono.so
-cv_io: /usr/lib/aarch64-linux-gnu/libboost_date_time.so
-cv_io: /usr/lib/aarch64-linux-gnu/libboost_atomic.so
-cv_io: /usr/lib/aarch64-linux-gnu/libpthread.so
+cv_io: /usr/lib/x86_64-linux-gnu/libboost_thread.so
+cv_io: /usr/lib/x86_64-linux-gnu/libboost_system.so
+cv_io: /usr/lib/x86_64-linux-gnu/libboost_chrono.so
+cv_io: /usr/lib/x86_64-linux-gnu/libboost_date_time.so
+cv_io: /usr/lib/x86_64-linux-gnu/libboost_atomic.so
+cv_io: /usr/lib/x86_64-linux-gnu/libpthread.so
 cv_io: libmav.a
 cv_io: CMakeFiles/cv_io.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nvidia/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable cv_io"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable cv_io"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cv_io.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -147,6 +149,6 @@ CMakeFiles/cv_io.dir/clean:
 .PHONY : CMakeFiles/cv_io.dir/clean
 
 CMakeFiles/cv_io.dir/depend:
-	cd /home/nvidia/MultiBaselineStereo/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nvidia/MultiBaselineStereo /home/nvidia/MultiBaselineStereo /home/nvidia/MultiBaselineStereo/build /home/nvidia/MultiBaselineStereo/build /home/nvidia/MultiBaselineStereo/build/CMakeFiles/cv_io.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/pkr/pkr-work/MultiBaselineStereo/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pkr/pkr-work/MultiBaselineStereo /home/pkr/pkr-work/MultiBaselineStereo /home/pkr/pkr-work/MultiBaselineStereo/build /home/pkr/pkr-work/MultiBaselineStereo/build /home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles/cv_io.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/cv_io.dir/depend
 

@@ -86,7 +86,7 @@ BOOL InitExtensionUnit(const char* bus_info)
 		return FALSE;
 	}
 	else
-		printf("Raw Name: %s\n", buf);
+		printf("%s\n", buf);
 
 	/* Get Physical Location */
 	ret = ioctl(hid_fd, HIDIOCGRAWPHYS(256), buf);

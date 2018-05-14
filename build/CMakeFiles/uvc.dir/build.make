@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nvidia/MultiBaselineStereo
+CMAKE_SOURCE_DIR = /home/pkr/pkr-work/MultiBaselineStereo
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nvidia/MultiBaselineStereo/build
+CMAKE_BINARY_DIR = /home/pkr/pkr-work/MultiBaselineStereo/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/uvc.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/uvc.dir/flags.make
 
 CMakeFiles/uvc.dir/uvc_cam.cpp.o: CMakeFiles/uvc.dir/flags.make
 CMakeFiles/uvc.dir/uvc_cam.cpp.o: ../uvc_cam.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nvidia/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/uvc.dir/uvc_cam.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/uvc.dir/uvc_cam.cpp.o -c /home/nvidia/MultiBaselineStereo/uvc_cam.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/uvc.dir/uvc_cam.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/uvc.dir/uvc_cam.cpp.o -c /home/pkr/pkr-work/MultiBaselineStereo/uvc_cam.cpp
 
 CMakeFiles/uvc.dir/uvc_cam.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/uvc.dir/uvc_cam.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nvidia/MultiBaselineStereo/uvc_cam.cpp > CMakeFiles/uvc.dir/uvc_cam.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pkr/pkr-work/MultiBaselineStereo/uvc_cam.cpp > CMakeFiles/uvc.dir/uvc_cam.cpp.i
 
 CMakeFiles/uvc.dir/uvc_cam.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/uvc.dir/uvc_cam.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nvidia/MultiBaselineStereo/uvc_cam.cpp -o CMakeFiles/uvc.dir/uvc_cam.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pkr/pkr-work/MultiBaselineStereo/uvc_cam.cpp -o CMakeFiles/uvc.dir/uvc_cam.cpp.s
 
 CMakeFiles/uvc.dir/uvc_cam.cpp.o.requires:
 
@@ -91,7 +91,7 @@ uvc_EXTERNAL_OBJECTS =
 libuvc.a: CMakeFiles/uvc.dir/uvc_cam.cpp.o
 libuvc.a: CMakeFiles/uvc.dir/build.make
 libuvc.a: CMakeFiles/uvc.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nvidia/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libuvc.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libuvc.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/uvc.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/uvc.dir/link.txt --verbose=$(VERBOSE)
 
@@ -109,6 +109,6 @@ CMakeFiles/uvc.dir/clean:
 .PHONY : CMakeFiles/uvc.dir/clean
 
 CMakeFiles/uvc.dir/depend:
-	cd /home/nvidia/MultiBaselineStereo/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nvidia/MultiBaselineStereo /home/nvidia/MultiBaselineStereo /home/nvidia/MultiBaselineStereo/build /home/nvidia/MultiBaselineStereo/build /home/nvidia/MultiBaselineStereo/build/CMakeFiles/uvc.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/pkr/pkr-work/MultiBaselineStereo/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pkr/pkr-work/MultiBaselineStereo /home/pkr/pkr-work/MultiBaselineStereo /home/pkr/pkr-work/MultiBaselineStereo/build /home/pkr/pkr-work/MultiBaselineStereo/build /home/pkr/pkr-work/MultiBaselineStereo/build/CMakeFiles/uvc.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/uvc.dir/depend
 

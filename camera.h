@@ -7,22 +7,20 @@
 namespace uvc_camera {
 
 const int width = 1280;	//640, 1280, 1280
-const int height = 960;	//480,  760,  960
-const std::string camImgPrefix1 = "/mnt/ssd/cam1/";
-const std::string camImgPrefix2 = "/mnt/ssd/cam2/";
-const std::string camImgPrefix3 = "/mnt/ssd/cam3/";
-const std::string textFilePrefix = "/mnt/ssd/log";
+const int height = 720;	//480,  720,  960
+const std::string textFilePrefix = "log";
 const std::string camImgSuffix = ".png";
 	
 class Camera {
   public:
-    Camera();
-    uvc_cam::Cam* setCamera(uvc_cam::Cam*, int);
+    Camera(std::string, bool, bool, bool, int, int, int, int, int);
+    uvc_cam::Cam* setCamera(uvc_cam::Cam*, int, int, int);
     void onInit();
-    void feedImages();
+    void fetchImagesFunction(bool, bool, bool);
+    void feedImages(bool, bool, bool);
     void getImgMatFromCamera(unsigned char*, unsigned char (*)[height][width]);
     ~Camera();
-
+    
   private:
     bool ok;
 	
@@ -35,7 +33,9 @@ class Camera {
     std::vector<int> compression_params;
     
     uvc_cam::Cam *cam1, *cam2, *cam3;
+    std::string camImgPrefix1;
+	std::string camImgPrefix2;
+	std::string camImgPrefix3;
 };
 
 };
-

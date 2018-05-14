@@ -277,16 +277,25 @@ namespace uvc_camera {
 	jetsonTX1GPIONumber redLED = gpio398 ;     // Ouput  gpio398
 	ofstream outfile;
 	
-	Camera::Camera(){
+	Camera::Camera(string save_directory, bool showCaptures, bool useMAVLinkForTrigger, 
+			bool useGPIOPinsAsTrigger, int cam1_ID, int cam2_ID, int cam3_ID, 
+			int brightness, int exposure){
+		camImgPrefix1 = save_directory + "cam1/";
+		camImgPrefix2 = save_directory + "cam2/";
+		camImgPrefix3 = save_directory + "cam3/";
+		
 		/* default config values */
 		counter = 0;
 		compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
 		compression_params.push_back(0);
+		
+		cout << "\nIf output is 'Unable to find parent usb device.' or if you want to use TX2 GPIO trigger, run executable using administrative rights." << endl;
+		usleep(500000);
 
 		/* initialize the cameras */
-		cam1 = Camera::setCamera(cam1, 0);
-		cam2 = Camera::setCamera(cam2, 1);
-		cam3 = Camera::setCamera(cam3, 2);
+		cam1 = Camera::setCamera(cam1, cam1_ID, brightness, exposure);
+		cam2 = Camera::setCamera(cam2, cam2_ID, brightness, exposure);
+		cam3 = Camera::setCamera(cam3, cam3_ID, brightness, exposure);
 		
 		cout << "\nAll Cameras Initialized!\n"<<endl;
 
@@ -302,10 +311,10 @@ namespace uvc_camera {
 		std::time_t tt = std::mktime (&timeinfo);
 		t_base = system_clock::from_time_t (tt);
 		
-		Camera::feedImages();
+		Camera::feedImages(showCaptures, useMAVLinkForTrigger, useGPIOPinsAsTrigger);
     }
         
-    uvc_cam::Cam* Camera::setCamera(uvc_cam::Cam *cam, int deviceID){
+    uvc_cam::Cam* Camera::setCamera(uvc_cam::Cam *cam, int deviceID, int brightness, int exposure){
 		string deviceStr = "/dev/video" + to_string(deviceID);
 		
 		/*using namespace cv;
@@ -330,25 +339,31 @@ namespace uvc_camera {
 		int fps = 10;
 		cam = new uvc_cam::Cam(deviceStr.c_str(), uvc_cam::Cam::MODE_BAYER, width, height, fps);
 		//cam1->set_motion_thresholds(100, -1);
-		cam->set_control(0x009a0901, 0); // exposure, auto (0 = auto, 1 = manual)
-		cam->set_control(0x00980900, 9); // brightness
+		if(exposure == 0) {
+			cam->set_control(0x009a0901, 0); // exposure, auto (0 = auto, 1 = manual)
+		} else {
+			cam->set_control(0x009a0901, 1); // exposure, auto (0 = auto, 1 = manual)
+			cam->set_control(0x009a0902, exposure); // exposure value
+		}
+		cam->set_control(0x00980900, brightness); // brightness
 		//cam->set_control(0x9a0902, 78); // exposure time 15.6ms
 		//usleep(500000);
 		return cam;
 	}
     
 	void saveCapturedImage(string camImgPrefix, int counter_, uint64_t time_from_base, unsigned char (*image_ptr)[height][width], std::vector<int> compression_params) {
-		std::chrono::high_resolution_clock::time_point t1, t2;
-		t1 = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<double, std::milli> time_span;
+		//std::chrono::high_resolution_clock::time_point t1, t2;
+		//t1 = std::chrono::high_resolution_clock::now();
+		//std::chrono::duration<double, std::milli> time_span;
 		cv::Mat image_mat_Bayer(height,width,CV_8UC(1),*image_ptr);		//making an opencv Mat array
 		cv::Mat image_mat_RGB;
 		cv::cvtColor(image_mat_Bayer, image_mat_RGB, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
 		//saving image to disk
+		//cout << "->" << camImgPrefix + to_string(time_from_base) + camImgSuffix << endl;
 		cv::imwrite(camImgPrefix + to_string(time_from_base) + camImgSuffix, image_mat_RGB, compression_params);
-		t2 = std::chrono::high_resolution_clock::now();
-		time_span = t2 - t1;
-		cout << counter_ << "_" << ceil(time_span.count()) << "ms " ;
+		//t2 = std::chrono::high_resolution_clock::now();
+		//time_span = t2 - t1;
+		//cout << counter_ << "_" << ceil(time_span.count()) << "ms " ;
 	}
 	
 	void triggerCameras() {
@@ -366,8 +381,7 @@ namespace uvc_camera {
 	//   Quit Signal Handler
 	// ------------------------------------------------------------------------------
 	// this function is called when you press Ctrl-C
-	void quit_handler( int sig )
-	{
+	void quit_handler( int sig ) {
 		cout<< "\n\nClose text log file" << endl;
 		outfile.close();
 		printf("\n");
@@ -390,80 +404,110 @@ namespace uvc_camera {
 		exit(0);
 	}
 	
-    void Camera::feedImages() {
+	mavlink_local_position_ned_t lpos;
+	mavlink_global_position_int_t gpos;
+	mavlink_attitude_t att;
+	Autopilot_Interface *api;
+	
+	void Camera::feedImages(bool showCaptures, bool useMAVLinkForTrigger, bool useGPIOPinsAsTrigger) {
+		//bool showCaptures = false;	//to display the captured images during runtime
+		//bool useMAVLinkForTrigger = false;	//use MAVLink GPS messages as trigger
+		//bool useGPIOPinsAsTrigger = false;	//to use TX2 GPIO pins to trigger cameras
+		
+		//set gpio trigger
+		if(useGPIOPinsAsTrigger)
+		{
+			cout << "Initialize GPIOs" << endl;
+			gpioUnexport(redLED);     // unexport the LED
+			gpioExport(redLED);
+			gpioSetDirection(redLED,outputPin) ;
+			cout << "GPIOs initialized" << endl;
+		}
+		
+		//MAVLink gives GPS and IMU data. GPS messages used as trigger for cameras
+		if(useMAVLinkForTrigger)
+		{
+			//current date
+			time_t now = time(NULL);
+			struct tm tstruct;
+			char buf[40];
+			tstruct = *localtime(&now);
+			//format: day DD-MM-YYYY
+			strftime(buf, sizeof(buf), "%d-%m-%Y", &tstruct);
+			string current_date = string(buf);
+			
+			//current time
+			tstruct = *localtime(&now);
+			//format: HH:mm:ss
+			strftime(buf, sizeof(buf), "%X", &tstruct);
+			string current_time = string(buf);
+			
+			//milliseconds from base time
+			system_clock::duration time_tag = system_clock::now() - t_base;
+			// convert to milliseconds:
+			typedef duration<int,std::ratio<1,1000>> millisecondTimeType;
+			millisecondTimeType n_time = duration_cast<millisecondTimeType> (time_tag);
+			uint64_t time_from_base = (uint64_t)n_time.count();
+			
+			string textFileName = textFilePrefix + "-" + current_date + "-" + to_string(time_from_base) + ".txt";
+			cout << "Text file name: " << textFileName << endl;
+			
+			//open text file
+			//ofstream outfile;
+			outfile.open(textFileName, ios_base::app);
+			outfile << current_date << "," << current_time << "\n";
+			outfile <<"counter,time_from_base,time_to_fetch,gpos.lat,gpos.lon,gpos.alt,gpos.relative_alt,gpos.vx,gpos.vy,gpos.vz,gpos.hdg,lpos.x,lpos.y,lpos.z,att.roll,att.pitch,att.yaw,att.rollspeed,att.pitchspeed,att.yawspeed\n";
+		
+			//mavlink start
+			cout << "Initialize MAVLINK" << endl;
+			char *uart_name = (char*)"/dev/ttyUSB0";
+			int baudrate = 115200;
+			Serial_Port serial_port(uart_name, baudrate);
+			Autopilot_Interface autopilot_interface(&serial_port);
+			serial_port_quit         = &serial_port;
+			autopilot_interface_quit = &autopilot_interface;
+			signal(SIGINT,quit_handler);
+			cout << "Start serial port" << endl;
+			serial_port.start();
+			cout << "Start api" << endl;
+			autopilot_interface.start();
+			api = &autopilot_interface;
+			
+			cout << "MAVLINK initialized" << endl;
+			
+			fetchImagesFunction(showCaptures, useMAVLinkForTrigger, useGPIOPinsAsTrigger);
+			
+			//mavlink stop
+			autopilot_interface.stop();
+			serial_port.stop();
+		}
+		else
+		{
+			fetchImagesFunction(showCaptures, useMAVLinkForTrigger, useGPIOPinsAsTrigger);
+		}
+		
+		if(useGPIOPinsAsTrigger)
+		{
+			gpioUnexport(redLED);     // unexport the LED
+		}
+    }
+    
+    void Camera::fetchImagesFunction(bool showCaptures, bool useMAVLinkForTrigger, bool useGPIOPinsAsTrigger) {
 		high_resolution_clock::time_point t1, t2, ta, tb;
 		duration<double, std::milli> time_span;
 		system_clock::duration time_tag;
 		
 		//milliseconds from base time
 		uint64_t time_from_base;
-		// convert to number of days:
+		// convert to milliseconds:
 		typedef duration<int,std::ratio<1,1000>> millisecondTimeType;
 		std::time_t tt = system_clock::to_time_t(t_base);
 		cout << "Base time: " << ctime(&tt) << endl;
-		//cout << "Now time: " << ctime(system_clock::now()) << endl;
 		
 		time_tag = system_clock::now() - t_base;
 		millisecondTimeType n_time = duration_cast<millisecondTimeType> (time_tag);
 		time_from_base = (uint64_t)n_time.count();
 		
-		//auto today_datetime = std::chrono::system_clock::now();
-		//string textFileName = textFilePrefix + "_" + to_string(today_datetime.year) + "_" + to_string(today_datetime.month) + "_" + to_string(today_datetime.day) + ".txt";
-		time_t now = time(NULL);
-		struct tm tstruct;
-		char buf[40];
-		tstruct = *localtime(&now);
-		//format: day DD-MM-YYYY
-		strftime(buf, sizeof(buf), "%d-%m-%Y", &tstruct);
-		string current_date = string(buf);
-		
-		tstruct = *localtime(&now);
-		//format: HH:mm:ss
-		strftime(buf, sizeof(buf), "%X", &tstruct);
-		string current_time = string(buf);
-		
-		string textFileName = textFilePrefix + "-" + current_date + "-" + to_string(time_from_base) + ".txt";
-		cout << "Text file name: " << textFileName << endl;
-		
-		//open text file
-		//ofstream outfile;
-		outfile.open(textFileName, ios_base::app);
-		outfile << current_date << "," << current_time << "\n";
-		outfile <<"counter,time_from_base,time_to_fetch,gpos.lat,gpos.lon,gpos.alt,gpos.relative_alt,gpos.vx,gpos.vy,gpos.vz,gpos.hdg,lpos.x,lpos.y,lpos.z,att.roll,att.pitch,att.yaw,att.rollspeed,att.pitchspeed,att.yawspeed\n";
-		//outfile.close();
-		
-		//set gpio trigger
-		cout << "Initialize GPIOs" << endl;
-		gpioUnexport(redLED);     // unexport the LED
-		gpioExport(redLED);
-		gpioSetDirection(redLED,outputPin) ;
-		cout << "GPIOs initialized" << endl;
-		
-		//mavlink start
-		cout << "Initialize MAVLINK" << endl;
-		char *uart_name = (char*)"/dev/ttyUSB0";
-		int baudrate = 115200;
-		Serial_Port serial_port(uart_name, baudrate);
-		Autopilot_Interface autopilot_interface(&serial_port);
-		serial_port_quit         = &serial_port;
-		autopilot_interface_quit = &autopilot_interface;
-		signal(SIGINT,quit_handler);
-		cout << "Start serial port" << endl;
-		serial_port.start();
-		cout << "Start api" << endl;
-		autopilot_interface.start();
-				
-		mavlink_local_position_ned_t lpos;
-		mavlink_global_position_int_t gpos;
-		mavlink_attitude_t att;
-		uint lastpostime = 0;
-		cout << "MAVLINK initialized" << endl;
-		
-		//INFO
-		//&img_frame = unsigned char **frame		therefore *img_frame = unsigned char frame
-		//bytes_used = uint32_t &bytes_used
-		//*frame = (unsigned char *)buffer_mem_[buffer_.index];
-			 
 		unsigned char *img_frame = NULL;
 		uint32_t bytes_used;
 		int idx;
@@ -472,21 +516,16 @@ namespace uvc_camera {
 		string window2 = "Cam2";
 		string window3 = "Cam3";
 		
-		bool showCaptures = false;	//to display the captured images during runtime
-		
 		if(showCaptures) {
 			cv::namedWindow(window1, CV_WINDOW_AUTOSIZE);
 			cv::namedWindow(window2, CV_WINDOW_AUTOSIZE);
 			cv::namedWindow(window3, CV_WINDOW_AUTOSIZE);
 		}
 		
-		//remove current image from cameras
-		//idx = cam1->grab(&img_frame, bytes_used); if (img_frame) cam1->release(idx);
-		//idx = cam2->grab(&img_frame, bytes_used); if (img_frame) cam2->release(idx);
-		//idx = cam3->grab(&img_frame, bytes_used); if (img_frame) cam3->release(idx);
-
 		cout<< "Capturing start!" << endl;
 		int time_diff;
+		uint lastpostime = 0;
+		cout << "\nSet(#)  Timestamp \t\tImage_Fetch_time(ms)" << endl;
 		
 		while (ok) {
 			//Algo!!
@@ -496,21 +535,32 @@ namespace uvc_camera {
 			//note time
 			//save images in multi-threading and update counter else clean all cameras
 			
-			gpos = autopilot_interface.current_messages.global_position_int;
-			lpos = autopilot_interface.current_messages.local_position_ned;
-			att = autopilot_interface.current_messages.attitude;
-			if(gpos.time_boot_ms > lastpostime)
+			bool check = true;
+			if(useMAVLinkForTrigger)
 			{
-				t1 = high_resolution_clock::now();
-				//cout << "trigger!" << endl;
-				//trigger cameras
-				triggerCameras();
-				lastpostime = gpos.time_boot_ms;
+				gpos = api->current_messages.global_position_int;
+				lpos = api->current_messages.local_position_ned;
+				att = api->current_messages.attitude;
+				
+				check = gpos.time_boot_ms > lastpostime;
+			}
+			
+			if(check)
+			{
+				// = high_resolution_clock::now();
+				
+				//trigger cameras using GPIO pins
+				if(useGPIOPinsAsTrigger)
+					triggerCameras();
+				
+				//update last GPS time from MAVLink
+				if(useMAVLinkForTrigger)
+					lastpostime = gpos.time_boot_ms;
 				
 				img_frame = NULL;	//just a precaution so that old frame is not picked again
 				//cam1
 				idx = cam1->grab(&img_frame, bytes_used);
-				//t1 = high_resolution_clock::now();
+				t1 = high_resolution_clock::now();
 				time_tag = system_clock::now() - t_base;
 				if (img_frame) {
 					ta = high_resolution_clock::now();
@@ -553,19 +603,23 @@ namespace uvc_camera {
 								cv::imshow(window3, image_mat_RGB3);
 								cv::waitKey(0);
 							}
-							
 							boost::thread thread_cam1(saveCapturedImage, camImgPrefix1, counter, time_from_base, img1, compression_params);
 							boost::thread thread_cam2(saveCapturedImage, camImgPrefix2, counter, time_from_base, img2, compression_params);
 							boost::thread thread_cam3(saveCapturedImage, camImgPrefix3, counter, time_from_base, img3, compression_params);
 							t2 = high_resolution_clock::now();
 							time_span = t2 - t1;
-							cout << "\nSet " << counter<< " time_from_base " << time_from_base << " time_to_fetch " << ceil(time_span.count()) << "ms ";
-							//printf("GLOBAL POS = [ lat=%i , lon=%i , alt=%i , rel_alt=%i , vel=%i , %i , %i, hdg=%u ] \n", gpos.lat, gpos.lon, gpos.alt, gpos.relative_alt, gpos.vx, gpos.vy, gpos.vz, gpos.hdg);
-							//printf("LOCAL POS  = [ %f %f %f (m)\n", lpos.x, lpos.y, lpos.z );
-							//printf("ATTITUDE   = [ roll=%f , pitch=%f , yaw=%f , speeds=%f, %f, %f ] \n", att.roll, att.pitch, att.yaw, att.rollspeed, att.pitchspeed, att.yawspeed);
-							//outfile.open(textFileName, ios_base::app);
-							outfile <<counter<<","<<time_from_base<<","<<ceil(time_span.count())<<","<<gpos.lat<<","<<gpos.lon<<","<<gpos.alt<<","<<gpos.relative_alt<<","<<gpos.vx<<","<<gpos.vy<<","<<gpos.vz<<","<<gpos.hdg<<","<<lpos.x<<","<<lpos.y<<","<<lpos.z<<","<<att.roll<<","<<att.pitch<<","<<att.yaw<<","<<att.rollspeed<<","<<att.pitchspeed<<","<<att.yawspeed<<"\n";
-							//outfile.close();
+							cout << counter<< "\t" << time_from_base << "\t" << ceil(time_span.count()) << endl;
+							if(ceil(time_span.count()) > 10)
+								cout << "Possible faulty start. Image fetch time > 10 ms!" << endl;
+							//if(useMAVLinkForTrigger) {
+							//	printf("GLOBAL POS = [ lat=%i , lon=%i , alt=%i , rel_alt=%i , vel=%i , %i , %i, hdg=%u ] \n", gpos.lat, gpos.lon, gpos.alt, gpos.relative_alt, gpos.vx, gpos.vy, gpos.vz, gpos.hdg);
+							//	printf("LOCAL POS  = [ %f %f %f (m)\n", lpos.x, lpos.y, lpos.z );
+							//	printf("ATTITUDE   = [ roll=%f , pitch=%f , yaw=%f , speeds=%f, %f, %f ] \n", att.roll, att.pitch, att.yaw, att.rollspeed, att.pitchspeed, att.yawspeed);
+							//}
+							
+							if(useMAVLinkForTrigger)
+								outfile <<counter<<","<<time_from_base<<","<<ceil(time_span.count())<<","<<gpos.lat<<","<<gpos.lon<<","<<gpos.alt<<","<<gpos.relative_alt<<","<<gpos.vx<<","<<gpos.vy<<","<<gpos.vz<<","<<gpos.hdg<<","<<lpos.x<<","<<lpos.y<<","<<lpos.z<<","<<att.roll<<","<<att.pitch<<","<<att.yaw<<","<<att.rollspeed<<","<<att.pitchspeed<<","<<att.yawspeed<<"\n";
+							
 							counter++;
 						}
 						else { cout << "Cam3_not_grabbed"; }
@@ -575,14 +629,8 @@ namespace uvc_camera {
 				else { cout << "Cam1_not_grabbed"; }
 			}
 		}
-		
-		gpioUnexport(redLED);     // unexport the LED
-		serial_port.stop();
-		
-		//mavlink stop
-		autopilot_interface.stop();
-    }
-
+	}
+	
     Camera::~Camera() {
 		cout << "Camera Object Destructor called. Cya!" << endl;
 		ok = false;

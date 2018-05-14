@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/nvidia/MultiBaselineStereo/uvc_cam.cpp
+/home/pkr/pkr-work/MultiBaselineStereo/uvc_cam.cpp
 cstring
 -
 string
@@ -30,9 +30,11 @@ errno.h
 unistd.h
 -
 uvc_cam.h
-/home/nvidia/MultiBaselineStereo/uvc_cam.h
+/home/pkr/pkr-work/MultiBaselineStereo/uvc_cam.h
+iostream
+-
 
-/home/nvidia/MultiBaselineStereo/uvc_cam.h
+/home/pkr/pkr-work/MultiBaselineStereo/uvc_cam.h
 string
 -
 linux/videodev2.h
