@@ -279,7 +279,7 @@ namespace uvc_camera {
 	
 	Camera::Camera(string save_directory, bool showCaptures, bool useMAVLinkForTrigger, 
 			bool useGPIOPinsAsTrigger, int cam1_ID, int cam2_ID, int cam3_ID, 
-			int brightness, int exposure){
+			int brightness, int exposure, bool use_cam1, bool use_cam2, bool use_cam3, bool use_timestamp){
 		camImgPrefix1 = save_directory + "cam1/";
 		camImgPrefix2 = save_directory + "cam2/";
 		camImgPrefix3 = save_directory + "cam3/";
@@ -290,12 +290,15 @@ namespace uvc_camera {
 		compression_params.push_back(0);
 		
 		cout << "\nIf output is 'Unable to find parent usb device.' or if you want to use TX2 GPIO trigger, run executable using administrative rights." << endl;
-		usleep(500000);
+		usleep(1000000);
 
 		/* initialize the cameras */
-		cam1 = Camera::setCamera(cam1, cam1_ID, brightness, exposure);
-		cam2 = Camera::setCamera(cam2, cam2_ID, brightness, exposure);
-		cam3 = Camera::setCamera(cam3, cam3_ID, brightness, exposure);
+		if(use_cam1)
+			cam1 = Camera::setCamera(cam1, cam1_ID, brightness, exposure);
+		if(use_cam2)
+			cam2 = Camera::setCamera(cam2, cam2_ID, brightness, exposure);
+		if(use_cam3)
+			cam3 = Camera::setCamera(cam3, cam3_ID, brightness, exposure);
 		
 		cout << "\nAll Cameras Initialized!\n"<<endl;
 
@@ -311,7 +314,7 @@ namespace uvc_camera {
 		std::time_t tt = std::mktime (&timeinfo);
 		t_base = system_clock::from_time_t (tt);
 		
-		Camera::feedImages(showCaptures, useMAVLinkForTrigger, useGPIOPinsAsTrigger);
+		Camera::feedImages(showCaptures, useMAVLinkForTrigger, useGPIOPinsAsTrigger, use_cam1, use_cam2, use_cam3, use_timestamp);
     }
         
     uvc_cam::Cam* Camera::setCamera(uvc_cam::Cam *cam, int deviceID, int brightness, int exposure){
@@ -351,7 +354,7 @@ namespace uvc_camera {
 		return cam;
 	}
     
-	void saveCapturedImage(string camImgPrefix, int counter_, uint64_t time_from_base, unsigned char (*image_ptr)[height][width], std::vector<int> compression_params) {
+	void saveCapturedImage(string camImgPrefix, int counter_, uint64_t time_from_base, bool use_timestamp, unsigned char (*image_ptr)[height][width], std::vector<int> compression_params) {
 		//std::chrono::high_resolution_clock::time_point t1, t2;
 		//t1 = std::chrono::high_resolution_clock::now();
 		//std::chrono::duration<double, std::milli> time_span;
@@ -360,7 +363,7 @@ namespace uvc_camera {
 		cv::cvtColor(image_mat_Bayer, image_mat_RGB, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
 		//saving image to disk
 		//cout << "->" << camImgPrefix + to_string(time_from_base) + camImgSuffix << endl;
-		cv::imwrite(camImgPrefix + to_string(time_from_base) + camImgSuffix, image_mat_RGB, compression_params);
+		cv::imwrite(camImgPrefix + to_string(use_timestamp ? time_from_base : counter_) + camImgSuffix, image_mat_RGB, compression_params);
 		//t2 = std::chrono::high_resolution_clock::now();
 		//time_span = t2 - t1;
 		//cout << counter_ << "_" << ceil(time_span.count()) << "ms " ;
@@ -409,7 +412,8 @@ namespace uvc_camera {
 	mavlink_attitude_t att;
 	Autopilot_Interface *api;
 	
-	void Camera::feedImages(bool showCaptures, bool useMAVLinkForTrigger, bool useGPIOPinsAsTrigger) {
+	void Camera::feedImages(bool showCaptures, bool useMAVLinkForTrigger, bool useGPIOPinsAsTrigger, 
+					bool use_cam1, bool use_cam2, bool use_cam3, bool use_timestamp) {
 		//bool showCaptures = false;	//to display the captured images during runtime
 		//bool useMAVLinkForTrigger = false;	//use MAVLink GPS messages as trigger
 		//bool useGPIOPinsAsTrigger = false;	//to use TX2 GPIO pins to trigger cameras
@@ -475,7 +479,7 @@ namespace uvc_camera {
 			
 			cout << "MAVLINK initialized" << endl;
 			
-			fetchImagesFunction(showCaptures, useMAVLinkForTrigger, useGPIOPinsAsTrigger);
+			fetchImagesFunction(showCaptures, useMAVLinkForTrigger, useGPIOPinsAsTrigger, use_cam1, use_cam2, use_cam3, use_timestamp);
 			
 			//mavlink stop
 			autopilot_interface.stop();
@@ -483,7 +487,7 @@ namespace uvc_camera {
 		}
 		else
 		{
-			fetchImagesFunction(showCaptures, useMAVLinkForTrigger, useGPIOPinsAsTrigger);
+			fetchImagesFunction(showCaptures, useMAVLinkForTrigger, useGPIOPinsAsTrigger, use_cam1, use_cam2, use_cam3, use_timestamp);
 		}
 		
 		if(useGPIOPinsAsTrigger)
@@ -492,7 +496,8 @@ namespace uvc_camera {
 		}
     }
     
-    void Camera::fetchImagesFunction(bool showCaptures, bool useMAVLinkForTrigger, bool useGPIOPinsAsTrigger) {
+    void Camera::fetchImagesFunction(bool showCaptures, bool useMAVLinkForTrigger, bool useGPIOPinsAsTrigger, 
+				bool use_cam1, bool use_cam2, bool use_cam3, bool use_timestamp) {
 		high_resolution_clock::time_point t1, t2, ta, tb;
 		duration<double, std::milli> time_span;
 		system_clock::duration time_tag;
@@ -517,9 +522,12 @@ namespace uvc_camera {
 		string window3 = "Cam3";
 		
 		if(showCaptures) {
-			cv::namedWindow(window1, CV_WINDOW_AUTOSIZE);
-			cv::namedWindow(window2, CV_WINDOW_AUTOSIZE);
-			cv::namedWindow(window3, CV_WINDOW_AUTOSIZE);
+			if(use_cam1)
+				cv::namedWindow(window1, CV_WINDOW_AUTOSIZE);
+			if(use_cam2)
+				cv::namedWindow(window2, CV_WINDOW_AUTOSIZE);
+			if(use_cam3)
+				cv::namedWindow(window3, CV_WINDOW_AUTOSIZE);
 		}
 		
 		cout<< "Capturing start!" << endl;
@@ -559,53 +567,79 @@ namespace uvc_camera {
 				
 				img_frame = NULL;	//just a precaution so that old frame is not picked again
 				//cam1
-				idx = cam1->grab(&img_frame, bytes_used);
+				if(use_cam1)
+					idx = cam1->grab(&img_frame, bytes_used);
 				t1 = high_resolution_clock::now();
 				time_tag = system_clock::now() - t_base;
-				if (img_frame) {
+				if (img_frame || !use_cam1) {
 					ta = high_resolution_clock::now();
 					unsigned char image1[height][width];
-					memcpy( image1[0], img_frame, height*width * sizeof(unsigned char));
-					cam1->release(idx);
+					if(use_cam1) {
+						memcpy( image1[0], img_frame, height*width * sizeof(unsigned char));
+						cam1->release(idx);
+					}
 					//cam2
-					idx = cam2->grab(&img_frame, bytes_used);
-					if (img_frame) {
+					if(use_cam2)
+						idx = cam2->grab(&img_frame, bytes_used);
+					if (img_frame || !use_cam2) {
 						tb = high_resolution_clock::now();
 						unsigned char image2[height][width];
-						memcpy( image2[0], img_frame, height*width * sizeof(unsigned char));
-						cam2->release(idx);
+						if(use_cam2) {
+							memcpy( image2[0], img_frame, height*width * sizeof(unsigned char));
+							cam2->release(idx);
+						}
 						//cam3
-						idx = cam3->grab(&img_frame, bytes_used);
-						if (img_frame) {
+						if(use_cam3)
+							idx = cam3->grab(&img_frame, bytes_used);
+						if (img_frame || !use_cam3) {
 							//tc = high_resolution_clock::now();
 							unsigned char image3[height][width];
-							memcpy( image3[0], img_frame, height*width * sizeof(unsigned char));
-							cam3->release(idx);
-							unsigned char (*img1)[height][width] = &image1;
-							unsigned char (*img2)[height][width] = &image2;
-							unsigned char (*img3)[height][width] = &image3;
+							if(use_cam3) {
+								memcpy( image3[0], img_frame, height*width * sizeof(unsigned char));
+								cam3->release(idx);
+							}
+							//if(use_cam1)
+							//	unsigned char (*img1)[height][width] = &image1;
+							//if(use_cam2)
+							//	unsigned char (*img2)[height][width] = &image2;
+							//if(use_cam3)
+							//	unsigned char (*img3)[height][width] = &image3;
 							n_time = duration_cast<millisecondTimeType> (time_tag);
 							time_from_base = (uint64_t)n_time.count();
 							
 							if(showCaptures) {
-								cv::Mat image_mat_Bayer1(height,width,CV_8UC(1),image1);		//making an opencv Mat array
-								cv::Mat image_mat_RGB1;
-								cv::cvtColor(image_mat_Bayer1, image_mat_RGB1, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
-								cv::Mat image_mat_Bayer2(height,width,CV_8UC(1),image2);		//making an opencv Mat array
-								cv::Mat image_mat_RGB2;
-								cv::cvtColor(image_mat_Bayer2, image_mat_RGB2, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
-								cv::Mat image_mat_Bayer3(height,width,CV_8UC(1),image3);		//making an opencv Mat array
-								cv::Mat image_mat_RGB3;
-								cv::cvtColor(image_mat_Bayer3, image_mat_RGB3, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
-								//Display the grey scale converted frame
-								cv::imshow(window1, image_mat_RGB1);
-								cv::imshow(window2, image_mat_RGB2);
-								cv::imshow(window3, image_mat_RGB3);
+								if(use_cam1) {
+									cv::Mat image_mat_Bayer1(height,width,CV_8UC(1),image1);		//making an opencv Mat array
+									cv::Mat image_mat_RGB1;
+									cv::cvtColor(image_mat_Bayer1, image_mat_RGB1, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
+									cv::imshow(window1, image_mat_RGB1);							//Display the grey scale converted frame
+								}
+								if(use_cam2) {
+									cv::Mat image_mat_Bayer2(height,width,CV_8UC(1),image2);		//making an opencv Mat array
+									cv::Mat image_mat_RGB2;
+									cv::cvtColor(image_mat_Bayer2, image_mat_RGB2, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
+									cv::imshow(window2, image_mat_RGB2);							//Display the grey scale converted frame
+								}
+								if(use_cam3) {
+									cv::Mat image_mat_Bayer3(height,width,CV_8UC(1),image3);		//making an opencv Mat array
+									cv::Mat image_mat_RGB3;
+									cv::cvtColor(image_mat_Bayer3, image_mat_RGB3, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
+									cv::imshow(window3, image_mat_RGB3);							//Display the grey scale converted frame
+								}
 								cv::waitKey(0);
 							}
-							boost::thread thread_cam1(saveCapturedImage, camImgPrefix1, counter, time_from_base, img1, compression_params);
-							boost::thread thread_cam2(saveCapturedImage, camImgPrefix2, counter, time_from_base, img2, compression_params);
-							boost::thread thread_cam3(saveCapturedImage, camImgPrefix3, counter, time_from_base, img3, compression_params);
+							if(use_cam1) {
+								unsigned char (*img1)[height][width] = &image1;
+								boost::thread thread_cam1(saveCapturedImage, camImgPrefix1, counter, time_from_base, use_timestamp, img1, compression_params);
+							}
+							if(use_cam2) {
+								unsigned char (*img2)[height][width] = &image2;
+								boost::thread thread_cam2(saveCapturedImage, camImgPrefix2, counter, time_from_base, use_timestamp, img2, compression_params);
+							}
+							if(use_cam3) {
+								unsigned char (*img3)[height][width] = &image3;
+								boost::thread thread_cam3(saveCapturedImage, camImgPrefix3, counter, time_from_base, use_timestamp, img3, compression_params);
+							}
 							t2 = high_resolution_clock::now();
 							time_span = t2 - t1;
 							cout << counter<< "\t" << time_from_base << "\t" << ceil(time_span.count()) << endl;

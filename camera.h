@@ -13,11 +13,11 @@ const std::string camImgSuffix = ".png";
 	
 class Camera {
   public:
-    Camera(std::string, bool, bool, bool, int, int, int, int, int);
+    Camera(std::string, bool, bool, bool, int, int, int, int, int, bool, bool, bool, bool);
     uvc_cam::Cam* setCamera(uvc_cam::Cam*, int, int, int);
     void onInit();
-    void fetchImagesFunction(bool, bool, bool);
-    void feedImages(bool, bool, bool);
+    void fetchImagesFunction(bool, bool, bool, bool, bool, bool, bool);
+    void feedImages(bool, bool, bool, bool, bool, bool, bool);
     void getImgMatFromCamera(unsigned char*, unsigned char (*)[height][width]);
     ~Camera();
     
