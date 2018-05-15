@@ -201,7 +201,17 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
 
   if ((ret = ioctl(device_file_h_, VIDIOC_S_FMT, &format_)) < 0)
     throw std::runtime_error("couldn't set format");
-  std::cout << "format_.fmt.pix.sizeimage: " << format_.fmt.pix.sizeimage << std::endl;
+    
+  v4l2_format fmt;
+  if ((ret = ioctl(device_file_h_, VIDIOC_G_FMT, &fmt)) < 0)
+    throw std::runtime_error("couldn't set format");
+  fmt.fmt.pix.width = _width;
+  fmt.fmt.pix.height = _height;
+  if ((ret = ioctl(device_file_h_, VIDIOC_S_FMT, &fmt)) < 0)
+    throw std::runtime_error("couldn't set format");
+  if ((ret = ioctl(device_file_h_, VIDIOC_G_FMT, &fmt)) < 0)
+    throw std::runtime_error("couldn't set format");
+  std::cout << "fmt.fmt.pix.sizeimage: " << fmt.fmt.pix.sizeimage << std::endl;
 
   if (format_.fmt.pix.width != width_ || format_.fmt.pix.height != height_)
     throw std::runtime_error("pixel format unavailable");
@@ -329,12 +339,10 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
     if (buffer_.length <= 0)
       throw std::runtime_error("buffer length is bogus");
     buffer_mem_[i] = mmap(0, buffer_.length, PROT_READ, MAP_SHARED, device_file_h_, buffer_.m.offset);
-    printf("buf length = %d\n", buffer_.length);
     if (buffer_mem_[i] == MAP_FAILED)
       throw std::runtime_error("couldn't map buffer");
   }
-  buffer_length_ = buffer_.length;
-  printf("buffer_length_: %u", buffer_length_);
+  buffer_length_ = buffer_.bytesused;
   for (unsigned i = 0; i < NUM_BUFFERS; i++)
   {
     memset(&buffer_, 0, sizeof(buffer_));
@@ -345,8 +353,12 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
     buffer_.timestamp.tv_sec = 0;
     buffer_.timestamp.tv_usec = 0;
     buffer_.memory = V4L2_MEMORY_MMAP;
+    buffer_.bytesused = _height*_width;
+    printf("A buf length = %d  bytesused = %d\n", buffer_.length, buffer_.bytesused);
     if (ioctl(device_file_h_, VIDIOC_QBUF, &buffer_) < 0)
       throw std::runtime_error("unable to queue buffer");
+    printf("B buf length = %d  bytesused = %d\n", buffer_.length, buffer_.bytesused);
+    std::cout << "sizeof(buffer_): " << sizeof(buffer_) << std::endl;
   }
   int type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   if (ioctl(device_file_h_, VIDIOC_STREAMON, &type) < 0)
@@ -355,6 +367,9 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
   last_yuv_frame_ = new unsigned char[width_ * height_ * 2];
   InitExtensionUnit( (char*)&capability_.bus_info );
   EnableTriggerMode();
+  if (ioctl(device_file_h_, VIDIOC_QUERYBUF, &buffer_) < 0)
+	throw std::runtime_error("unable to query buffer");
+  printf("C buf length = %d  bytesused = %d\n", buffer_.length, buffer_.bytesused);
 }
 
 Cam::~Cam()
@@ -503,6 +518,7 @@ int Cam::grab(unsigned char **frame, uint32_t &bytes_used)
   if (ioctl(device_file_h_, VIDIOC_DQBUF, &buffer_) < 0)
     throw std::runtime_error("couldn't dequeue buffer");
   bytes_used = buffer_.bytesused;
+  printf("_%d_", buffer_.bytesused);
   if (mode_ == MODE_RGB)
   {
     int num_pixels_different = 0; // just look at the Y channel
