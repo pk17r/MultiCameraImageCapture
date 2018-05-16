@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include "uvc_cam.h"
 #include <iostream>
+#include <ctime>
 
 using std::string;
 using namespace uvc_cam;
@@ -366,6 +367,9 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
   rgb_frame_ = new unsigned char[width_ * height_ * 3];
   last_yuv_frame_ = new unsigned char[width_ * height_ * 2];
   InitExtensionUnit( (char*)&capability_.bus_info );
+  usleep(250000);
+  EnableMasterMode();
+  usleep(250000);
   EnableTriggerMode();
   if (ioctl(device_file_h_, VIDIOC_QUERYBUF, &buffer_) < 0)
 	throw std::runtime_error("unable to query buffer");

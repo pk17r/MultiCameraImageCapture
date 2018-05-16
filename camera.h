@@ -22,12 +22,12 @@ class Settings {
 			<< "showCaptures" << showCaptures
 			<< "useMAVLinkForTrigger" << useMAVLinkForTrigger
 			<< "useGPIOPinsAsTrigger" << useGPIOPinsAsTrigger
-			<< "cam_1_ID" << cam_x_ID[0]
-			<< "cam_2_ID" << cam_x_ID[1]
-			<< "cam_3_ID" << cam_x_ID[2]
-			<< "use_cam_1" << use_cam_x[0]
-			<< "use_cam_2" << use_cam_x[1]
-			<< "use_cam_3" << use_cam_x[2]
+			<< "cam_l_ID" << cam_x_ID[0]
+			<< "cam_c_ID" << cam_x_ID[1]
+			<< "cam_r_ID" << cam_x_ID[2]
+			<< "use_cam_l" << use_cam_x[0]
+			<< "use_cam_c" << use_cam_x[1]
+			<< "use_cam_r" << use_cam_x[2]
 			<< "brightness" << brightness
 			<< "exposure" << exposure
 			<< "use_timestamp" << use_timestamp
@@ -43,12 +43,12 @@ class Settings {
 		node["showCaptures"] >> showCaptures;
 		node["useMAVLinkForTrigger"] >> useMAVLinkForTrigger;
 		node["useGPIOPinsAsTrigger"]  >> useGPIOPinsAsTrigger;
-		node["cam_1_ID"] >> cam_x_ID[0];
-		node["cam_2_ID"] >> cam_x_ID[1];
-		node["cam_3_ID"] >> cam_x_ID[2];
-		node["use_cam_1"] >> use_cam_x[0];
-		node["use_cam_2"] >> use_cam_x[1];
-		node["use_cam_3"] >> use_cam_x[2];
+		node["cam_l_ID"] >> cam_x_ID[0];
+		node["cam_c_ID"] >> cam_x_ID[1];
+		node["cam_r_ID"] >> cam_x_ID[2];
+		node["use_cam_l"] >> use_cam_x[0];
+		node["use_cam_c"] >> use_cam_x[1];
+		node["use_cam_r"] >> use_cam_x[2];
 		node["brightness"] >> brightness;
 		node["exposure"] >> exposure;
 		node["use_timestamp"] >> use_timestamp;

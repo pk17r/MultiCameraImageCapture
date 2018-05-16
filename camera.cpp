@@ -92,7 +92,8 @@ namespace uvc_camera {
 		}
 		
 		string saveName = settings.save_directory + "cam" + to_string(cam_Ind + 1) + "/" + to_string(settings.use_timestamp ? time_from_base : counter_) + ".png";
-		cv::imwrite(saveName, image_mat_RGB, compression_params);
+		if(counter_ > 0)	//leave the first image as it is generally bad!
+			cv::imwrite(saveName, image_mat_RGB, compression_params);
 		//cout << counter_ << "_" << saveName << endl;
 	}
     
