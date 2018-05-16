@@ -1,6 +1,6 @@
-#include "opencv2/video/tracking.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
-#include "opencv2/highgui/highgui.hpp"
+//#include "opencv2/video/tracking.hpp"
+//#include "opencv2/imgproc/imgproc.hpp"
+//#include "opencv2/highgui/highgui.hpp"
 
 #include "camera.h"
 #include <iostream>
@@ -441,11 +441,12 @@ namespace uvc_camera {
 			//ofstream outfile;
 			outfile.open(textFileName, ios_base::app);
 			outfile << current_date << "," << current_time << "\n";
-			outfile <<"counter,time_from_base,time_to_fetch,gpos.lat,gpos.lon,gpos.alt,gpos.relative_alt,gpos.vx,gpos.vy,gpos.vz,gpos.hdg,lpos.x,lpos.y,lpos.z,att.roll,att.pitch,att.yaw,att.rollspeed,att.pitchspeed,att.yawspeed\n";
+			outfile <<"counter,time_from_base,gps,time_to_fetch,gpos.lat,gpos.lon,gpos.alt,gpos.relative_alt,gpos.vx,gpos.vy,gpos.vz,gpos.hdg,lpos.x,lpos.y,lpos.z\n";
+			outfile <<"counter,time_from_base,imu,att.roll,att.pitch,att.yaw,att.rollspeed,att.pitchspeed,att.yawspeed\n";
 		
 			//mavlink start
 			cout << "Initialize MAVLINK" << endl;
-			char *uart_name = (char*)"/dev/ttyUSB0";
+			char *uart_name = (char *)settings.MAVLinkPort.c_str();
 			int baudrate = 115200;
 			Serial_Port serial_port(uart_name, baudrate);
 			Autopilot_Interface autopilot_interface(&serial_port);
@@ -507,7 +508,7 @@ namespace uvc_camera {
 		
 		cout<< "Capturing start!" << endl;
 		int time_diff;
-		uint lastpostime = 0;
+		uint lastPosTime = 0, lastAttTime = 0;
 		cout << "\nSet(#)  Timestamp \t\tImage_Fetch_time(ms)" << endl;
 		
 		while (ok) {
@@ -518,17 +519,19 @@ namespace uvc_camera {
 			//note time
 			//save images in multi-threading and update counter else clean all cameras
 			
-			bool check = true;
+			bool imgCycleBool = true;
+			bool attCycleBool = false;
 			if(settings.useMAVLinkForTrigger)
 			{
 				gpos = api->current_messages.global_position_int;
 				lpos = api->current_messages.local_position_ned;
 				att = api->current_messages.attitude;
 				
-				check = gpos.time_boot_ms > lastpostime;
+				imgCycleBool = gpos.time_boot_ms > lastPosTime;
+				attCycleBool = att.time_boot_ms > lastAttTime;
 			}
 			
-			if(check)
+			if(imgCycleBool)
 			{
 				// = high_resolution_clock::now();
 				
@@ -538,7 +541,7 @@ namespace uvc_camera {
 				
 				//update last GPS time from MAVLink
 				if(settings.useMAVLinkForTrigger)
-					lastpostime = gpos.time_boot_ms;
+					lastPosTime = gpos.time_boot_ms;
 				
 				//cam1
 				img_frame = NULL;	//just a precaution so that old frame is not picked again
@@ -628,7 +631,7 @@ namespace uvc_camera {
 							//}
 							
 							if(settings.useMAVLinkForTrigger)
-								outfile <<counter<<","<<time_from_base<<","<<ceil(time_span.count())<<","<<gpos.lat<<","<<gpos.lon<<","<<gpos.alt<<","<<gpos.relative_alt<<","<<gpos.vx<<","<<gpos.vy<<","<<gpos.vz<<","<<gpos.hdg<<","<<lpos.x<<","<<lpos.y<<","<<lpos.z<<","<<att.roll<<","<<att.pitch<<","<<att.yaw<<","<<att.rollspeed<<","<<att.pitchspeed<<","<<att.yawspeed<<"\n";
+								outfile <<counter<<","<<time_from_base<<",g,"<<ceil(time_span.count())<<","<<gpos.lat<<","<<gpos.lon<<","<<gpos.alt<<","<<gpos.relative_alt<<","<<gpos.vx<<","<<gpos.vy<<","<<gpos.vz<<","<<gpos.hdg<<","<<lpos.x<<","<<lpos.y<<","<<lpos.z<<","<<"\n";
 							
 							counter++;
 						}
@@ -637,6 +640,19 @@ namespace uvc_camera {
 					else { cout << "Cam2_not_grabbed"; }
 				}
 				else { cout << "Cam1_not_grabbed"; }
+			}
+			
+			//imu runs faster than gps so recording it separately
+			if(attCycleBool && settings.useMAVLinkForTrigger) 
+			{
+				//update last IMU time from MAVLink
+				if(settings.useMAVLinkForTrigger)
+					lastAttTime = att.time_boot_ms;
+				
+				time_tag = system_clock::now() - t_base;
+				n_time = duration_cast<millisecondTimeType> (time_tag);
+				time_from_base = (uint64_t)n_time.count();
+				outfile <<counter<<","<<time_from_base<<",i,"<<att.roll<<","<<att.pitch<<","<<att.yaw<<","<<att.rollspeed<<","<<att.pitchspeed<<","<<att.yawspeed<<"\n";
 			}
 		}
 	}

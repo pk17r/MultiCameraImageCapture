@@ -1,7 +1,3 @@
-#include "opencv2/video/tracking.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
-#include "opencv2/highgui/highgui.hpp"
-
 #include <iostream>
 #include <ctype.h>
 #include <stdio.h>
@@ -18,8 +14,6 @@ using namespace std;
 #define allCameras false
 #define displayImages false
 
-
-
 int main(int argc, char *argv[])
 {
 	cout << "\n";
@@ -31,9 +25,9 @@ int main(int argc, char *argv[])
 	cout << "*                                                       *" << endl;
 	cout << "*********************************************************" << endl;
 	
-	if(argc <= 10) {
-		cerr << "\n\n**Correct Usage**\n\nsudo ./cv_io save_dir showCaptures useMAVLinkForTrigger useGPIOPinsAsTrigger cam_ID_lcr cameras_to_use resolution brightness exposure use_timestamp\n" << endl;
-		cerr << "e.g.: sudo ./cv_io /mnt/ssd/ 0 0 0 123 lcr 2 9 100 0" << endl;
+	/*if(argc <= 10) {
+		cerr << "\n\n**Correct Usage**\n\nsudo ./cv_io save_dir showCaptures useMAVLinkForTrigger useGPIOPinsAsTrigger cam_ID_lcr cameras_to_use resolution brightness exposure use_timestamp MAVLinkPort\n" << endl;
+		cerr << "e.g.: sudo ./cv_io /mnt/ssd/ 0 0 0 123 lcr 2 9 100 0 /dev/ttyUSB0" << endl;
 		cerr << "\nsave_dir = '' if cam* folders are in build directory or e.g. /mnt/ssd/ if somewhere else." << endl;
 		cerr << "showCaptures useMAVLinkForTrigger useGPIOPinsAsTrigger are booleans 0 or 1." << endl;
 		cerr << "cam_ID_lcr are 012 or 123, etc for left, center, right camera. use ls /dev/video* to check cam ids." << endl;
@@ -42,6 +36,7 @@ int main(int argc, char *argv[])
 		cerr << "brightness is 0-25." << endl;
 		cerr << "exposure 0 = auto, 1-20000 is manual, e.g. 78." << endl;
 		cerr << "use_timestamp is to save images with timestamp name or counter name." << endl;
+		cerr << "MAVLinkPort is port name of MAVLink e.g. /dev/ttyUSB0 or /dev/ttyTHS02" << endl;
 		cerr << "\n" << endl;
 		return -1;
 	}
@@ -67,15 +62,31 @@ int main(int argc, char *argv[])
 	settings.brightness = atoi(argv[++i]);
 	settings.exposure = atoi(argv[++i]);
 	settings.use_timestamp = (bool)atoi(argv[++i]);
+	settings.MAVLinkPort = argv[++i];
+	*/
+	uvc_camera::Settings settings;
 	
-	bool valid = true;//settings.use_cam1 || settings.use_cam2 || settings.use_cam3;
-	
-	cout <<"\n*User Inputs*" << endl;
+	const string inputSettingsFile = argc > 1 ? argv[1] : "../settings.xml";
+    FileStorage fs(inputSettingsFile, FileStorage::READ); // Read the settings
+    if (!fs.isOpened())
+    {
+        cout << "Could not open the configuration file: \"" << inputSettingsFile << "\"" << endl;
+        FileStorage fs(inputSettingsFile, FileStorage::WRITE);
+		fs << "Settings" << settings;
+		cout << "Created a configuration file with default values!" << endl;
+		fs.release();	// close Settings file
+        return -1;
+    }
+    fs["Settings"] >> settings;
+    fs.release();	// close Settings file
+    cout << "\nLoaded settings from configuration file: \"" << inputSettingsFile << "\"" << endl;
+    
+	cout <<"\n*Inputs*" << endl;
 	cout <<"save_directory: \"" << settings.save_directory << "\"" << endl;
 	cout <<"showCaptures: " << settings.showCaptures << endl;
 	cout <<"useMAVLinkForTrigger: " << settings.useMAVLinkForTrigger << endl;
 	cout <<"useGPIOPinsAsTrigger: " << settings.useGPIOPinsAsTrigger << endl;
-	j = 0;
+	int j = 0;
 	cout <<"cam_l_ID: " << settings.cam_x_ID[j++] << endl;
 	cout <<"cam_c_ID: " << settings.cam_x_ID[j++] << endl;
 	cout <<"cam_r_ID: " << settings.cam_x_ID[j++] << endl;
@@ -88,13 +99,11 @@ int main(int argc, char *argv[])
 	cout <<"brightness: " << settings.brightness << endl;
 	cout <<"exposure: " << settings.exposure << endl;
 	cout <<"use_timestamp: " << settings.use_timestamp << endl;
+	cout <<"MAVLinkPort: " << settings.MAVLinkPort << endl;
 	
     cout<<"\nOpenCV version: " << CV_MAJOR_VERSION << "." << CV_MINOR_VERSION << endl;
     
-    if(valid)
-		uvc_camera::Camera camera(settings);//settings.save_directory, settings.showCaptures, settings.useMAVLinkForTrigger, settings.useGPIOPinsAsTrigger, settings.cam1_ID, settings.cam2_ID, settings.cam3_ID, settings.brightness, settings.exposure, settings.use_cam1, settings.use_cam2, settings.use_cam3, settings.use_timestamp);
-	else
-		cout << "\nInvalid inputs. Quitting...\n" << endl;
+	uvc_camera::Camera camera(settings);
 	
 	return 0;
 	

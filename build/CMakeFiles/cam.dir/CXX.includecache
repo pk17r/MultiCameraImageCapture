@@ -499,12 +499,6 @@ common/mavlink.h
 -
 
 /home/pkr/pkr-work/MultiBaselineStereo/camera.cpp
-opencv2/video/tracking.hpp
-/home/pkr/pkr-work/MultiBaselineStereo/opencv2/video/tracking.hpp
-opencv2/imgproc/imgproc.hpp
-/home/pkr/pkr-work/MultiBaselineStereo/opencv2/imgproc/imgproc.hpp
-opencv2/highgui/highgui.hpp
-/home/pkr/pkr-work/MultiBaselineStereo/opencv2/highgui/highgui.hpp
 camera.h
 /home/pkr/pkr-work/MultiBaselineStereo/camera.h
 iostream
@@ -527,6 +521,12 @@ mavlink_control.h
 /home/pkr/pkr-work/MultiBaselineStereo/mavlink_control.h
 
 /home/pkr/pkr-work/MultiBaselineStereo/camera.h
+opencv2/video/tracking.hpp
+/home/pkr/pkr-work/MultiBaselineStereo/opencv2/video/tracking.hpp
+opencv2/imgproc/imgproc.hpp
+/home/pkr/pkr-work/MultiBaselineStereo/opencv2/imgproc/imgproc.hpp
+opencv2/highgui/highgui.hpp
+/home/pkr/pkr-work/MultiBaselineStereo/opencv2/highgui/highgui.hpp
 uvc_cam.h
 /home/pkr/pkr-work/MultiBaselineStereo/uvc_cam.h
 boost/thread.hpp

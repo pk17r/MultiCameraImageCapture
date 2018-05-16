@@ -1,3 +1,7 @@
+#include "opencv2/video/tracking.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/highgui/highgui.hpp"
+
 #include "uvc_cam.h"
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
@@ -5,22 +9,75 @@
 #include <chrono>
 
 using namespace std;
+using namespace cv;
 
 namespace uvc_camera {
 
 class Settings {
-	public:
-	string save_directory;
-	bool showCaptures;	//to display the captured images during runtime
-	bool useMAVLinkForTrigger;	//use MAVLink GPS messages as trigger
-	bool useGPIOPinsAsTrigger;	//to use TX2 GPIO pins to trigger cameras
+  public:
+	void write(FileStorage& fs) const                        //Write serialization for this class
+    {
+		fs << "{"
+			<< "save_directory"  << save_directory
+			<< "showCaptures" << showCaptures
+			<< "useMAVLinkForTrigger" << useMAVLinkForTrigger
+			<< "useGPIOPinsAsTrigger" << useGPIOPinsAsTrigger
+			<< "cam_1_ID" << cam_x_ID[0]
+			<< "cam_2_ID" << cam_x_ID[1]
+			<< "cam_3_ID" << cam_x_ID[2]
+			<< "use_cam_1" << use_cam_x[0]
+			<< "use_cam_2" << use_cam_x[1]
+			<< "use_cam_3" << use_cam_x[2]
+			<< "brightness" << brightness
+			<< "exposure" << exposure
+			<< "use_timestamp" << use_timestamp
+			<< "resolution"   << resolution
+			<< "MAVLinkPort"  << MAVLinkPort
+
+		<< "}";
+    }
+	void read(const FileNode& node)                          //Read serialization for this class
+	{
+		node["save_directory" ] >> save_directory;
+		node["showCaptures"] >> showCaptures;
+		node["useMAVLinkForTrigger"] >> useMAVLinkForTrigger;
+		node["useGPIOPinsAsTrigger"]  >> useGPIOPinsAsTrigger;
+		node["cam_1_ID"] >> cam_x_ID[0];
+		node["cam_2_ID"] >> cam_x_ID[1];
+		node["cam_3_ID"] >> cam_x_ID[2];
+		node["use_cam_1"] >> use_cam_x[0];
+		node["use_cam_2"] >> use_cam_x[1];
+		node["use_cam_3"] >> use_cam_x[2];
+		node["brightness"] >> brightness;
+		node["exposure"] >> exposure;
+		node["use_timestamp"] >> use_timestamp;
+		node["resolution"] >> resolution;
+		node["MAVLinkPort"] >> MAVLinkPort;
+		
+	}
+  
+	string save_directory = "";
+	bool showCaptures = false;	//to display the captured images during runtime
+	bool useMAVLinkForTrigger = false;	//use MAVLink GPS messages as trigger
+	bool useGPIOPinsAsTrigger = false;	//to use TX2 GPIO pins to trigger cameras
 	int cam_x_ID[3] = { 0, 1, 2 };
 	bool use_cam_x[3] = { true, true, true };
-	int brightness;
-	int exposure;
-	bool use_timestamp;
-	int resolution;
+	int brightness = 9;
+	int exposure = 78;
+	bool use_timestamp = true;
+	int resolution = 2;
+	string MAVLinkPort = "/dev/ttyUSB0";
+	
 };
+static inline void read(const FileNode& node, Settings& x, const Settings& default_value = Settings()) {
+    if(node.empty())
+        x = default_value;
+    else
+        x.read(node);
+}
+static inline void write(FileStorage& fs, const String&, const Settings& s ) {
+    s.write(fs);
+}
 
 const int Resolution[3][2] = { {640,480}, {1280,720}, {1280,960} };
 const int width = 0;

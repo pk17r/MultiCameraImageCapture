@@ -7,6 +7,12 @@
 #IncludeRegexTransform: 
 
 /home/pkr/pkr-work/MultiBaselineStereo/camera.h
+opencv2/video/tracking.hpp
+/home/pkr/pkr-work/MultiBaselineStereo/opencv2/video/tracking.hpp
+opencv2/imgproc/imgproc.hpp
+/home/pkr/pkr-work/MultiBaselineStereo/opencv2/imgproc/imgproc.hpp
+opencv2/highgui/highgui.hpp
+/home/pkr/pkr-work/MultiBaselineStereo/opencv2/highgui/highgui.hpp
 uvc_cam.h
 /home/pkr/pkr-work/MultiBaselineStereo/uvc_cam.h
 boost/thread.hpp
@@ -19,12 +25,6 @@ chrono
 -
 
 /home/pkr/pkr-work/MultiBaselineStereo/io.cpp
-opencv2/video/tracking.hpp
-/home/pkr/pkr-work/MultiBaselineStereo/opencv2/video/tracking.hpp
-opencv2/imgproc/imgproc.hpp
-/home/pkr/pkr-work/MultiBaselineStereo/opencv2/imgproc/imgproc.hpp
-opencv2/highgui/highgui.hpp
-/home/pkr/pkr-work/MultiBaselineStereo/opencv2/highgui/highgui.hpp
 iostream
 -
 ctype.h
