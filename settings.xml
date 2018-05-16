@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<Settings>
+  <save_directory>""</save_directory>
+  <showCaptures>1</showCaptures>
+  <useMAVLinkForTrigger>0</useMAVLinkForTrigger>
+  <useGPIOPinsAsTrigger>0</useGPIOPinsAsTrigger>
+  <cam_1_ID>1</cam_1_ID>
+  <cam_2_ID>2</cam_2_ID>
+  <cam_3_ID>3</cam_3_ID>
+  <use_cam_1>1</use_cam_1>
+  <use_cam_2>0</use_cam_2>
+  <use_cam_3>0</use_cam_3>
+  <brightness>9</brightness>
+  <exposure>100</exposure>
+  <use_timestamp>0</use_timestamp>
+  <resolution>2</resolution>
+  <MAVLinkPort>/dev/ttyUSB0</MAVLinkPort></Settings>
+</opencv_storage>
