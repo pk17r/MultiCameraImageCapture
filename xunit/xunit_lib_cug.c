@@ -69,7 +69,7 @@ BOOL EnableTriggerMode()
 		perror("write");
 		return FALSE;
 	} else {
-		printf("%s(): write() wrote %d bytes\n", __func__, ret);
+		//printf("%s(): write() wrote %d bytes\n", __func__, ret);
 	}
 	return TRUE;
 }

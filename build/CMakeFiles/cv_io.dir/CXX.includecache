@@ -31,16 +31,8 @@ ctype.h
 -
 stdio.h
 -
-time.h
--
-string
--
-sstream
--
 camera.h
 /home/pkr/pkr-work/MultiBaselineStereo/camera.h
-popt.h
--
 
 /home/pkr/pkr-work/MultiBaselineStereo/uvc_cam.h
 string

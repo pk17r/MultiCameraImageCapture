@@ -16,7 +16,7 @@
 using std::string;
 using namespace uvc_cam;
 
-bool uvc_cam::PrintAll = true;
+bool uvc_cam::PrintAll = false;
 
 
 static void
@@ -50,7 +50,7 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
 
   if ((device_file_h_ = open(_device, O_RDWR)) == -1)
   {
-    throw std::runtime_error("couldn't open " + device_);
+    throw std::runtime_error("couldn't open " + device_ + " ** Check if given camera ID is actually correct or not. ** ");
   }
 
   memset(&format_, 0, sizeof(v4l2_format));
@@ -70,7 +70,7 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
   format_desc.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   int ret;
 
-  printf("## FORMATS: ##\n");
+  //printf("## FORMATS: ##\n");
 
   while ((ret = ioctl(device_file_h_, VIDIOC_ENUM_FMT, &format_desc)) == 0)
   {
@@ -188,7 +188,7 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
   format_.fmt.pix.height = height_;
   format_.fmt.pix.colorspace = V4L2_COLORSPACE_RAW;
   format_.fmt.pix.sizeimage = sizeof(unsigned char) * width_ * height_;
-  std::cout << "input format_.fmt.pix.sizeimage: " << format_.fmt.pix.sizeimage << std::endl;
+  //std::cout << "input format_.fmt.pix.sizeimage: " << format_.fmt.pix.sizeimage << std::endl;
   
   if (mode_ == MODE_RGB || mode_ == MODE_YUYV) // we'll convert later
     format_.fmt.pix.pixelformat = 'Y' | ('U' << 8) | ('Y' << 16) | ('V' << 24);
@@ -211,7 +211,7 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
     throw std::runtime_error("couldn't set format");
   if ((ret = ioctl(device_file_h_, VIDIOC_G_FMT, &fmt)) < 0)
     throw std::runtime_error("couldn't set format");
-  std::cout << "fmt.fmt.pix.sizeimage: " << fmt.fmt.pix.sizeimage << std::endl;
+  //std::cout << "fmt.fmt.pix.sizeimage: " << fmt.fmt.pix.sizeimage << std::endl;
 
   if (format_.fmt.pix.width != width_ || format_.fmt.pix.height != height_)
     throw std::runtime_error("pixel format unavailable");
@@ -221,7 +221,7 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
   stream_parm_.parm.capture.timeperframe.denominator = fps_;
   if ((ret = ioctl(device_file_h_, VIDIOC_S_PARM, &stream_parm_)) < 0)
     throw std::runtime_error("unable to set framerate");
-  std::cout << "stream_parm_.parm.capture.timeperframe.denominator: " << stream_parm_.parm.capture.timeperframe.denominator << std::endl;
+  //std::cout << "stream_parm_.parm.capture.timeperframe.denominator: " << stream_parm_.parm.capture.timeperframe.denominator << std::endl;
   //v4l2_queryctrl queryctrl;
   memset(&queryctrl, 0, sizeof(queryctrl));
 
@@ -354,11 +354,11 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
     buffer_.timestamp.tv_usec = 0;
     buffer_.memory = V4L2_MEMORY_MMAP;
     buffer_.bytesused = _height*_width;
-    printf("A buf length = %d  bytesused = %d\n", buffer_.length, buffer_.bytesused);
+    //printf("A buf length = %d  bytesused = %d\n", buffer_.length, buffer_.bytesused);
     if (ioctl(device_file_h_, VIDIOC_QBUF, &buffer_) < 0)
       throw std::runtime_error("unable to queue buffer");
-    printf("B buf length = %d  bytesused = %d\n", buffer_.length, buffer_.bytesused);
-    std::cout << "sizeof(buffer_): " << sizeof(buffer_) << std::endl;
+    //printf("B buf length = %d  bytesused = %d\n", buffer_.length, buffer_.bytesused);
+    //std::cout << "sizeof(buffer_): " << sizeof(buffer_) << std::endl;
   }
   int type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   if (ioctl(device_file_h_, VIDIOC_STREAMON, &type) < 0)
@@ -369,7 +369,7 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
   EnableTriggerMode();
   if (ioctl(device_file_h_, VIDIOC_QUERYBUF, &buffer_) < 0)
 	throw std::runtime_error("unable to query buffer");
-  printf("C buf length = %d  bytesused = %d\n", buffer_.length, buffer_.bytesused);
+  //printf("C buf length = %d  bytesused = %d\n", buffer_.length, buffer_.bytesused);
 }
 
 Cam::~Cam()
@@ -621,10 +621,10 @@ void Cam::set_control(uint32_t id, int val)
 
   if (ioctl(device_file_h_, VIDIOC_G_CTRL, &c) == 0)
   {
-    printf("\ncurrent value of %s is %d\n", queryctrl.name, c.value);
+    //printf("\ncurrent value of %s is %d\n", queryctrl.name, c.value);
   }
 
-  printf("Setting control '%s' from %d to %d\n", queryctrl.name, c.value, val);
+  printf("Setting '%s' from %d to %d.\n", queryctrl.name, c.value, val);
 
   c.value = val;
   if (xioctl(device_file_h_, VIDIOC_S_CTRL, &c) < 0)
@@ -635,7 +635,7 @@ void Cam::set_control(uint32_t id, int val)
   queryctrl.id = id;
   if (0 == ioctl (device_file_h_, VIDIOC_QUERYCTRL, &queryctrl))
     if (ioctl(device_file_h_, VIDIOC_G_CTRL, &c) == 0)
-      printf("Value of '%s' is now %d\n", queryctrl.name, c.value);
+      printf("'%s' is now %d\n", queryctrl.name, c.value);
 }
 
 void Cam::set_motion_thresholds(int lum, int count)

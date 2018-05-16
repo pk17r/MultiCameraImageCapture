@@ -33,6 +33,7 @@ class Settings {
 			<< "use_timestamp" << use_timestamp
 			<< "resolution"   << resolution
 			<< "MAVLinkPort"  << MAVLinkPort
+			<< "baudrate"  << baudrate
 
 		<< "}";
     }
@@ -53,6 +54,7 @@ class Settings {
 		node["use_timestamp"] >> use_timestamp;
 		node["resolution"] >> resolution;
 		node["MAVLinkPort"] >> MAVLinkPort;
+		node["baudrate"] >> baudrate;
 		
 	}
   
@@ -67,6 +69,7 @@ class Settings {
 	bool use_timestamp = true;
 	int resolution = 2;
 	string MAVLinkPort = "/dev/ttyUSB0";
+	int baudrate = 115200;
 	
 };
 static inline void read(const FileNode& node, Settings& x, const Settings& default_value = Settings()) {
@@ -78,18 +81,10 @@ static inline void read(const FileNode& node, Settings& x, const Settings& defau
 static inline void write(FileStorage& fs, const String&, const Settings& s ) {
     s.write(fs);
 }
-
 const int Resolution[3][2] = { {640,480}, {1280,720}, {1280,960} };
 const int width = 0;
 const int height = 1;
-static int width_sz = 640;
-static int height_sz = 480;
 
-//const int width = 1280;	//640, 1280, 1280
-//const int height = 960;	//480,  720,  960
-const string textFilePrefix = "log";
-const string camImgSuffix = ".png";
-	
 class Camera {
   public:
     Camera(Settings);
@@ -109,13 +104,7 @@ class Camera {
     unsigned int counter;
     chrono::system_clock::time_point t_base;
     
-    vector<int> compression_params;
-    
     uvc_cam::Cam *cam[3];
-    
-    string camImgPrefix1;
-	string camImgPrefix2;
-	string camImgPrefix3;
 };
 
 };

@@ -1,7 +1,3 @@
-//#include "opencv2/video/tracking.hpp"
-//#include "opencv2/imgproc/imgproc.hpp"
-//#include "opencv2/highgui/highgui.hpp"
-
 #include "camera.h"
 #include <iostream>
 #include <math.h>
@@ -277,28 +273,21 @@ namespace uvc_camera {
 	
 	jetsonTX1GPIONumber redLED = gpio398 ;     // Ouput  gpio398
 	ofstream outfile;
+	vector<int> compression_params;
+	string windowNames[] = {"Cam1", "Cam2", "Cam3"};
 	
 	Camera::Camera(Settings settings){
-		camImgPrefix1 = settings.save_directory + "cam1/";
-		camImgPrefix2 = settings.save_directory + "cam2/";
-		camImgPrefix3 = settings.save_directory + "cam3/";
-		
+		usleep(1000000);
 		/* default config values */
 		counter = 0;
-		compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
-		compression_params.push_back(0);
+		uvc_camera::compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
+		uvc_camera::compression_params.push_back(0);
 		
-		height_sz = Resolution[settings.resolution][height];
-		width_sz = Resolution[settings.resolution][width];
-		
-		cout << "\nIf output is 'Unable to find parent usb device.' or if you want to use TX2 GPIO trigger, run executable using administrative rights." << endl;
-		usleep(1000000);
-
 		/* initialize the cameras */
 		int cam_Ind = 0;
-		if(settings.use_cam_x[cam_Ind]) setCamera(cam_Ind++, settings);
-		if(settings.use_cam_x[cam_Ind]) setCamera(cam_Ind++, settings);
-		if(settings.use_cam_x[cam_Ind]) setCamera(cam_Ind++, settings);
+		if(settings.use_cam_x[cam_Ind]) setCamera(cam_Ind, settings); cam_Ind++;
+		if(settings.use_cam_x[cam_Ind]) setCamera(cam_Ind, settings); cam_Ind++;
+		if(settings.use_cam_x[cam_Ind]) setCamera(cam_Ind, settings); cam_Ind++;
 		
 		cout << "\nAll Cameras Initialized!\n"<<endl;
 
@@ -331,24 +320,27 @@ namespace uvc_camera {
 		}
 		cam[cam_Ind]->set_control(0x00980900, settings.brightness); // brightness
 		//cam->set_control(0x9a0902, 78); // exposure time 15.6ms
-		//usleep(500000);
+		usleep(500000);
 		//return cam;
 	}
     
-	void saveCapturedImage(string camImgPrefix, int counter_, uint64_t time_from_base, Settings settings, unsigned char *image_ptr, std::vector<int> compression_params) {
+	void saveCapturedImage(int cam_Ind, int counter_, uint64_t time_from_base, Settings settings, unsigned char *image_ptr/*, std::vector<int> compression_params*/) {
 		unsigned char image[Resolution[settings.resolution][height]][Resolution[settings.resolution][width]];
-		//std::chrono::high_resolution_clock::time_point t1, t2;
-		//t1 = std::chrono::high_resolution_clock::now();
-		//std::chrono::duration<double, std::milli> time_span;
+		std::chrono::high_resolution_clock::time_point t1, t2;
+		t1 = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double, std::milli> time_span;
 		memcpy( &image[0][0], image_ptr, Resolution[settings.resolution][height] * Resolution[settings.resolution][width] * sizeof(unsigned char));
 		cv::Mat image_mat_Bayer(Resolution[settings.resolution][height], Resolution[settings.resolution][width], CV_8UC(1), image);		//making an opencv Mat array
 		cv::Mat image_mat_RGB;
 		cv::cvtColor(image_mat_Bayer, image_mat_RGB, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
+		//if(settings.showCaptures)
+		//	imshow(windowNames[cam_Ind], image_mat_RGB);							//Display the grey scale converted frame
 		//saving image to disk
-		cv::imwrite(camImgPrefix + to_string(settings.use_timestamp ? time_from_base : counter_) + camImgSuffix, image_mat_RGB, compression_params);
-		//t2 = std::chrono::high_resolution_clock::now();
-		//time_span = t2 - t1;
-		//cout << counter_ << "_" << ceil(time_span.count()) << "ms " ;
+		string saveName = settings.save_directory + "cam" + to_string(cam_Ind) + "/" + to_string(settings.use_timestamp ? time_from_base : counter_) + ".png";
+		cv::imwrite(saveName, image_mat_RGB, compression_params);
+		t2 = std::chrono::high_resolution_clock::now();
+		time_span = t2 - t1;
+		//cout << counter_ << "_" << ceil(time_span.count()) << "ms " << saveName << "*" ;
 	}
 	
 	void triggerCameras() {
@@ -409,45 +401,51 @@ namespace uvc_camera {
 			cout << "GPIOs initialized" << endl;
 		}
 		
+		//current date
+		time_t now = time(NULL);
+		struct tm tstruct;
+		char buf[40];
+		tstruct = *localtime(&now);
+		//format: day DD-MM-YYYY
+		strftime(buf, sizeof(buf), "%d-%m-%Y", &tstruct);
+		string current_date = string(buf);
+		
+		//current time
+		tstruct = *localtime(&now);
+		//format: HH:mm:ss
+		strftime(buf, sizeof(buf), "%X", &tstruct);
+		string current_time = string(buf);
+		
+		//milliseconds from base time
+		system_clock::duration time_tag = system_clock::now() - t_base;
+		// convert to milliseconds:
+		typedef duration<int,std::ratio<1,1000>> millisecondTimeType;
+		millisecondTimeType n_time = duration_cast<millisecondTimeType> (time_tag);
+		uint64_t time_from_base = (uint64_t)n_time.count();
+		
+		//save settings file for record
+		string runSettingsFile = settings.save_directory + current_date + "_" + to_string(time_from_base) + "_settings.xml";
+		FileStorage fs(runSettingsFile, FileStorage::WRITE);
+		fs << "Settings" << settings;
+		cout << "Created a configuration file with default values!" << endl;
+		fs.release();
+		
 		//MAVLink gives GPS and IMU data. GPS messages used as trigger for cameras
 		if(settings.useMAVLinkForTrigger)
 		{
-			//current date
-			time_t now = time(NULL);
-			struct tm tstruct;
-			char buf[40];
-			tstruct = *localtime(&now);
-			//format: day DD-MM-YYYY
-			strftime(buf, sizeof(buf), "%d-%m-%Y", &tstruct);
-			string current_date = string(buf);
-			
-			//current time
-			tstruct = *localtime(&now);
-			//format: HH:mm:ss
-			strftime(buf, sizeof(buf), "%X", &tstruct);
-			string current_time = string(buf);
-			
-			//milliseconds from base time
-			system_clock::duration time_tag = system_clock::now() - t_base;
-			// convert to milliseconds:
-			typedef duration<int,std::ratio<1,1000>> millisecondTimeType;
-			millisecondTimeType n_time = duration_cast<millisecondTimeType> (time_tag);
-			uint64_t time_from_base = (uint64_t)n_time.count();
-			
-			string textFileName = textFilePrefix + "-" + current_date + "-" + to_string(time_from_base) + ".txt";
-			cout << "Text file name: " << textFileName << endl;
-			
-			//open text file
+			string logFileName = settings.save_directory + current_date + "_" + to_string(time_from_base) + "_log.txt";
+			cout << "Log file name: " << logFileName << endl;
+			//open log file
 			//ofstream outfile;
-			outfile.open(textFileName, ios_base::app);
+			outfile.open(logFileName, ios_base::app);
 			outfile << current_date << "," << current_time << "\n";
 			outfile <<"counter,time_from_base,gps,time_to_fetch,gpos.lat,gpos.lon,gpos.alt,gpos.relative_alt,gpos.vx,gpos.vy,gpos.vz,gpos.hdg,lpos.x,lpos.y,lpos.z\n";
 			outfile <<"counter,time_from_base,imu,att.roll,att.pitch,att.yaw,att.rollspeed,att.pitchspeed,att.yawspeed\n";
-		
+			
 			//mavlink start
 			cout << "Initialize MAVLINK" << endl;
 			char *uart_name = (char *)settings.MAVLinkPort.c_str();
-			int baudrate = 115200;
+			int baudrate = settings.baudrate;
 			Serial_Port serial_port(uart_name, baudrate);
 			Autopilot_Interface autopilot_interface(&serial_port);
 			serial_port_quit         = &serial_port;
@@ -499,11 +497,11 @@ namespace uvc_camera {
 		int idx;
 
 		int cam_Ind = 0;
-		string windowNames[] = {"Cam1", "Cam2", "Cam3"};
+		
 		if(settings.showCaptures) {
-			if(settings.use_cam_x[cam_Ind]) namedWindow(windowNames[cam_Ind++], CV_WINDOW_AUTOSIZE);
-			if(settings.use_cam_x[cam_Ind]) namedWindow(windowNames[cam_Ind++], CV_WINDOW_AUTOSIZE);
-			if(settings.use_cam_x[cam_Ind]) namedWindow(windowNames[cam_Ind++], CV_WINDOW_AUTOSIZE);
+			if(settings.use_cam_x[cam_Ind]) namedWindow(uvc_camera::windowNames[cam_Ind++], CV_WINDOW_AUTOSIZE);
+			if(settings.use_cam_x[cam_Ind]) namedWindow(uvc_camera::windowNames[cam_Ind++], CV_WINDOW_AUTOSIZE);
+			if(settings.use_cam_x[cam_Ind]) namedWindow(uvc_camera::windowNames[cam_Ind++], CV_WINDOW_AUTOSIZE);
 		}
 		
 		cout<< "Capturing start!" << endl;
@@ -583,7 +581,7 @@ namespace uvc_camera {
 							n_time = duration_cast<millisecondTimeType> (time_tag);
 							time_from_base = (uint64_t)n_time.count();
 							
-							if(settings.showCaptures) {
+							/*if(settings.showCaptures) {
 								cam_Ind = 0;
 								if(settings.use_cam_x[cam_Ind]) {
 									Mat image_mat_Bayer1(Resolution[settings.resolution][height], Resolution[settings.resolution][width], CV_8UC(1), image1);		//making an opencv Mat array
@@ -605,19 +603,19 @@ namespace uvc_camera {
 									cvtColor(image_mat_Bayer3, image_mat_RGB3, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
 									imshow(windowNames[cam_Ind], image_mat_RGB3);							//Display the grey scale converted frame
 								}
-								cv::waitKey(0);
-							}
+								cv::waitKey(1);
+							}*/
 							cam_Ind = 0;
 							if(settings.use_cam_x[cam_Ind]) {
-								boost::thread thread_cam1(saveCapturedImage, camImgPrefix1, counter, time_from_base, settings, &image1[0][0], compression_params);
+								boost::thread thread_cam1(saveCapturedImage, cam_Ind, counter, time_from_base, settings, &image1[0][0]);//, compression_params);
 							}
 							cam_Ind++;
 							if(settings.use_cam_x[cam_Ind]) {
-								boost::thread thread_cam2(saveCapturedImage, camImgPrefix2, counter, time_from_base, settings, &image2[0][0], compression_params);
+								boost::thread thread_cam2(saveCapturedImage, cam_Ind, counter, time_from_base, settings, &image2[0][0]);//, compression_params);
 							}
 							cam_Ind++;
 							if(settings.use_cam_x[cam_Ind]) {
-								boost::thread thread_cam3(saveCapturedImage, camImgPrefix3, counter, time_from_base, settings, &image3[0][0], compression_params);
+								boost::thread thread_cam3(saveCapturedImage, cam_Ind, counter, time_from_base, settings, &image3[0][0]);//, compression_params);
 							}
 							t2 = high_resolution_clock::now();
 							time_span = t2 - t1;
