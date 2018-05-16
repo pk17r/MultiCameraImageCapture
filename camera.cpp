@@ -8,10 +8,10 @@
 
 //gpio trigger header files
 #include <termios.h>
-#include "jetsonGPIO.c"
+#include "jetsonGPIO/jetsonGPIO.c"
 
 //mavlink header files
-#include "mavlink_control.h"
+#include "mavlink/mavlink_control.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -96,25 +96,6 @@ namespace uvc_camera {
 		//cout << counter_ << "_" << saveName << endl;
 	}
     
-	void saveCapturedImage(int cam_Ind, int counter_, uint64_t time_from_base, Settings settings, unsigned char *image_ptr/*, std::vector<int> compression_params*/) {
-		unsigned char image[Resolution[settings.resolution][height]][Resolution[settings.resolution][width]];
-		//std::chrono::high_resolution_clock::time_point t1, t2;
-		//t1 = std::chrono::high_resolution_clock::now();
-		//std::chrono::duration<double, std::milli> time_span;
-		memcpy( &image[0][0], image_ptr, Resolution[settings.resolution][height] * Resolution[settings.resolution][width] * sizeof(unsigned char));
-		cv::Mat image_mat_Bayer(Resolution[settings.resolution][height], Resolution[settings.resolution][width], CV_8UC(1), image);		//making an opencv Mat array
-		cv::Mat image_mat_RGB;
-		cv::cvtColor(image_mat_Bayer, image_mat_RGB, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
-		//if(settings.showCaptures)
-		//	imshow(windowNames[cam_Ind], image_mat_RGB);							//Display the grey scale converted frame
-		//saving image to disk
-		string saveName = settings.save_directory + "cam" + to_string(cam_Ind) + "/" + to_string(settings.use_timestamp ? time_from_base : counter_) + ".png";
-		cv::imwrite(saveName, image_mat_RGB, compression_params);
-		//t2 = std::chrono::high_resolution_clock::now();
-		//time_span = t2 - t1;
-		//cout << counter_ << "_" << ceil(time_span.count()) << "ms " << saveName << "*" ;
-	}
-	
 	void triggerCameras() {
 		// Flash the LED
 		//cout << "Setting the LED on" << endl;
