@@ -138,6 +138,9 @@ namespace uvc_camera {
 	mavlink_local_position_ned_t lpos;
 	mavlink_global_position_int_t gpos;
 	mavlink_attitude_t att;
+	mavlink_gps_raw_int_t gps_raw;
+	mavlink_raw_imu_t imu_raw;
+	
 	Autopilot_Interface *api;
 	
 	void Camera::feedImages(Settings settings) {
@@ -190,7 +193,9 @@ namespace uvc_camera {
 			//open log file
 			outfile.open(logFileName, ios_base::app);
 			outfile << current_date << "," << current_time << "\n";
-			outfile <<"counter,time_from_base,gps,time_to_fetch,gpos.lat,gpos.lon,gpos.alt,gpos.relative_alt,gpos.vx,gpos.vy,gpos.vz,gpos.hdg,lpos.x,lpos.y,lpos.z\n";
+			outfile <<"counter,time_from_base,gps_raw,time_to_fetch,time_usec,lat,lon,alt,eph,epv,vel,cog,satellites_visible\n";
+			outfile <<"counter,time_from_base,imu_raw,time_usec,xacc,yacc,zacc,xgyrp,ygyro,zgyro,xmag,ymag,zmag\n";
+			outfile <<"counter,time_from_base,gps,gpos.lat,gpos.lon,gpos.alt,gpos.relative_alt,gpos.vx,gpos.vy,gpos.vz,gpos.hdg,lpos.x,lpos.y,lpos.z\n";
 			outfile <<"counter,time_from_base,imu,att.roll,att.pitch,att.yaw,att.rollspeed,att.pitchspeed,att.yawspeed\n";
 			
 			//mavlink start
@@ -253,13 +258,15 @@ namespace uvc_camera {
 		
 		cout<< "Capturing start!" << endl;
 		int time_diff;
-		uint lastPosTime = 0, lastAttTime = 0;
+		uint lastGPSRawTime = 0, lastIMURawTime = 0, lastGPSGlobalTime = 0, lastIMUAttitudeTime = 0;
 		cout << "\nSet(#)  Timestamp \t\tImage_Fetch_time(ms)" << endl;
 		bool cam_locks[3] = {false, false, false};
 		bool *cam_lock_ptr = &cam_locks[0];
 		
 		bool gpsCycleBool = true;
-		bool attCycleBool = false;
+		bool imuCycleBool = false;
+		bool gpsGlobalCycleBool = false;
+		bool imuAttitudeCycleBool = false;
 		while (ok) {
 			
 			if(settings.useMAVLinkForTrigger)
@@ -268,16 +275,23 @@ namespace uvc_camera {
 				lpos = api->current_messages.local_position_ned;
 				att = api->current_messages.attitude;
 				
-				gpsCycleBool = gpos.time_boot_ms > lastPosTime;
-				attCycleBool = att.time_boot_ms > lastAttTime;
+				gps_raw = api->current_messages.gps_raw_int;
+				imu_raw = api->current_messages.raw_imu;
+				
+				gpsCycleBool = gps_raw.time_usec > lastGPSRawTime;
+				imuCycleBool = imu_raw.time_usec > lastIMURawTime;
+				
+				gpsGlobalCycleBool = gpos.time_boot_ms > lastGPSGlobalTime;
+				imuAttitudeCycleBool = att.time_boot_ms > lastIMUAttitudeTime;
 			}
-			else
-			{
-				//run cycle only when camera locks are off
-				gpsCycleBool = !(cam_locks[0] || cam_locks[1] || cam_locks[2]);
-			}
+			//else
+			//{
+			//	//run cycle only when camera locks are off
+			//	gpsCycleBool = !(cam_locks[0] || cam_locks[1] || cam_locks[2]);
+			//}
 			
-			if(gpsCycleBool && !cam_locks[0] && !cam_locks[1] && !cam_locks[2])		//run camera fetch only when all camera locks are false
+			//if(gpsCycleBool && !cam_locks[0] && !cam_locks[1] && !cam_locks[2])		//run camera fetch only when all camera locks are false
+			if(gpsCycleBool)
 			{
 				//trigger cameras using GPIO pins
 				if(settings.useGPIOPinsAsTrigger)
@@ -285,7 +299,7 @@ namespace uvc_camera {
 				
 				//update last GPS time from MAVLink
 				if(settings.useMAVLinkForTrigger) 
-					lastPosTime = gpos.time_boot_ms;
+					lastGPSRawTime = gps_raw.time_usec;
 				
 				//turn cycle flag off, with or without MAVLink usage
 				gpsCycleBool = false;
@@ -324,8 +338,9 @@ namespace uvc_camera {
 							//	printf("LOCAL POS  = [ %f %f %f (m)\n", lpos.x, lpos.y, lpos.z );
 							//	printf("ATTITUDE   = [ roll=%f , pitch=%f , yaw=%f , speeds=%f, %f, %f ] \n", att.roll, att.pitch, att.yaw, att.rollspeed, att.pitchspeed, att.yawspeed);
 							//}
-							if(settings.useMAVLinkForTrigger)
-								outfile <<counter<<","<<time_from_base<<",g,"<<ceil(time_span.count())<<","<<gpos.lat<<","<<gpos.lon<<","<<gpos.alt<<","<<gpos.relative_alt<<","<<gpos.vx<<","<<gpos.vy<<","<<gpos.vz<<","<<gpos.hdg<<","<<lpos.x<<","<<lpos.y<<","<<lpos.z<<","<<"\n";
+							if(settings.useMAVLinkForTrigger) {
+								outfile <<counter<<","<<time_from_base<<",g,"<<ceil(time_span.count())<<","<<gps_raw.time_usec<<","<<gps_raw.fix_type<<","<<gps_raw.lat<<","<<gps_raw.lon<<","<<gps_raw.alt<<","<<gps_raw.eph<<","<<gps_raw.epv<<","<<gps_raw.vel<<","<<gps_raw.cog<<","<<gps_raw.satellites_visible<<"\n";
+							}
 							
 							counter++;
 						}
@@ -337,15 +352,37 @@ namespace uvc_camera {
 			}
 			
 			//print if someday the camera locks actually come in use. Mostly will be of use at very high fps
-			if(settings.useMAVLinkForTrigger && gpsCycleBool && (cam_locks[0] || cam_locks[1] || cam_locks[2]))
-				cout << "Camera Locks Worked! Huraahhh!!! :D" << endl;
+			//if(settings.useMAVLinkForTrigger && gpsCycleBool && (cam_locks[0] || cam_locks[1] || cam_locks[2]))
+			//	cout << "Camera Locks Worked! Huraahhh!!! :D" << endl;
 			
 			//imu runs faster than gps so recording it separately
-			if(attCycleBool && settings.useMAVLinkForTrigger) 
+			if(imuCycleBool && settings.useMAVLinkForTrigger) 
 			{
 				//update last IMU time from MAVLink
 				if(settings.useMAVLinkForTrigger)
-					lastAttTime = att.time_boot_ms;
+					lastIMURawTime = imu_raw.time_usec;
+				
+				time_tag = system_clock::now() - t_base;
+				n_time = duration_cast<millisecondTimeType> (time_tag);
+				time_from_base = (uint64_t)n_time.count();
+				outfile <<counter<<","<<time_from_base<<",g,"<<ceil(time_span.count())<<","<<imu_raw.time_usec<<","<<imu_raw.xacc<<","<<imu_raw.yacc<<","<<imu_raw.zacc<<","<<imu_raw.xgyro<<","<<imu_raw.ygyro<<","<<imu_raw.zgyro<<","<<imu_raw.xmag<<","<<imu_raw.ymag<<","<<imu_raw.zmag<<"\n";
+			}
+			if(gpsGlobalCycleBool && settings.useMAVLinkForTrigger) 
+			{
+				//update last IMU time from MAVLink
+				if(settings.useMAVLinkForTrigger)
+					lastGPSGlobalTime = gpos.time_boot_ms;
+				
+				time_tag = system_clock::now() - t_base;
+				n_time = duration_cast<millisecondTimeType> (time_tag);
+				time_from_base = (uint64_t)n_time.count();
+				outfile <<counter<<","<<time_from_base<<",g,"<<ceil(time_span.count())<<","<<gpos.lat<<","<<gpos.lon<<","<<gpos.alt<<","<<gpos.relative_alt<<","<<gpos.vx<<","<<gpos.vy<<","<<gpos.vz<<","<<gpos.hdg<<","<<lpos.x<<","<<lpos.y<<","<<lpos.z<<","<<"\n";
+			}
+			if(imuAttitudeCycleBool && settings.useMAVLinkForTrigger) 
+			{
+				//update last IMU time from MAVLink
+				if(settings.useMAVLinkForTrigger)
+					lastIMUAttitudeTime = att.time_boot_ms;
 				
 				time_tag = system_clock::now() - t_base;
 				n_time = duration_cast<millisecondTimeType> (time_tag);
