@@ -424,11 +424,13 @@ namespace uvc_camera {
 		uint64_t time_from_base = (uint64_t)n_time.count();
 		
 		//save settings file for record
-		string runSettingsFile = settings.save_directory + current_date + "_" + to_string(time_from_base) + "_settings.xml";
-		FileStorage fs(runSettingsFile, FileStorage::WRITE);
-		fs << "Settings" << settings;
-		cout << "Created a configuration file with default values!" << endl;
-		fs.release();
+		if(settings.use_timestamp) {
+			string runSettingsFile = settings.save_directory + current_date + "_" + to_string(time_from_base) + "_settings.xml";
+			FileStorage fs(runSettingsFile, FileStorage::WRITE);
+			fs << "Settings" << settings;
+			cout << "Saved settings file for record purpose: " << runSettingsFile << endl;
+			fs.release();
+		}
 		
 		//MAVLink gives GPS and IMU data. GPS messages used as trigger for cameras
 		if(settings.useMAVLinkForTrigger)
