@@ -518,7 +518,7 @@ int Cam::grab(unsigned char **frame, uint32_t &bytes_used)
   if (ioctl(device_file_h_, VIDIOC_DQBUF, &buffer_) < 0)
     throw std::runtime_error("couldn't dequeue buffer");
   bytes_used = buffer_.bytesused;
-  printf("_%d_", buffer_.bytesused);
+  //printf("_%d_", buffer_.bytesused);
   if (mode_ == MODE_RGB)
   {
     int num_pixels_different = 0; // just look at the Y channel
