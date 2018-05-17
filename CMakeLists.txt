@@ -20,7 +20,10 @@ target_link_libraries(xunit ${udev_LIBRARIES})
 add_library(uvc uvc_cam.cpp)
 target_link_libraries(uvc xunit ${udev_LIBRARIES} ${Boost_LIBRARIES} udev)
 
-include_directories(mavlink/mavlinkfiles)
+include_directories(mavlink
+		mavlink/mavlinkfiles
+		mavlink/mavlinkfiles/common)
+
 add_library(mav mavlink/serial_port.cpp
 		mavlink/autopilot_interface.cpp)
 
