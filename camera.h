@@ -34,6 +34,7 @@ class Settings {
 			<< "resolution"   << resolution
 			<< "MAVLinkPort"  << MAVLinkPort
 			<< "baudrate"  << baudrate
+			<< "counter"  << counter
 
 		<< "}";
     }
@@ -55,6 +56,7 @@ class Settings {
 		node["resolution"] >> resolution;
 		node["MAVLinkPort"] >> MAVLinkPort;
 		node["baudrate"] >> baudrate;
+		node["counter"] >> counter;
 		
 	}
   
@@ -70,6 +72,7 @@ class Settings {
 	int resolution = 2;
 	string MAVLinkPort = "/dev/ttyUSB0";
 	int baudrate = 115200;
+	int counter = 0;
 	
 };
 static inline void read(const FileNode& node, Settings& x, const Settings& default_value = Settings()) {

@@ -60,6 +60,7 @@ int main(int argc, char *argv[])
 	cout <<"use_timestamp: " << settings.use_timestamp << endl;
 	cout <<"MAVLinkPort: " << settings.MAVLinkPort << endl;
 	cout <<"baudrate: " << settings.baudrate << endl;
+	cout <<"counter: " << settings.counter << endl;
 	
     cout<<"\nOpenCV version: " << CV_MAJOR_VERSION << "." << CV_MINOR_VERSION << endl;
     

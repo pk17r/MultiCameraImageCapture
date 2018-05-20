@@ -27,7 +27,7 @@ namespace uvc_camera {
 	Camera::Camera(Settings settings){
 		usleep(1000000);
 		/* default config values */
-		counter = 0;
+		counter = settings.counter;
 		uvc_camera::compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
 		uvc_camera::compression_params.push_back(0);
 		
@@ -72,9 +72,9 @@ namespace uvc_camera {
     
     void showWindows(Settings settings) {
 		int cam_Ind = 0;
-		if(settings.use_cam_x[cam_Ind]) namedWindow(windowNames[cam_Ind], CV_WINDOW_AUTOSIZE); cam_Ind++;
-		if(settings.use_cam_x[cam_Ind]) namedWindow(windowNames[cam_Ind], CV_WINDOW_AUTOSIZE); cam_Ind++;
-		if(settings.use_cam_x[cam_Ind]) namedWindow(windowNames[cam_Ind], CV_WINDOW_AUTOSIZE); cam_Ind++;
+		if(settings.use_cam_x[cam_Ind]) { namedWindow(windowNames[cam_Ind], CV_WINDOW_AUTOSIZE); moveWindow(windowNames[cam_Ind],   20, 20); } cam_Ind++;
+		if(settings.use_cam_x[cam_Ind]) { namedWindow(windowNames[cam_Ind], CV_WINDOW_AUTOSIZE); moveWindow(windowNames[cam_Ind],  620, 20); } cam_Ind++;
+		if(settings.use_cam_x[cam_Ind]) { namedWindow(windowNames[cam_Ind], CV_WINDOW_AUTOSIZE); moveWindow(windowNames[cam_Ind], 1220, 20); } cam_Ind++;
 	}
     
     void saveFetchedImage(int cam_Ind, uvc_cam::Cam *cam, bool *cam_lock_ptr, int idx, Settings settings, unsigned char *img_frame, int counter_, uint64_t time_from_base) {
@@ -87,8 +87,10 @@ namespace uvc_camera {
 		cv::Mat image_mat_RGB;
 		cv::cvtColor(image_mat_Bayer, image_mat_RGB, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
 		if(settings.showCaptures) {
-			imshow(windowNames[cam_Ind], image_mat_RGB);	//Display the grey scale converted frame
-			waitKey(0.000001);
+			cv::Mat smallImg;
+			resize(image_mat_RGB, smallImg, Size(image_mat_RGB.cols * 400 /image_mat_RGB.rows, 400), 0, 0, INTER_LINEAR);
+			imshow(windowNames[cam_Ind], smallImg);	//Display the grey scale converted frame
+			waitKey(0.001);
 		}
 		
 		string saveName = settings.save_directory + "cam" + to_string(cam_Ind + 1) + "/" + to_string(settings.use_timestamp ? time_from_base : counter_) + ".png";
@@ -265,7 +267,7 @@ namespace uvc_camera {
 		
 		//bool gpsCycleBool = true;
 		//bool imuCycleBool = false;
-		bool gpsGlobalCycleBool = false;
+		bool gpsGlobalCycleBool = true;
 		bool imuAttitudeCycleBool = false;
 		while (ok) {
 			
@@ -290,8 +292,8 @@ namespace uvc_camera {
 			//	gpsCycleBool = !(cam_locks[0] || cam_locks[1] || cam_locks[2]);
 			//}
 			
-			//if(gpsCycleBool && !cam_locks[0] && !cam_locks[1] && !cam_locks[2])		//run camera fetch only when all camera locks are false
-			if(gpsGlobalCycleBool)
+			//if(gpsGlobalCycleBool)
+			if(gpsGlobalCycleBool && !cam_locks[0] && !cam_locks[1] && !cam_locks[2])		//run camera fetch only when all camera locks are false
 			{
 				//trigger cameras using GPIO pins
 				if(settings.useGPIOPinsAsTrigger)
@@ -300,9 +302,6 @@ namespace uvc_camera {
 				//update last GPS time from MAVLink
 				if(settings.useMAVLinkForTrigger) 
 					lastGPSGlobalTime = gpos.time_boot_ms;
-				
-				//turn cycle flag off, with or without MAVLink usage
-				gpsGlobalCycleBool = false;
 				
 				//cam1
 				cam_Ind = 0;
