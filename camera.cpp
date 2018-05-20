@@ -194,7 +194,7 @@ namespace uvc_camera {
 			cout << "Log file name: " << logFileName << endl;
 			//open log file
 			outfile.open(logFileName, ios_base::app);
-			outfile << current_date << "," << current_time << "\n";
+			outfile << current_date << "," << current_time << "," << settings.notes_for_log << "\n";
 			//outfile <<"counter,time_from_base,gps_raw,time_to_fetch,time_usec,lat,lon,alt,eph,epv,vel,cog,satellites_visible\n";
 			//outfile <<"counter,time_from_base,imu_raw,time_usec,xacc,yacc,zacc,xgyrp,ygyro,zgyro,xmag,ymag,zmag\n";
 			outfile <<"counter,time_from_base,gps,time_to_fetch,gpos.lat,gpos.lon,gpos.alt,gpos.relative_alt,gpos.vx,gpos.vy,gpos.vz,gpos.hdg,lpos.x,lpos.y,lpos.z\n";

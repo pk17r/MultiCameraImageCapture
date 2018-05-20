@@ -73,6 +73,7 @@ class Settings {
 	string MAVLinkPort = "/dev/ttyUSB0";
 	int baudrate = 115200;
 	int counter = 0;
+	string notes_for_log;
 	
 };
 static inline void read(const FileNode& node, Settings& x, const Settings& default_value = Settings()) {

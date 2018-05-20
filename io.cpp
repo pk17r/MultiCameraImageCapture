@@ -21,11 +21,10 @@ int main(int argc, char *argv[])
 	cout << "*                                                       *" << endl;
 	cout << "*********************************************************" << endl;
 	
-	cout << "\nUsage: sudo ./cv_io [../settings.xml]" << endl;
+	cout << "\nUsage: sudo ./cv_io [Notes_for_log(Dont_use_commas_or_\n)]" << endl;
 	
 	uvc_camera::Settings settings;
-	
-	const string inputSettingsFile = argc > 1 ? argv[1] : "../settings.xml";
+	const string inputSettingsFile = "../settings.xml";
     FileStorage fs(inputSettingsFile, FileStorage::READ); // Read the settings
     if (!fs.isOpened())
     {
@@ -37,6 +36,9 @@ int main(int argc, char *argv[])
         return -1;
     }
     fs["Settings"] >> settings;
+    
+    settings.notes_for_log = argc > 1 ? argv[1] : ""; //record notes for this run to save to log
+    
     fs.release();	// close Settings file
     cout << "\nLoaded settings from configuration file: \"" << inputSettingsFile << "\"" << endl;
     
@@ -61,6 +63,7 @@ int main(int argc, char *argv[])
 	cout <<"MAVLinkPort: " << settings.MAVLinkPort << endl;
 	cout <<"baudrate: " << settings.baudrate << endl;
 	cout <<"counter: " << settings.counter << endl;
+	cout <<"notes_for_log: " << settings.notes_for_log << endl;
 	
     cout<<"\nOpenCV version: " << CV_MAJOR_VERSION << "." << CV_MINOR_VERSION << endl;
     
