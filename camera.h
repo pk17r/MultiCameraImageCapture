@@ -95,6 +95,7 @@ class Camera {
     void setCamera(int, Settings);
     void onInit();
     void fetchImagesFunction(Settings);
+    void reinitializeCamera(int, Settings);
     void feedImages(Settings);
     void getImgMatFromCamera(unsigned char*, unsigned char (*)[height][width]);
     ~Camera();

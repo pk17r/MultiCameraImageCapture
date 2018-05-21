@@ -25,7 +25,7 @@ namespace uvc_camera {
 	string windowNames[] = {"Cam1", "Cam2", "Cam3"};
 	
 	Camera::Camera(Settings settings){
-		usleep(1000000);
+		//usleep(1000000);
 		/* default config values */
 		counter = settings.counter;
 		uvc_camera::compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
@@ -67,7 +67,7 @@ namespace uvc_camera {
 			cam[cam_Ind]->set_control(0x009a0902, settings.exposure); // exposure value
 		}
 		cam[cam_Ind]->set_control(0x00980900, settings.brightness); // brightness
-		usleep(500000);
+		//usleep(500000);
 	}
     
     void showWindows(Settings settings) {
@@ -234,8 +234,18 @@ namespace uvc_camera {
 		}
     }
     
+    void Camera::reinitializeCamera(int cam_Ind, Settings settings) {
+		cout << "Camera Object Destructor called for cam_Ind " << cam_Ind << "." << endl;
+		if (cam[cam_Ind]) delete cam[cam_Ind];
+		cout << "Camera Object with cam_Ind " << cam_Ind << " destructed." << endl;
+		usleep(5000000);
+		cout << "Reinitialize Camera Object with cam_Ind " << cam_Ind << "." << endl;
+		setCamera(cam_Ind, settings);
+		cout << "Camera Object with cam_Ind " << cam_Ind << " reinitialized. Congrats!" << endl;
+	}
+    
     void Camera::fetchImagesFunction(Settings settings) {
-		high_resolution_clock::time_point t1, t2;
+		high_resolution_clock::time_point t0, t1, t2;
 		duration<double, std::milli> time_span;
 		system_clock::duration time_tag;
 		
@@ -305,8 +315,10 @@ namespace uvc_camera {
 				
 				//cam1
 				cam_Ind = 0;
+				t0 = high_resolution_clock::now();
 				if(settings.use_cam_x[cam_Ind]) { if(cam_locks[cam_Ind]) cout<<"Cam"<<cam_Ind+1<<" Lock Breach"<<endl; idx = cam[cam_Ind]->grab(&img_frame, bytes_used); cam_locks[cam_Ind] = true; }
 				
+				if(idx == -1) { time_span = t0 - t1; cout << "time between fetches : " << time_span.count() << "ms" << endl; reinitializeCamera(cam_Ind, settings); continue; }
 				t1 = high_resolution_clock::now();
 				time_tag = system_clock::now() - t_base;
 				n_time = duration_cast<millisecondTimeType> (time_tag);

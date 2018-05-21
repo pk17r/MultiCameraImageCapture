@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 	cout << "\nUsage: sudo ./cv_io [Notes_for_log(Dont_use_commas_or_\n)]" << endl;
 	
 	uvc_camera::Settings settings;
-	const string inputSettingsFile = "../settings.xml";
+	const string inputSettingsFile = "settings.xml";
     FileStorage fs(inputSettingsFile, FileStorage::READ); // Read the settings
     if (!fs.isOpened())
     {

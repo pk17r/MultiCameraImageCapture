@@ -201,17 +201,17 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
   format_.fmt.pix.field = V4L2_FIELD_ANY;
 
   if ((ret = ioctl(device_file_h_, VIDIOC_S_FMT, &format_)) < 0)
-    throw std::runtime_error("couldn't set format");
+    throw std::runtime_error("couldn't set format 1");
     
   v4l2_format fmt;
   if ((ret = ioctl(device_file_h_, VIDIOC_G_FMT, &fmt)) < 0)
-    throw std::runtime_error("couldn't set format");
+    throw std::runtime_error("couldn't set format 2");
   fmt.fmt.pix.width = _width;
   fmt.fmt.pix.height = _height;
   if ((ret = ioctl(device_file_h_, VIDIOC_S_FMT, &fmt)) < 0)
-    throw std::runtime_error("couldn't set format");
+    throw std::runtime_error("couldn't set format 3");
   if ((ret = ioctl(device_file_h_, VIDIOC_G_FMT, &fmt)) < 0)
-    throw std::runtime_error("couldn't set format");
+    throw std::runtime_error("couldn't set format 4");
   //std::cout << "fmt.fmt.pix.sizeimage: " << fmt.fmt.pix.sizeimage << std::endl;
 
   if (format_.fmt.pix.width != width_ || format_.fmt.pix.height != height_)
