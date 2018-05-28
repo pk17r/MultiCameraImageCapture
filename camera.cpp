@@ -308,20 +308,20 @@ namespace uvc_camera {
 			
 			if(gpsGlobalCycleBool && !cam_locks[0] && !cam_locks[1] && !cam_locks[2])		//run camera fetch only when all camera locks are false
 			{
+				//update last GPS time from MAVLink
+				if(settings.useMAVLink)
+					lastGPSGlobalTime = gpos.time_boot_ms;
+				
 				//trigger cameras using GPIO pins
 				if(settings.useGPIOPinsAsTrigger)
 					triggerCameras();
-				
-				//update last GPS time from MAVLink
-				if(settings.useMAVLink) 
-					lastGPSGlobalTime = gpos.time_boot_ms;
 				
 				//cam1
 				cam_Ind = 0;
 				t0 = high_resolution_clock::now();
 				if(settings.use_cam_x[cam_Ind]) { if(cam_locks[cam_Ind]) cout<<"Cam"<<cam_Ind+1<<" Lock Breach"<<endl; idx = cam[cam_Ind]->grab(&img_frame, bytes_used); cam_locks[cam_Ind] = true; }
 				
-				if(idx == -1) { time_span = t0 - t1; cout << "time between fetches : " << time_span.count() << "ms" << endl; reinitializeCamera(cam_Ind, settings); continue; }
+				if(idx == -1) { time_span = t0 - t1; cout << " cam1: time between fetches : " << time_span.count() << "ms" << endl; cam_locks[cam_Ind] = false; continue; }
 				t1 = high_resolution_clock::now();
 				time_tag = system_clock::now() - t_base;
 				n_time = duration_cast<millisecondTimeType> (time_tag);
@@ -333,12 +333,14 @@ namespace uvc_camera {
 					//cam2
 					cam_Ind++;
 					if(settings.use_cam_x[cam_Ind]) { if(cam_locks[cam_Ind]) cout<<"Cam"<<cam_Ind+1<<" Lock Breach"<<endl; idx = cam[cam_Ind]->grab(&img_frame, bytes_used); cam_locks[cam_Ind] = true; }
+					if(idx == -1) { cout << " cam2 " << endl; cam_locks[cam_Ind] = false; continue; }
 					if (img_frame || !settings.use_cam_x[cam_Ind]) {
 						if(settings.use_cam_x[cam_Ind]) boost::thread thread_cam2(saveFetchedImage, cam_Ind, cam[cam_Ind], cam_lock_ptr, idx, settings, img_frame, counter, time_from_base);
 							
 						//cam3
 						cam_Ind++;
 						if(settings.use_cam_x[cam_Ind]) { if(cam_locks[cam_Ind]) cout<<"Cam"<<cam_Ind+1<<" Lock Breach"<<endl; idx = cam[cam_Ind]->grab(&img_frame, bytes_used); cam_locks[cam_Ind] = true; }
+						if(idx == -1) { cout << " cam3 " << endl; cam_locks[cam_Ind] = false; continue; }
 						if (img_frame || !settings.use_cam_x[cam_Ind]) {
 							if(settings.use_cam_x[cam_Ind]) boost::thread thread_cam3(saveFetchedImage, cam_Ind, cam[cam_Ind], cam_lock_ptr, idx, settings, img_frame, counter, time_from_base);
 							
@@ -411,6 +413,7 @@ namespace uvc_camera {
 			keypressed = (char)waitKey(3);
 			if( keypressed == 27 ) {
 				ok = false;
+				cout<< "\nEcs key pressed.." << endl;
 				cout<< "\n\nClose text log file" << endl;
 				outfile.close();
 				printf("\n");
