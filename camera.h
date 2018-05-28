@@ -3,6 +3,7 @@
 #include "opencv2/highgui/highgui.hpp"
 
 #include "uvc_cam.h"
+#include <boost/filesystem.hpp>
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
 #include <string>
@@ -20,7 +21,7 @@ class Settings {
 		fs << "{"
 			<< "save_directory"  << save_directory
 			<< "showCaptures" << showCaptures
-			<< "useMAVLinkForTrigger" << useMAVLinkForTrigger
+			<< "useMAVLink" << useMAVLink
 			<< "useGPIOPinsAsTrigger" << useGPIOPinsAsTrigger
 			<< "cam_l_ID" << cam_x_ID[0]
 			<< "cam_c_ID" << cam_x_ID[1]
@@ -30,11 +31,11 @@ class Settings {
 			<< "use_cam_r" << use_cam_x[2]
 			<< "brightness" << brightness
 			<< "exposure" << exposure
-			<< "use_timestamp" << use_timestamp
 			<< "resolution"   << resolution
 			<< "MAVLinkPort"  << MAVLinkPort
 			<< "baudrate"  << baudrate
 			<< "counter"  << counter
+			<< "notes_for_log"  << notes_for_log
 
 		<< "}";
     }
@@ -42,7 +43,7 @@ class Settings {
 	{
 		node["save_directory" ] >> save_directory;
 		node["showCaptures"] >> showCaptures;
-		node["useMAVLinkForTrigger"] >> useMAVLinkForTrigger;
+		node["useMAVLink"] >> useMAVLink;
 		node["useGPIOPinsAsTrigger"]  >> useGPIOPinsAsTrigger;
 		node["cam_l_ID"] >> cam_x_ID[0];
 		node["cam_c_ID"] >> cam_x_ID[1];
@@ -52,23 +53,22 @@ class Settings {
 		node["use_cam_r"] >> use_cam_x[2];
 		node["brightness"] >> brightness;
 		node["exposure"] >> exposure;
-		node["use_timestamp"] >> use_timestamp;
 		node["resolution"] >> resolution;
 		node["MAVLinkPort"] >> MAVLinkPort;
 		node["baudrate"] >> baudrate;
 		node["counter"] >> counter;
+		node["notes_for_log"] >> notes_for_log;
 		
 	}
   
 	string save_directory = "";
 	bool showCaptures = false;	//to display the captured images during runtime
-	bool useMAVLinkForTrigger = false;	//use MAVLink GPS messages as trigger
+	bool useMAVLink = false;	//use MAVLink GPS messages as trigger
 	bool useGPIOPinsAsTrigger = false;	//to use TX2 GPIO pins to trigger cameras
 	int cam_x_ID[3] = { 0, 1, 2 };
 	bool use_cam_x[3] = { true, true, true };
 	int brightness = 9;
 	int exposure = 78;
-	bool use_timestamp = true;
 	int resolution = 2;
 	string MAVLinkPort = "/dev/ttyUSB0";
 	int baudrate = 115200;

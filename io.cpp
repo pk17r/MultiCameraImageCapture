@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 	cout <<"\n*Inputs*" << endl;
 	cout <<"save_directory: \"" << settings.save_directory << "\"" << endl;
 	cout <<"showCaptures: " << settings.showCaptures << endl;
-	cout <<"useMAVLinkForTrigger: " << settings.useMAVLinkForTrigger << endl;
+	cout <<"useMAVLink: " << settings.useMAVLink << endl;
 	cout <<"useGPIOPinsAsTrigger: " << settings.useGPIOPinsAsTrigger << endl;
 	int j = 0;
 	cout <<"cam_l_ID: " << settings.cam_x_ID[j++] << endl;
@@ -59,13 +59,12 @@ int main(int argc, char *argv[])
 	cout <<"resolution: " << uvc_camera::Resolution[settings.resolution][0] << "x" << uvc_camera::Resolution[settings.resolution][1] << endl;
 	cout <<"brightness: " << settings.brightness << endl;
 	cout <<"exposure: " << settings.exposure << endl;
-	cout <<"use_timestamp: " << settings.use_timestamp << endl;
 	cout <<"MAVLinkPort: " << settings.MAVLinkPort << endl;
 	cout <<"baudrate: " << settings.baudrate << endl;
 	cout <<"counter: " << settings.counter << endl;
 	cout <<"notes_for_log: " << settings.notes_for_log << endl;
 	
-    cout<<"\nOpenCV version: " << CV_MAJOR_VERSION << "." << CV_MINOR_VERSION << endl;
+	cout<<"\nOpenCV version: " << CV_MAJOR_VERSION << "." << CV_MINOR_VERSION << endl;
     
 	uvc_camera::Camera camera(settings);
 	

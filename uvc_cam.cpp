@@ -355,11 +355,11 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
     buffer_.timestamp.tv_usec = 0;
     buffer_.memory = V4L2_MEMORY_MMAP;
     buffer_.bytesused = _height*_width;
-    //printf("A buf length = %d  bytesused = %d\n", buffer_.length, buffer_.bytesused);
+    printf("A buf length = %d  bytesused = %d\n", buffer_.length, buffer_.bytesused);
     if (ioctl(device_file_h_, VIDIOC_QBUF, &buffer_) < 0)
       throw std::runtime_error("unable to queue buffer");
-    //printf("B buf length = %d  bytesused = %d\n", buffer_.length, buffer_.bytesused);
-    //std::cout << "sizeof(buffer_): " << sizeof(buffer_) << std::endl;
+    printf("B buf length = %d  bytesused = %d\n", buffer_.length, buffer_.bytesused);
+    std::cout << "sizeof(buffer_): " << sizeof(buffer_) << std::endl;
   }
   int type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   if (ioctl(device_file_h_, VIDIOC_STREAMON, &type) < 0)
@@ -367,13 +367,19 @@ Cam::Cam(const char *_device, mode_t _mode, int _width, int _height, int _fps)
   rgb_frame_ = new unsigned char[width_ * height_ * 3];
   last_yuv_frame_ = new unsigned char[width_ * height_ * 2];
   InitExtensionUnit( (char*)&capability_.bus_info );
-  usleep(250000);
-  EnableMasterMode();
-  usleep(250000);
+  //usleep(500000);
+  //EnableMasterMode();
+  //usleep(500000);
   EnableTriggerMode();
   if (ioctl(device_file_h_, VIDIOC_QUERYBUF, &buffer_) < 0)
 	throw std::runtime_error("unable to query buffer");
-  //printf("C buf length = %d  bytesused = %d\n", buffer_.length, buffer_.bytesused);
+  printf("C buf length = %d  bytesused = %d\n", buffer_.length, buffer_.bytesused);
+  buffer_.bytesused = buffer_.length;
+  //if (ioctl(device_file_h_, VIDIOC_QBUF, &buffer_) < 0)
+  //  throw std::runtime_error("unable to set buffer manual");
+  //if (ioctl(device_file_h_, VIDIOC_QUERYBUF, &buffer_) < 0)
+  //  throw std::runtime_error("unable to query buffer");
+  printf("D buf length = %d  bytesused = %d\n", buffer_.length, buffer_.bytesused);
 }
 
 Cam::~Cam()
@@ -521,7 +527,7 @@ int Cam::grab(unsigned char **frame, uint32_t &bytes_used)
   buffer_.memory = V4L2_MEMORY_MMAP;
   if (ioctl(device_file_h_, VIDIOC_DQBUF, &buffer_) < 0)
     throw std::runtime_error("couldn't dequeue buffer");
-  bytes_used = buffer_.bytesused;
+  //bytes_used = buffer_.bytesused;
   //printf("_%d_", buffer_.bytesused);
   if (mode_ == MODE_RGB)
   {

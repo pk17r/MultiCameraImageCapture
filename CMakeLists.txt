@@ -7,7 +7,7 @@ find_package(OpenCV REQUIRED)
 
 find_package(PkgConfig REQUIRED)
 
-find_package(Boost REQUIRED COMPONENTS thread system)
+find_package(Boost REQUIRED COMPONENTS thread system filesystem)
 
 pkg_check_modules(udev REQUIRED libudev)
 

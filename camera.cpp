@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <fstream>
+#include <time.h>
 
 //gpio trigger header files
 #include <termios.h>
@@ -41,15 +42,6 @@ namespace uvc_camera {
 
 		/* and turn on the streamer */
 		ok = true;
-		//image_thread = boost::thread(boost::bind(&Camera::feedImages, this));
-		
-		//base time = create tm with 4/1/2018:
-		std::tm timeinfo = std::tm();
-		timeinfo.tm_year = 2018 - 1900;   // year: 2000
-		timeinfo.tm_mon = 3;      // month: apr
-		timeinfo.tm_mday = 1;     // day: 1st
-		std::time_t tt = std::mktime (&timeinfo);
-		t_base = system_clock::from_time_t (tt);
 		
 		Camera::feedImages(settings);
     }
@@ -82,20 +74,21 @@ namespace uvc_camera {
 		memcpy( image[0], img_frame, Resolution[settings.resolution][height] * Resolution[settings.resolution][width] * sizeof(unsigned char));
 		cam->release(idx);
 		*(cam_lock_ptr + cam_Ind) = false;	//removing camera lock after release
-				
+		
+		if(counter_ == 0) return;	//leave the first image as it is generally bad!
+		
 		cv::Mat image_mat_Bayer(Resolution[settings.resolution][height], Resolution[settings.resolution][width], CV_8UC(1), image);		//making an opencv Mat array
 		cv::Mat image_mat_RGB;
 		cv::cvtColor(image_mat_Bayer, image_mat_RGB, CV_BayerGR2RGB);	//CV_BayerRG2RGB -> Conversion
 		if(settings.showCaptures) {
 			cv::Mat smallImg;
 			resize(image_mat_RGB, smallImg, Size(image_mat_RGB.cols * 400 /image_mat_RGB.rows, 400), 0, 0, INTER_LINEAR);
-			imshow(windowNames[cam_Ind], smallImg);	//Display the grey scale converted frame
-			waitKey(0.001);
+			imshow(windowNames[cam_Ind], smallImg);	//Display the image_mat_RGB image
+			waitKey(1);
 		}
 		
-		string saveName = settings.save_directory + "cam" + to_string(cam_Ind + 1) + "/" + to_string(settings.use_timestamp ? time_from_base : counter_) + ".png";
-		if(counter_ > 0)	//leave the first image as it is generally bad!
-			cv::imwrite(saveName, image_mat_RGB, compression_params);
+		string saveName = settings.save_directory + "cam" + to_string(cam_Ind + 1) + "/" + to_string(counter_) + ".png";
+		cv::imwrite(saveName, image_mat_RGB, compression_params);
 		//cout << counter_ << "_" << saveName << endl;
 	}
     
@@ -156,49 +149,62 @@ namespace uvc_camera {
 			cout << "GPIOs initialized" << endl;
 		}
 		
-		//current date
-		time_t now = time(NULL);
-		struct tm tstruct;
-		char buf[40];
-		tstruct = *localtime(&now);
-		//format: day DD-MM-YYYY
-		strftime(buf, sizeof(buf), "%d-%m-%Y", &tstruct);
-		string current_date = string(buf);
+		std::time_t rawtime;
+		std::tm* timeinfoA;
+		char buffer [80];
+
+		std::time(&rawtime);
+		timeinfoA = std::localtime(&rawtime);
+
+		std::strftime(buffer,80,"%Y-%m-%d-%H-%M-%S",timeinfoA);
+		settings.save_directory = settings.save_directory + buffer + "/";
+  
+		//base time = create tm with today's date
+		std::tm timeinfo = std::tm();
+		timeinfo.tm_year = timeinfoA->tm_year;
+		timeinfo.tm_mon = timeinfoA->tm_mon;
+		timeinfo.tm_mday = timeinfoA->tm_mday;
+		std::time_t tt = std::mktime (&timeinfo);
+		t_base = system_clock::from_time_t (tt);
 		
-		//current time
-		tstruct = *localtime(&now);
-		//format: HH:mm:ss
-		strftime(buf, sizeof(buf), "%X", &tstruct);
-		string current_time = string(buf);
-		
-		//milliseconds from base time
-		system_clock::duration time_tag = system_clock::now() - t_base;
-		// convert to milliseconds:
-		typedef duration<int,std::ratio<1,1000>> millisecondTimeType;
-		millisecondTimeType n_time = duration_cast<millisecondTimeType> (time_tag);
-		uint64_t time_from_base = (uint64_t)n_time.count();
-		
-		//save settings file for record
-		if(settings.use_timestamp) {
-			string runSettingsFile = settings.save_directory + current_date + "_" + to_string(time_from_base) + "_settings.xml";
-			FileStorage fs(runSettingsFile, FileStorage::WRITE);
-			fs << "Settings" << settings;
-			cout << "Saved settings file for record purpose: " << runSettingsFile << endl;
-			fs.release();
+		boost::filesystem::path dir(settings.save_directory);
+		if(boost::filesystem::create_directory(dir)) {
+			std::cout << "Created save directory." << "\n";
+		}
+		else {
+			std::cout << "Could not create save directory!" << "\n";
+			return;
+		}
+		boost::filesystem::path dir1(settings.save_directory + "cam1/");
+		boost::filesystem::path dir2(settings.save_directory + "cam2/");
+		boost::filesystem::path dir3(settings.save_directory + "cam3/");
+		if(!boost::filesystem::create_directory(dir1) || !boost::filesystem::create_directory(dir2) || !boost::filesystem::create_directory(dir3)) {
+			std::cout << "Could not create cam* save directories!" << "\n";
+			return;
 		}
 		
+		//save settings file for record
+		//string runSettingsFile = settings.save_directory + current_date + "_" + to_string(time_from_base) + "_settings.xml";
+		string runSettingsFile = settings.save_directory + "settings.xml";
+		FileStorage fs(runSettingsFile, FileStorage::WRITE);
+		fs << "Settings" << settings;
+		cout << "Saved settings file for record purpose: " << runSettingsFile << endl;
+		fs.release();
+		
+		//string logFileName = settings.save_directory + current_date + "_" + to_string(time_from_base) + "_log.txt";
+		string logFileName = settings.save_directory + "log.txt";
+		cout << "Log file name: " << logFileName << endl;
+		//open log file
+		outfile.open(logFileName, ios_base::app);
+		outfile << buffer << "," << settings.notes_for_log << "\n";
+		
 		//MAVLink gives GPS and IMU data. GPS messages used as trigger for cameras
-		if(settings.useMAVLinkForTrigger)
+		if(settings.useMAVLink)
 		{
-			string logFileName = settings.save_directory + current_date + "_" + to_string(time_from_base) + "_log.txt";
-			cout << "Log file name: " << logFileName << endl;
-			//open log file
-			outfile.open(logFileName, ios_base::app);
-			outfile << current_date << "," << current_time << "," << settings.notes_for_log << "\n";
 			//outfile <<"counter,time_from_base,gps_raw,time_to_fetch,time_usec,lat,lon,alt,eph,epv,vel,cog,satellites_visible\n";
 			//outfile <<"counter,time_from_base,imu_raw,time_usec,xacc,yacc,zacc,xgyrp,ygyro,zgyro,xmag,ymag,zmag\n";
-			outfile <<"counter,time_from_base,gps,time_to_fetch,gpos.lat,gpos.lon,gpos.alt,gpos.relative_alt,gpos.vx,gpos.vy,gpos.vz,gpos.hdg,lpos.x,lpos.y,lpos.z\n";
-			outfile <<"counter,time_from_base,imu,att.roll,att.pitch,att.yaw,att.rollspeed,att.pitchspeed,att.yawspeed\n";
+			outfile <<"counter,time_from_base,gps0,time_to_fetch,gpos.lat,gpos.lon,gpos.alt,gpos.relative_alt,gpos.vx,gpos.vy,gpos.vz,gpos.hdg,lpos.x,lpos.y,lpos.z\n";
+			outfile <<"counter,time_from_base,imu1,att.roll,att.pitch,att.yaw,att.rollspeed,att.pitchspeed,att.yawspeed\n";
 			
 			//mavlink start
 			cout << "Initialize MAVLINK" << endl;
@@ -225,6 +231,8 @@ namespace uvc_camera {
 		}
 		else
 		{
+			outfile <<"counter,time_from_base,gps0,time_to_fetch\n";
+			
 			fetchImagesFunction(settings);
 		}
 		
@@ -249,8 +257,8 @@ namespace uvc_camera {
 		duration<double, std::milli> time_span;
 		system_clock::duration time_tag;
 		
-		//milliseconds from base time
-		uint64_t time_from_base;
+		//milliseconds from base time; max value is 86400000
+		int time_from_base;
 		// convert to milliseconds:
 		typedef duration<int,std::ratio<1,1000>> millisecondTimeType;
 		std::time_t tt = system_clock::to_time_t(t_base);
@@ -258,19 +266,20 @@ namespace uvc_camera {
 		
 		time_tag = system_clock::now() - t_base;
 		millisecondTimeType n_time = duration_cast<millisecondTimeType> (time_tag);
-		time_from_base = (uint64_t)n_time.count();
+		time_from_base = n_time.count();
 		
 		unsigned char *img_frame = NULL;
 		uint32_t bytes_used;
 		int idx;
 
 		int cam_Ind = 0;
+		char keypressed;
 		
 		if(settings.showCaptures) showWindows(settings);
 		
 		cout<< "Capturing start!" << endl;
 		int time_diff;
-		uint lastGPSRawTime = 0, lastIMURawTime = 0, lastGPSGlobalTime = 0, lastIMUAttitudeTime = 0;
+		int lastGPSRawTime = 0, lastIMURawTime = 0, lastGPSGlobalTime = 0, lastIMUAttitudeTime = 0;
 		cout << "\nSet(#)  Timestamp \t\tImage_Fetch_time(ms)" << endl;
 		bool cam_locks[3] = {false, false, false};
 		bool *cam_lock_ptr = &cam_locks[0];
@@ -281,7 +290,7 @@ namespace uvc_camera {
 		bool imuAttitudeCycleBool = false;
 		while (ok) {
 			
-			if(settings.useMAVLinkForTrigger)
+			if(settings.useMAVLink)
 			{
 				gpos = api->current_messages.global_position_int;
 				lpos = api->current_messages.local_position_ned;
@@ -296,13 +305,7 @@ namespace uvc_camera {
 				gpsGlobalCycleBool = gpos.time_boot_ms > lastGPSGlobalTime;
 				imuAttitudeCycleBool = att.time_boot_ms > lastIMUAttitudeTime;
 			}
-			//else
-			//{
-			//	//run cycle only when camera locks are off
-			//	gpsCycleBool = !(cam_locks[0] || cam_locks[1] || cam_locks[2]);
-			//}
 			
-			//if(gpsGlobalCycleBool)
 			if(gpsGlobalCycleBool && !cam_locks[0] && !cam_locks[1] && !cam_locks[2])		//run camera fetch only when all camera locks are false
 			{
 				//trigger cameras using GPIO pins
@@ -310,7 +313,7 @@ namespace uvc_camera {
 					triggerCameras();
 				
 				//update last GPS time from MAVLink
-				if(settings.useMAVLinkForTrigger) 
+				if(settings.useMAVLink) 
 					lastGPSGlobalTime = gpos.time_boot_ms;
 				
 				//cam1
@@ -322,7 +325,7 @@ namespace uvc_camera {
 				t1 = high_resolution_clock::now();
 				time_tag = system_clock::now() - t_base;
 				n_time = duration_cast<millisecondTimeType> (time_tag);
-				time_from_base = (uint64_t)n_time.count();
+				time_from_base = n_time.count();
 				
 				if (img_frame || !settings.use_cam_x[cam_Ind]) {
 					if(settings.use_cam_x[cam_Ind]) boost::thread thread_cam1(saveFetchedImage, cam_Ind, cam[cam_Ind], cam_lock_ptr, idx, settings, img_frame, counter, time_from_base);
@@ -344,14 +347,16 @@ namespace uvc_camera {
 							cout << counter<< "\t" << time_from_base << "\t" << ceil(time_span.count()) << endl;
 							if(ceil(time_span.count()) > 3)
 								cout << "Possible faulty start. Image fetch time > 3 ms!" << endl;
-							//if(useMAVLinkForTrigger) {
+							//if(useMAVLink) {
 							//	printf("GLOBAL POS = [ lat=%i , lon=%i , alt=%i , rel_alt=%i , vel=%i , %i , %i, hdg=%u ] \n", gpos.lat, gpos.lon, gpos.alt, gpos.relative_alt, gpos.vx, gpos.vy, gpos.vz, gpos.hdg);
 							//	printf("LOCAL POS  = [ %f %f %f (m)\n", lpos.x, lpos.y, lpos.z );
 							//	printf("ATTITUDE   = [ roll=%f , pitch=%f , yaw=%f , speeds=%f, %f, %f ] \n", att.roll, att.pitch, att.yaw, att.rollspeed, att.pitchspeed, att.yawspeed);
 							//}
-							if(settings.useMAVLinkForTrigger) {
+							if(settings.useMAVLink) {
 								//outfile <<counter<<","<<time_from_base<<",g,"<<ceil(time_span.count())<<","<<gps_raw.time_usec<<","<<gps_raw.fix_type<<","<<gps_raw.lat<<","<<gps_raw.lon<<","<<gps_raw.alt<<","<<gps_raw.eph<<","<<gps_raw.epv<<","<<gps_raw.vel<<","<<gps_raw.cog<<","<<gps_raw.satellites_visible<<"\n";
-								outfile <<counter<<","<<time_from_base<<",g,"<<ceil(time_span.count())<<","<<gpos.lat<<","<<gpos.lon<<","<<gpos.alt<<","<<gpos.relative_alt<<","<<gpos.vx<<","<<gpos.vy<<","<<gpos.vz<<","<<gpos.hdg<<","<<lpos.x<<","<<lpos.y<<","<<lpos.z<<","<<"\n";
+								outfile <<counter<<","<<time_from_base<<",0,"<<ceil(time_span.count())<<","<<gpos.lat<<","<<gpos.lon<<","<<gpos.alt<<","<<gpos.relative_alt<<","<<gpos.vx<<","<<gpos.vy<<","<<gpos.vz<<","<<gpos.hdg<<","<<lpos.x<<","<<lpos.y<<","<<lpos.z<<","<<"\n";
+							} else {
+								outfile <<counter<<","<<time_from_base<<",0,"<<ceil(time_span.count())<<"\n";
 							}
 							
 							counter++;
@@ -364,42 +369,54 @@ namespace uvc_camera {
 			}
 			
 			//print if someday the camera locks actually come in use. Mostly will be of use at very high fps
-			//if(settings.useMAVLinkForTrigger && gpsCycleBool && (cam_locks[0] || cam_locks[1] || cam_locks[2]))
+			//if(settings.useMAVLink && gpsCycleBool && (cam_locks[0] || cam_locks[1] || cam_locks[2]))
 			//	cout << "Camera Locks Worked! Huraahhh!!! :D" << endl;
 			
 			//imu runs faster than gps so recording it separately
-			/*if(imuCycleBool && settings.useMAVLinkForTrigger) 
+			/*if(imuCycleBool && settings.useMAVLink) 
 			{
 				//update last IMU time from MAVLink
-				if(settings.useMAVLinkForTrigger)
+				if(settings.useMAVLink)
 					lastIMURawTime = imu_raw.time_usec;
 				
 				time_tag = system_clock::now() - t_base;
 				n_time = duration_cast<millisecondTimeType> (time_tag);
-				time_from_base = (uint64_t)n_time.count();
+				time_from_base = n_time.count();
 				outfile <<counter<<","<<time_from_base<<",g,"<<ceil(time_span.count())<<","<<imu_raw.time_usec<<","<<imu_raw.xacc<<","<<imu_raw.yacc<<","<<imu_raw.zacc<<","<<imu_raw.xgyro<<","<<imu_raw.ygyro<<","<<imu_raw.zgyro<<","<<imu_raw.xmag<<","<<imu_raw.ymag<<","<<imu_raw.zmag<<"\n";
 			}
-			if(gpsGlobalCycleBool && settings.useMAVLinkForTrigger) 
+			if(gpsGlobalCycleBool && settings.useMAVLink) 
 			{
 				//update last IMU time from MAVLink
-				if(settings.useMAVLinkForTrigger)
+				if(settings.useMAVLink)
 					lastGPSGlobalTime = gpos.time_boot_ms;
 				
 				time_tag = system_clock::now() - t_base;
 				n_time = duration_cast<millisecondTimeType> (time_tag);
-				time_from_base = (uint64_t)n_time.count();
+				time_from_base = n_time.count();
 				outfile <<counter<<","<<time_from_base<<",g,"<<ceil(time_span.count())<<","<<gpos.lat<<","<<gpos.lon<<","<<gpos.alt<<","<<gpos.relative_alt<<","<<gpos.vx<<","<<gpos.vy<<","<<gpos.vz<<","<<gpos.hdg<<","<<lpos.x<<","<<lpos.y<<","<<lpos.z<<","<<"\n";
 			}*/
-			if(imuAttitudeCycleBool && settings.useMAVLinkForTrigger) 
+			if(imuAttitudeCycleBool && settings.useMAVLink) 
 			{
 				//update last IMU time from MAVLink
-				if(settings.useMAVLinkForTrigger)
+				if(settings.useMAVLink)
 					lastIMUAttitudeTime = att.time_boot_ms;
 				
 				time_tag = system_clock::now() - t_base;
 				n_time = duration_cast<millisecondTimeType> (time_tag);
-				time_from_base = (uint64_t)n_time.count();
-				outfile <<counter<<","<<time_from_base<<",i,"<<att.roll<<","<<att.pitch<<","<<att.yaw<<","<<att.rollspeed<<","<<att.pitchspeed<<","<<att.yawspeed<<"\n";
+				time_from_base = n_time.count();
+				outfile <<counter<<","<<time_from_base<<",1,"<<att.roll<<","<<att.pitch<<","<<att.yaw<<","<<att.rollspeed<<","<<att.pitchspeed<<","<<att.yawspeed<<"\n";
+			}
+			
+			//Wait for Escape keyevent to exit from loop
+			keypressed = (char)waitKey(3);
+			if( keypressed == 27 ) {
+				ok = false;
+				cout<< "\n\nClose text log file" << endl;
+				outfile.close();
+				printf("\n");
+				printf("TERMINATING AT USER REQUEST\n");
+				printf("\n");
+				break;
 			}
 		}
 	}
