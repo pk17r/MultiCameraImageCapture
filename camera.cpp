@@ -415,6 +415,16 @@ namespace uvc_camera {
 				outfile.close();
 				printf("\n");
 				printf("TERMINATING AT USER REQUEST\n");
+				cout << "Exit file name: ";
+				string exitFile;
+				getline(cin,exitFile);
+				cout << "Exit comments: ";
+				string exitComments;
+				getline(cin,exitComments);
+				string exitNoteFileName = settings.save_directory + exitFile + ".txt";
+				outfile.open(exitNoteFileName, ios_base::app);
+				outfile << exitComments;
+				outfile.close();
 				printf("\n");
 				break;
 			}
