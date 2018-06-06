@@ -96,10 +96,10 @@ namespace uvc_camera {
 		// Flash the LED
 		//cout << "Setting the LED on" << endl;
 		gpioSetValue(redLED, on);
-		usleep(1);         // on for 1ms
+		usleep(500);         // on for 500us
 		//cout << "Setting the LED off" << endl;
 		gpioSetValue(redLED, off);
-		usleep(2);         // off for 2ms
+		//usleep(2000);         // off for 2ms
 	}
 	
 	
@@ -242,18 +242,8 @@ namespace uvc_camera {
 		}
     }
     
-    void Camera::reinitializeCamera(int cam_Ind, Settings settings) {
-		cout << "Camera Object Destructor called for cam_Ind " << cam_Ind << "." << endl;
-		if (cam[cam_Ind]) delete cam[cam_Ind];
-		cout << "Camera Object with cam_Ind " << cam_Ind << " destructed." << endl;
-		usleep(5000000);
-		cout << "Reinitialize Camera Object with cam_Ind " << cam_Ind << "." << endl;
-		setCamera(cam_Ind, settings);
-		cout << "Camera Object with cam_Ind " << cam_Ind << " reinitialized. Congrats!" << endl;
-	}
-    
     void Camera::fetchImagesFunction(Settings settings) {
-		high_resolution_clock::time_point t0, t1, t2;
+		high_resolution_clock::time_point t0, t1, t2, t3;
 		duration<double, std::milli> time_span;
 		system_clock::duration time_tag;
 		
@@ -319,13 +309,16 @@ namespace uvc_camera {
 				//cam1
 				cam_Ind = 0;
 				t0 = high_resolution_clock::now();
-				if(settings.use_cam_x[cam_Ind]) { if(cam_locks[cam_Ind]) cout<<"Cam"<<cam_Ind+1<<" Lock Breach"<<endl; idx = cam[cam_Ind]->grab(&img_frame, bytes_used); cam_locks[cam_Ind] = true; }
 				
-				if(idx == -1) { time_span = t0 - t1; cout << " cam1: time between fetches : " << time_span.count() << "ms" << endl; cam_locks[cam_Ind] = false; continue; }
+				if(settings.use_cam_x[cam_Ind]) { if(cam_locks[cam_Ind]) cout<<"Cam"<<cam_Ind+1<<" Lock Breach"<<endl; idx = cam[cam_Ind]->grab(&img_frame, bytes_used); cam_locks[cam_Ind] = true; }
+				if(settings.use_cam_x[cam_Ind] && idx == -1) { time_span = t0 - t1; cout << " cam1: time between fetches : " << time_span.count() << "ms" << endl; cam_locks[cam_Ind] = false; continue; }
 				t1 = high_resolution_clock::now();
-				time_tag = system_clock::now() - t_base;
-				n_time = duration_cast<millisecondTimeType> (time_tag);
-				time_from_base = n_time.count();
+				
+				if(settings.use_cam_x[cam_Ind]) {	//cycle starts now if cam1 is being used
+					time_tag = system_clock::now() - t_base;
+					n_time = duration_cast<millisecondTimeType> (time_tag);
+					time_from_base = n_time.count();
+				}
 				
 				if (img_frame || !settings.use_cam_x[cam_Ind]) {
 					if(settings.use_cam_x[cam_Ind]) boost::thread thread_cam1(saveFetchedImage, cam_Ind, cam[cam_Ind], cam_lock_ptr, idx, settings, img_frame, counter, time_from_base);
@@ -333,22 +326,47 @@ namespace uvc_camera {
 					//cam2
 					cam_Ind++;
 					if(settings.use_cam_x[cam_Ind]) { if(cam_locks[cam_Ind]) cout<<"Cam"<<cam_Ind+1<<" Lock Breach"<<endl; idx = cam[cam_Ind]->grab(&img_frame, bytes_used); cam_locks[cam_Ind] = true; }
-					if(idx == -1) { cout << " cam2 " << endl; cam_locks[cam_Ind] = false; continue; }
+					if(settings.use_cam_x[cam_Ind] && idx == -1) { time_span = t1 - t2; cout << " cam2: time between fetches : " << time_span.count() << "ms" << endl; cam_locks[cam_Ind] = false; continue; }
+					t2 = high_resolution_clock::now();
+					
+					if(!settings.use_cam_x[cam_Ind-1] && settings.use_cam_x[cam_Ind]) {	//cycle starts now if cam1 is not being used while cam2 is being used
+						time_tag = system_clock::now() - t_base;
+						n_time = duration_cast<millisecondTimeType> (time_tag);
+						time_from_base = n_time.count();
+					}
+					
 					if (img_frame || !settings.use_cam_x[cam_Ind]) {
 						if(settings.use_cam_x[cam_Ind]) boost::thread thread_cam2(saveFetchedImage, cam_Ind, cam[cam_Ind], cam_lock_ptr, idx, settings, img_frame, counter, time_from_base);
 							
 						//cam3
 						cam_Ind++;
 						if(settings.use_cam_x[cam_Ind]) { if(cam_locks[cam_Ind]) cout<<"Cam"<<cam_Ind+1<<" Lock Breach"<<endl; idx = cam[cam_Ind]->grab(&img_frame, bytes_used); cam_locks[cam_Ind] = true; }
-						if(idx == -1) { cout << " cam3 " << endl; cam_locks[cam_Ind] = false; continue; }
+						if(settings.use_cam_x[cam_Ind] && idx == -1) { time_span = t2 - t3; cout << " cam3: time between fetches : " << time_span.count() << "ms" << endl; cam_locks[cam_Ind] = false; continue; }
+						t3 = high_resolution_clock::now();
+						
+						if(!settings.use_cam_x[cam_Ind-2] && !settings.use_cam_x[cam_Ind-1] && settings.use_cam_x[cam_Ind]) {	//cycle starts now if cam1 and cam2 are not being used while cam3 is being used
+							time_tag = system_clock::now() - t_base;
+							n_time = duration_cast<millisecondTimeType> (time_tag);
+							time_from_base = n_time.count();
+						}
+						
 						if (img_frame || !settings.use_cam_x[cam_Ind]) {
 							if(settings.use_cam_x[cam_Ind]) boost::thread thread_cam3(saveFetchedImage, cam_Ind, cam[cam_Ind], cam_lock_ptr, idx, settings, img_frame, counter, time_from_base);
 							
-							t2 = high_resolution_clock::now();
-							time_span = t2 - t1;
+							//time required to complete the image fetch from cameras.
+							if(settings.use_cam_x[0] && (settings.use_cam_x[1] || settings.use_cam_x[2]))	//using cam1 and cam2 or cam3 or all
+								time_span = t3 - t1;
+							else if(settings.use_cam_x[1] && settings.use_cam_x[2])	//using cam2 and cam3
+								time_span = t3 - t2;
+							else
+								time_span = 0;	//only 1 camera is being used
+							
 							cout << counter<< "\t" << time_from_base << "\t" << ceil(time_span.count()) << endl;
+							
+							//if time to fetch images is more than 3ms then most probably the camera images are not synchronized.
 							if(ceil(time_span.count()) > 3)
 								cout << "Possible faulty start. Image fetch time > 3 ms!" << endl;
+							
 							//if(useMAVLink) {
 							//	printf("GLOBAL POS = [ lat=%i , lon=%i , alt=%i , rel_alt=%i , vel=%i , %i , %i, hdg=%u ] \n", gpos.lat, gpos.lon, gpos.alt, gpos.relative_alt, gpos.vx, gpos.vy, gpos.vz, gpos.hdg);
 							//	printf("LOCAL POS  = [ %f %f %f (m)\n", lpos.x, lpos.y, lpos.z );
